@@ -65,37 +65,142 @@ function MobileBar({
   menuOpen: boolean;
   setMenuOpen: (value: boolean | ((v: boolean) => boolean)) => void;
 }) {
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen, setMenuOpen]);
+
   return (
-    <div className="sticky top-0 z-50 min-[1100px]:hidden bg-white/70 backdrop-blur-[3px]">
-      <div className="flex items-center justify-between px-3 py-3">
-        <Link href="/" className="text-[14px] leading-[18.2px] tracking-[0.14px]">
+    <div className="sticky top-0 z-50 min-[1100px]:hidden">
+      <div
+        className={[
+          "relative z-20 flex items-center justify-between px-3 py-3",
+          menuOpen ? "bg-white" : "bg-white/70 backdrop-blur-[3px]",
+        ].join(" ")}
+      >
+        <Link
+          href="/"
+          className="text-[14px] leading-[18.2px] tracking-[0.14px]"
+          onClick={() => setMenuOpen(false)}
+        >
           {site.name}
         </Link>
         <button
           type="button"
-          className="nav-link"
+          className="nav-link rounded-full px-1.5 py-0.5 active:bg-black/5"
           onClick={() => setMenuOpen((v) => !v)}
           aria-expanded={menuOpen}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
         >
           Menu
         </button>
       </div>
-      {menuOpen ? (
-        <nav className="flex flex-col gap-3 border-t border-black/10 px-3 py-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="nav-link"
-              data-active={item.label === active}
-              onClick={() => setMenuOpen(false)}
-            >
-              {item.label}
-              <NavDoodle />
-            </Link>
-          ))}
-        </nav>
-      ) : null}
+
+      <div
+        className={[
+          "mobile-menu-panel fixed inset-0 z-10 flex flex-col bg-white px-3 pt-14 pb-[60px]",
+          menuOpen
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-3 opacity-0",
+        ].join(" ")}
+        aria-hidden={!menuOpen}
+      >
+        <div className="mt-auto flex flex-col gap-6">
+          <nav className="flex flex-col gap-3">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="nav-link"
+                data-active={item.label === active}
+                onClick={() => setMenuOpen(false)}
+                tabIndex={menuOpen ? 0 : -1}
+              >
+                {item.label}
+                <NavDoodle />
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex w-[200px] flex-col gap-6">
+            <div className="h-px bg-black/10" />
+            <div className="flex flex-col gap-3 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground">
+              <p className="text-[#7e7e7e]">About</p>
+              <p>
+                I design meaningful human experiences that integrate digital and
+                physical systems. At the moment, I&apos;m interested in
+                translating the expanding role of technology into intuitive and
+                meaningful user interfaces.
+              </p>
+              <p>
+                Currently, I&apos;m studying{" "}
+                <a
+                  className="plain-link"
+                  href={site.links.design}
+                  target="_blank"
+                  rel="noreferrer"
+                  tabIndex={menuOpen ? 0 : -1}
+                >
+                  Design
+                </a>
+                ,{" "}
+                <a
+                  className="plain-link"
+                  href={site.links.hci}
+                  target="_blank"
+                  rel="noreferrer"
+                  tabIndex={menuOpen ? 0 : -1}
+                >
+                  HCI
+                </a>
+                ,{" "}
+                <a
+                  className="plain-link"
+                  href={site.links.physicalComputing}
+                  target="_blank"
+                  rel="noreferrer"
+                  tabIndex={menuOpen ? 0 : -1}
+                >
+                  Physical Computing
+                </a>{" "}
+                @ Carnegie Mellon Univeresity. Previously, desgining @{" "}
+                <a
+                  className="plain-link"
+                  href={site.links.doordash}
+                  target="_blank"
+                  rel="noreferrer"
+                  tabIndex={menuOpen ? 0 : -1}
+                >
+                  DoorDash
+                </a>
+              </p>
+            </div>
+            <div className="h-px bg-black/10" />
+            <div className="flex flex-col gap-1 text-[14px] leading-[18.2px] tracking-[0.14px]">
+              <p className="text-[#7e7e7e]">Contact</p>
+              <a
+                className="footer-link"
+                href={`mailto:${site.email}`}
+                tabIndex={menuOpen ? 0 : -1}
+              >
+                {site.email}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -105,6 +210,10 @@ export function SiteHeader() {
   const active = activeFromPath(pathname);
   const collapsed = pathname === "/about";
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
   const [pinned, setPinned] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
