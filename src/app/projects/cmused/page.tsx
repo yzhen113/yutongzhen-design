@@ -53,10 +53,11 @@ export default function CmusedPage() {
         <Image
           src="/media/cmused/cover.png"
           alt="CMUsed marketplace on a laptop, showing clothing and furniture listings"
-          width={3840}
-          height={1970}
+          width={9372}
+          height={4808}
           priority
           quality={100}
+          unoptimized
           className="h-auto w-full object-cover"
           sizes="100vw"
         />
@@ -139,8 +140,9 @@ export default function CmusedPage() {
             src="/media/cmused/screens-web.png"
             alt="CMUsed screens: product detail, discovery feed, and search with filters"
             width={3840}
-            height={1898}
+            height={1899}
             quality={100}
+            unoptimized
             className="h-auto w-full"
             sizes="100vw"
           />
@@ -172,6 +174,7 @@ export default function CmusedPage() {
             width={3840}
             height={1646}
             quality={100}
+            unoptimized
             className="h-auto w-full"
             sizes="100vw"
           />
@@ -194,6 +197,7 @@ export default function CmusedPage() {
               width={3145}
               height={2516}
               quality={100}
+              unoptimized
               className="h-auto w-full"
               sizes="(max-width: 1199px) 100vw, 550px"
             />
@@ -218,6 +222,7 @@ export default function CmusedPage() {
             width={3840}
             height={1981}
             quality={100}
+            unoptimized
             className="h-auto w-full"
             sizes="100vw"
           />

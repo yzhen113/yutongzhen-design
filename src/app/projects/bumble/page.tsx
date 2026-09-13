@@ -559,9 +559,10 @@ export default function BumblePage() {
                 <Image
                   src="/media/cmused/project-thumbnail.png"
                   alt="CMUsed"
-                  width={3840}
-                  height={2181}
+                  width={9372}
+                  height={5324}
                   quality={100}
+                  unoptimized
                   className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-105"
                 />
               </div>

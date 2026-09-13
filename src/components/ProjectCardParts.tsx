@@ -26,6 +26,7 @@ export function ProjectMedia({ project }: { project: Project }) {
         alt={project.title}
         fill
         quality={100}
+        unoptimized={project.media.src.startsWith("/media/cmused/")}
         className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
         sizes="(max-width: 1099px) 100vw, 50vw"
       />
