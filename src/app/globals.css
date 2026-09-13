@@ -409,6 +409,23 @@ button {
   animation: password-shake 320ms ease;
 }
 
+.macos-text-field {
+  box-shadow: 0 0 0 1.7px rgba(0, 0, 0, 0.08) !important;
+}
+
+.macos-text-field:focus,
+.macos-text-field.is-focused {
+  box-shadow:
+    0 0 0 1.7px rgba(0, 122, 255, 0.35),
+    0 0 0 6px rgba(0, 122, 255, 0.22) !important;
+}
+
+.macos-text-field.is-error {
+  box-shadow:
+    0 0 0 1.7px #e8a0a0,
+    0 0 0 6px rgba(194, 59, 59, 0.18) !important;
+}
+
 @keyframes sticker-stick-sheen {
   0% {
     opacity: 1;

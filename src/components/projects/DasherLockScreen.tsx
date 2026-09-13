@@ -30,7 +30,6 @@ export function DasherLockScreen() {
         }}
       >
         <PasswordField
-          autoFocus
           disabled={pending}
           error={error}
           onValueChange={() => setError(false)}

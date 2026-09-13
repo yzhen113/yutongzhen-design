@@ -136,7 +136,7 @@ export default function CmusedPage() {
       <div className="w-full bg-white px-5 pt-10">
         <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
           <Image
-            src="/media/cmused/screens-updated.png"
+            src="/media/cmused/screens-2.png"
             alt="CMUsed screens: product detail, discovery feed, and search with filters"
             width={20864}
             height={10316}
@@ -149,7 +149,7 @@ export default function CmusedPage() {
       </div>
 
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
-        <article className="mx-auto w-full max-w-[550px] px-3 pt-10 pb-10 min-[1200px]:px-0">
+        <article className="mx-auto w-full max-w-[550px] px-3 pt-10 pb-5 min-[1200px]:px-0">
           <section className="space-y-5">
             <SectionHeading>
               Building the foundation for browsing

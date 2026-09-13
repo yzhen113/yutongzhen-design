@@ -5,10 +5,10 @@ import { useScrollShrinkCoverSetter } from "@/components/projects/ScrollShrinkCo
 
 /** Below this viewport width the effect is skipped and the media stays in column. */
 const MIN_VIEWPORT = 1200;
-/** Gutter kept on each side when the media is at its widest. */
-const SIDE_GUTTER = 20;
-/** Smallest gap left above the media once it is pinned. */
-const MIN_OFFSET_TOP = 24;
+/** Gap below the sticky header while the media is pinned. */
+const TOP_GAP = 16;
+/** Gap above the viewport bottom so corner controls stay on screen. */
+const BOTTOM_GAP = 20;
 
 function clamp01(value: number) {
   return value < 0 ? 0 : value > 1 ? 1 : value;
@@ -110,7 +110,14 @@ export function ScrollShrinkMedia({
 
     const measure = () => {
       const columnWidth = host.clientWidth;
-      const bleedWidth = window.innerWidth - SIDE_GUTTER * 2;
+      const header = document.querySelector("header");
+      const headerH = header?.getBoundingClientRect().height ?? 34;
+      const offsetTop = headerH + TOP_GAP;
+      const maxHeight = window.innerHeight - offsetTop - BOTTOM_GAP;
+      const bleedWidth = Math.min(
+        window.innerWidth,
+        maxHeight * aspect,
+      );
 
       if (
         reduceMotion ||
@@ -130,10 +137,7 @@ export function ScrollShrinkMedia({
         columnWidth,
         bleedWidth,
         scrub: Math.max(360, window.innerHeight * 0.6),
-        offsetTop: Math.max(
-          MIN_OFFSET_TOP,
-          (window.innerHeight - bleedWidth / aspect) / 2,
-        ),
+        offsetTop,
       };
       render();
     };

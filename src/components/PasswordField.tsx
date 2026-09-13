@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { useId, useState } from "react";
 
 export function PasswordField({
   autoFocus = false,
@@ -14,6 +14,7 @@ export function PasswordField({
   onValueChange?: () => void;
 }) {
   const inputId = useId();
+  const [focused, setFocused] = useState(false);
 
   return (
     <div className="flex w-[206px] flex-col gap-2">
@@ -23,25 +24,26 @@ export function PasswordField({
       >
         Password
       </label>
-      <div
+      <input
+        id={inputId}
+        name="password"
+        type="password"
+        autoComplete="current-password"
+        autoFocus={autoFocus}
+        disabled={disabled}
+        onChange={onValueChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         className={[
-          "flex h-[42px] items-center rounded-[10px] border border-solid p-[3px]",
-          error ? "border-[#c23b3b]" : "border-[#1451A6]",
+          "macos-text-field h-[41px] w-[205px] rounded-[10px] bg-white px-[14px] text-[15px] leading-[27px] font-medium text-[#1A1A1A] caret-[#0088FF] outline-none transition-[box-shadow] duration-150 disabled:opacity-60",
+          error ? "is-error" : "",
+          focused ? "is-focused" : "",
         ].join(" ")}
-      >
-        <div className="flex h-full w-full items-center rounded-lg bg-[#F2F2F7]">
-          <input
-            id={inputId}
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            autoFocus={autoFocus}
-            disabled={disabled}
-            onChange={onValueChange}
-            className="h-full w-full bg-transparent px-3 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground outline-none disabled:opacity-60"
-          />
-        </div>
-      </div>
+        style={{
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif',
+        }}
+      />
     </div>
   );
 }
