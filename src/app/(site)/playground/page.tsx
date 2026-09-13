@@ -1,15 +1,15 @@
-import Link from "next/link";
+import { PlaygroundGrid } from "@/components/PlaygroundGrid";
+
+export const metadata = {
+  title: "Yutong Zhen - Playground",
+  description:
+    "Selected making, experiments, and side projects by Yutong Zhen.",
+};
 
 export default function PlaygroundPage() {
   return (
-    <main className="px-3 py-16 min-[1100px]:px-5">
-      <p className="max-w-[453px] text-[14px] leading-[18.2px] tracking-[0.14px]">
-        Playground page coming next.{" "}
-        <Link href="/" className="site-link">
-          Back to projects
-        </Link>
-        .
-      </p>
+    <main>
+      <PlaygroundGrid />
     </main>
   );
 }
