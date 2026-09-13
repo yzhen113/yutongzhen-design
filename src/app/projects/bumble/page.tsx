@@ -557,10 +557,10 @@ export default function BumblePage() {
             <Link href="/projects/cmused" className="group block space-y-2">
               <div className="overflow-hidden bg-[#f5f5f5]">
                 <Image
-                  src="/media/cmused/thumbnail.png"
+                  src="/media/cmused/project-thumbnail.png"
                   alt="CMUsed"
-                  width={7029}
-                  height={3993}
+                  width={3840}
+                  height={2181}
                   quality={100}
                   className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-105"
                 />

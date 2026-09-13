@@ -51,10 +51,10 @@ export default function CmusedPage() {
 
       <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
         <Image
-          src="/media/cmused/hero.png"
+          src="/media/cmused/cover.png"
           alt="CMUsed marketplace on a laptop, showing clothing and furniture listings"
-          width={7029}
-          height={3606}
+          width={3840}
+          height={1970}
           priority
           quality={100}
           className="h-auto w-full object-cover"
@@ -136,12 +136,11 @@ export default function CmusedPage() {
       <div className="w-full bg-white px-5 pt-10">
         <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
           <Image
-            src="/media/cmused/screens-2.png"
+            src="/media/cmused/screens-web.png"
             alt="CMUsed screens: product detail, discovery feed, and search with filters"
-            width={20864}
-            height={10316}
+            width={3840}
+            height={1898}
             quality={100}
-            unoptimized
             className="h-auto w-full"
             sizes="100vw"
           />
@@ -168,12 +167,11 @@ export default function CmusedPage() {
       <div className="w-full bg-white px-5">
         <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
           <Image
-            src="/media/cmused/layouts-updated.png"
+            src="/media/cmused/layouts-web.png"
             alt="Layout explorations for the item page, discovery feed, and search results"
-            width={20732}
-            height={8888}
+            width={3840}
+            height={1646}
             quality={100}
-            unoptimized
             className="h-auto w-full"
             sizes="100vw"
           />
@@ -215,12 +213,11 @@ export default function CmusedPage() {
       <div className="w-full bg-white px-5">
         <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
           <Image
-            src="/media/cmused/product-detail-3.png"
+            src="/media/cmused/product-detail-web.png"
             alt="CMUsed product detail pages across mobile and web breakpoints"
-            width={19316}
-            height={9964}
+            width={3840}
+            height={1981}
             quality={100}
-            unoptimized
             className="h-auto w-full"
             sizes="100vw"
           />

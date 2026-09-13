@@ -63,7 +63,7 @@ export const projects: Project[] = [
     title: "CMUsed: A Student-to-Student Marketplace at Carnegie Mellon University",
     tags: "Product Design, Web Design",
     href: "/projects/cmused",
-    media: { type: "image", src: "/media/cmused/thumbnail.png" },
+    media: { type: "image", src: "/media/cmused/project-thumbnail.png" },
   },
   {
     title: "Turning Toward",
