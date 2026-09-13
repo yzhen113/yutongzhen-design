@@ -217,7 +217,7 @@ export default function CmusedPage() {
       <div className="w-full bg-white px-5">
         <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
           <Image
-            src="/media/cmused/product-detail-web.png"
+            src="/media/cmused/product-details.png"
             alt="CMUsed product detail pages across mobile and web breakpoints"
             width={3840}
             height={1981}
