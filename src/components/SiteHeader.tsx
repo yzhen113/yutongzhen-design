@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { PittsburghClock } from "@/components/PittsburghClock";
 import { site } from "@/lib/site";
 
@@ -12,31 +12,147 @@ const navItems = [
   { label: "Playground", href: "/playground" },
 ] as const;
 
-export function SiteHeader({ active = "Projects" }: { active?: string }) {
+function activeFromPath(pathname: string) {
+  if (pathname.startsWith("/about")) return "About";
+  if (pathname.startsWith("/playground")) return "Playground";
+  return "Projects";
+}
+
+function NavDoodle() {
+  return (
+    <span className="nav-doodle" aria-hidden>
+      <svg viewBox="0 0 29 23" fill="none">
+        <path
+          d="M 8.351 4.465 C 1.722 8.67 -3.233 19.057 2.558 20.436 C 16.65 23.792 29.544 11.382 26.569 3.933 C 24.189 -2.027 9.363 0.087 2.248 1.889 L 1.819 1.889"
+          transform="translate(1 1)"
+          pathLength={1}
+        />
+      </svg>
+    </span>
+  );
+}
+
+function DesktopNav({ active }: { active: string }) {
+  return (
+    <div
+      className="grid w-full items-center gap-x-5 px-5 py-[9px]"
+      style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)" }}
+    >
+      <div />
+      <nav className="flex items-center gap-3">
+        {navItems.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="nav-link"
+            data-active={item.label === active}
+          >
+            {item.label}
+            <NavDoodle />
+          </Link>
+        ))}
+      </nav>
+    </div>
+  );
+}
+
+function MobileBar({
+  active,
+  menuOpen,
+  setMenuOpen,
+}: {
+  active: string;
+  menuOpen: boolean;
+  setMenuOpen: (value: boolean | ((v: boolean) => boolean)) => void;
+}) {
+  return (
+    <div className="sticky top-0 z-50 min-[1100px]:hidden bg-white/70 backdrop-blur-[3px]">
+      <div className="flex items-center justify-between px-3 py-3">
+        <Link href="/" className="text-[14px] leading-[18.2px] tracking-[0.14px]">
+          {site.name}
+        </Link>
+        <button
+          type="button"
+          className="nav-link"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-expanded={menuOpen}
+        >
+          Menu
+        </button>
+      </div>
+      {menuOpen ? (
+        <nav className="flex flex-col gap-3 border-t border-black/10 px-3 py-4">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="nav-link"
+              data-active={item.label === active}
+              onClick={() => setMenuOpen(false)}
+            >
+              {item.label}
+              <NavDoodle />
+            </Link>
+          ))}
+        </nav>
+      ) : null}
+    </div>
+  );
+}
+
+export function SiteHeader() {
+  const pathname = usePathname();
+  const active = activeFromPath(pathname);
+  const collapsed = pathname === "/about";
   const [menuOpen, setMenuOpen] = useState(false);
+  const [pinned, setPinned] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
+  const [navHeight, setNavHeight] = useState(42);
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setPinned(!entry.isIntersecting);
+      },
+      { threshold: 0, rootMargin: "0px" },
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (navRef.current) {
+      setNavHeight(navRef.current.getBoundingClientRect().height);
+    }
+  }, []);
 
   return (
-    <header className="w-full">
-      {/* Desktop header */}
+    <>
       <div className="hidden min-[1100px]:block">
         <div
-          className="grid items-start gap-x-5 px-5 pt-3"
+          className="grid items-start gap-x-5 gap-y-2.5 px-5 py-3"
           style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)" }}
         >
-          <div className="relative pt-[3px]">
+          <div className="relative overflow-visible pt-[3px]">
             <Link
               href="/"
-              className="relative inline-block text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground"
+              className="relative inline-block overflow-visible text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground"
             >
               {site.name}
-              <span className="pointer-events-none absolute left-[30px] top-[-35px]">
-                <Image
+              <span className="pointer-events-none absolute left-[30px] top-[-32px] z-10 block h-[101px] w-[101px] overflow-visible">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src="/media/signature.png"
                   alt=""
                   width={101}
                   height={101}
-                  className="h-[101px] w-[101px] object-contain"
-                  priority
+                  className="block h-[101px] w-[101px] max-w-none object-cover"
+                  draggable={false}
                 />
               </span>
             </Link>
@@ -46,96 +162,106 @@ export function SiteHeader({ active = "Projects" }: { active?: string }) {
             className="grid items-start gap-x-5 py-[3px]"
             style={{ gridTemplateColumns: "minmax(0,1fr) auto" }}
           >
-            <div className="flex max-w-[453px] flex-col gap-3 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground">
-              <p>
-                I design meaningful human experiences that integrate digital and
-                physical systems. At the moment, I&apos;m interested in
-                translating the expanding role of technology into intuitive and
-                meaningful user interfaces.
-              </p>
-              <p>
-                Currently, I&apos;m studying{" "}
-                <a className="site-link" href={site.links.design} target="_blank" rel="noreferrer">
-                  Design
-                </a>
-                ,{" "}
-                <a className="site-link" href={site.links.hci} target="_blank" rel="noreferrer">
-                  HCI
-                </a>
-                ,{" "}
-                <a
-                  className="site-link"
-                  href={site.links.physicalComputing}
-                  target="_blank"
-                  rel="noreferrer"
+            <div
+              className={[
+                "grid min-w-0 transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.44,0,0.56,1)] motion-reduce:transition-none",
+                collapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]",
+              ].join(" ")}
+            >
+              <div
+                className="min-h-0 overflow-hidden"
+                aria-hidden={collapsed}
+                inert={collapsed || undefined}
+              >
+                <div
+                  className={[
+                    "flex max-w-[453px] flex-col gap-3 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground transition-opacity duration-300 ease-[cubic-bezier(0.44,0,0.56,1)] motion-reduce:transition-none",
+                    collapsed ? "opacity-0" : "opacity-100",
+                  ].join(" ")}
                 >
-                  Physical Computing
-                </a>{" "}
-                @ Carnegie Mellon Univeresity, and desgining @{" "}
-                <a className="site-link" href={site.links.doordash} target="_blank" rel="noreferrer">
-                  DoorDash
-                </a>
-              </p>
+                  <p>
+                    I design meaningful human experiences that integrate digital
+                    and physical systems. At the moment, I&apos;m interested in
+                    translating the expanding role of technology into intuitive
+                    and meaningful user interfaces.
+                  </p>
+                  <p>
+                    Currently, I&apos;m studying{" "}
+                    <a
+                      className="plain-link"
+                      href={site.links.design}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Design
+                    </a>
+                    ,{" "}
+                    <a
+                      className="plain-link"
+                      href={site.links.hci}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      HCI
+                    </a>
+                    ,{" "}
+                    <a
+                      className="plain-link"
+                      href={site.links.physicalComputing}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Physical Computing
+                    </a>{" "}
+                    @ Carnegie Mellon Univeresity. Previously, desgining @{" "}
+                    <a
+                      className="plain-link"
+                      href={site.links.doordash}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      DoorDash
+                    </a>
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="pt-[3px]">
+            <div className="justify-self-end pt-[3px]">
               <PittsburghClock />
             </div>
           </div>
+
+          <div className="col-span-2 h-px bg-foreground/10" aria-hidden />
         </div>
+      </div>
 
-        <div className="mx-5 mt-[18px] h-px bg-[var(--line)]" />
+      <div ref={sentinelRef} className="hidden h-0 min-[1100px]:block" aria-hidden />
 
+      {pinned ? (
         <div
-          className="grid items-center gap-x-5 px-5 py-[9px]"
-          style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)" }}
-        >
-          <div />
-          <nav className="flex items-center gap-3">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="nav-link"
-                data-active={item.label === active}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
+          className="hidden min-[1100px]:block"
+          style={{ height: navHeight }}
+          aria-hidden
+        />
+      ) : null}
+
+      <div
+        ref={navRef}
+        className={[
+          "z-50 hidden min-[1100px]:block",
+          pinned
+            ? "fixed inset-x-0 top-0 bg-white/70 backdrop-blur-[3px]"
+            : "relative bg-transparent",
+        ].join(" ")}
+      >
+        <DesktopNav active={active} />
       </div>
 
-      {/* Mobile header */}
-      <div className="min-[1100px]:hidden">
-        <div className="flex items-center justify-between px-3 py-3">
-          <Link href="/" className="text-[14px] leading-[18.2px] tracking-[0.14px]">
-            {site.name}
-          </Link>
-          <button
-            type="button"
-            className="nav-link"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-expanded={menuOpen}
-          >
-            Menu
-          </button>
-        </div>
-        {menuOpen ? (
-          <nav className="flex flex-col gap-3 border-t border-[var(--line)] px-3 py-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="nav-link"
-                data-active={item.label === active}
-                onClick={() => setMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        ) : null}
-      </div>
-    </header>
+      <MobileBar
+        active={active}
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+      />
+    </>
   );
 }

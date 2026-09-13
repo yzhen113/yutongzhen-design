@@ -1,21 +1,25 @@
 import { site } from "@/lib/site";
 
-export function SiteFooter() {
+export function SiteFooter({ compact = false }: { compact?: boolean }) {
   return (
-    <footer className="mt-[80px] w-full min-[1100px]:mt-[100px]">
-      <div className="mx-3 h-px bg-[var(--line)] min-[1100px]:mx-5" />
+    <footer
+      className={
+        compact ? "w-full" : "mt-[80px] w-full min-[1100px]:mt-[100px]"
+      }
+    >
+      <div className="mx-3 h-px bg-black/10 min-[1100px]:mx-5" />
 
       <div className="grid grid-cols-2 gap-x-5 gap-y-8 px-3 py-6 min-[1100px]:grid-cols-4 min-[1100px]:px-5 min-[1100px]:py-[25px]">
         <div className="flex flex-col gap-1">
           <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">Contact</p>
-          <a className="underline-link" href={`mailto:${site.email}`}>
+          <a className="footer-link" href={`mailto:${site.email}`}>
             {site.email}
           </a>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <a
-            className="underline-link"
+            className="footer-link"
             href={site.resume}
             target="_blank"
             rel="noreferrer"
@@ -23,7 +27,7 @@ export function SiteFooter() {
             Resume
           </a>
           <a
-            className="underline-link"
+            className="footer-link"
             href={site.linkedin}
             target="_blank"
             rel="noreferrer"
@@ -32,16 +36,16 @@ export function SiteFooter() {
           </a>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <a
-            className="underline-link"
+            className="footer-link"
             href={site.medium}
             target="_blank"
             rel="noreferrer"
           >
             Medium
           </a>
-          <a className="underline-link" href={site.x} target="_blank" rel="noreferrer">
+          <a className="footer-link" href={site.x} target="_blank" rel="noreferrer">
             X
           </a>
         </div>
@@ -57,7 +61,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="h-11" />
+      {compact ? null : <div className="h-11" />}
     </footer>
   );
 }

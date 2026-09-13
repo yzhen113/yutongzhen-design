@@ -22,7 +22,7 @@ export function PittsburghClock() {
   }, []);
 
   return (
-    <div className="flex items-center justify-end gap-2 pr-[25px] text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground">
+    <div className="flex items-center justify-end gap-1 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground">
       <span>Pittsburgh,</span>
       <span className="min-w-[52px] tabular-nums">{time || "\u00a0"}</span>
     </div>

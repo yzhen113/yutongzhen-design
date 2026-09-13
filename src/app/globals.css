@@ -40,7 +40,7 @@
   --background: #ffffff;
   --foreground: #1a1a1a;
   --nav-active: #2750a0;
-  --line: #1a1a1a;
+  --line: rgba(0, 0, 0, 0.1);
   --page-pad: 20px;
   --col: 690px;
   --gap: 20px;
@@ -59,11 +59,16 @@
 
 html {
   background: var(--background);
+  overflow-x: clip;
+  overscroll-behavior-x: none;
 }
 
 body {
   margin: 0;
   min-height: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
   background: var(--background);
   color: var(--foreground);
   font-family: "Switzer", sans-serif;
@@ -72,6 +77,11 @@ body {
   letter-spacing: 0.14px;
   line-height: 18.2px;
   -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  color: var(--nav-active);
+  background-color: transparent;
 }
 
 a {
@@ -89,21 +99,46 @@ button {
 }
 
 .site-link {
-  text-decoration: underline;
+  color: var(--nav-active);
+  text-decoration: none;
   text-underline-offset: 2px;
+  transition: text-decoration-color 160ms ease;
 }
 
 .site-link:hover {
-  opacity: 0.7;
+  text-decoration: underline;
+}
+
+.link-quiet {
+  color: var(--foreground);
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.link-quiet:hover {
+  color: var(--nav-active);
+}
+
+.plain-link {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 160ms ease;
+}
+
+.plain-link:hover {
+  color: var(--nav-active);
 }
 
 .nav-link {
+  position: relative;
   display: inline-flex;
   align-items: center;
   font-size: 14px;
   line-height: 18.2px;
   letter-spacing: 0.14px;
   color: var(--foreground);
+  transition: color 160ms ease;
 }
 
 .nav-link[data-active="true"] {
@@ -114,12 +149,63 @@ button {
   color: var(--nav-active);
 }
 
+.nav-doodle {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 29px;
+  height: 23px;
+  pointer-events: none;
+}
+
+.nav-doodle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.nav-doodle path {
+  fill: none;
+  stroke: var(--foreground);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 420ms ease;
+}
+
+.nav-link:hover .nav-doodle path {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-doodle path {
+    transition: none;
+  }
+}
+
+.close-project-link {
+  color: var(--foreground);
+  transition: color 160ms ease;
+}
+
+.close-project-link:hover {
+  color: var(--nav-active);
+}
+
 .underline-link {
   display: inline-block;
   position: relative;
   font-size: 14px;
   line-height: 18.2px;
   letter-spacing: 0.14px;
+  color: var(--foreground);
+  transition: color 160ms ease;
+}
+
+.underline-link:hover {
+  color: var(--nav-active);
 }
 
 .underline-link::after {
@@ -139,8 +225,197 @@ button {
   transform: scaleX(1);
 }
 
-@media (max-width: 1099px) {
+.footer-link {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 18.2px;
+  letter-spacing: 0.14px;
+  color: var(--foreground);
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.footer-link:hover {
+  color: var(--nav-active);
+  text-decoration: none;
+}
+
+/* Case study TOC — default / hover / active (in-section) */
+.case-study-toc-link {
+  color: rgba(26, 26, 26, 0.7);
+  font-weight: 400;
+}
+
+.case-study-toc-link:hover {
+  color: var(--nav-active);
+  font-weight: 400;
+}
+
+.case-study-toc-link.is-active {
+  color: var(--nav-active);
+  font-weight: 500;
+}
+
+@media (max-width: 1199px) {
   :root {
     --page-pad: 12px;
+  }
+}
+
+.sticker {
+  -webkit-tap-highlight-color: transparent;
+  --stk-tilt: 0;
+  --stk-glint: 0;
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.2))
+    drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.15));
+  transition: filter 280ms cubic-bezier(0.55, 0.04, 0.18, 1);
+}
+
+.sticker.is-peeling {
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.16))
+    drop-shadow(0px 16px 26px rgba(0, 0, 0, 0.22))
+    drop-shadow(0px 6px 10px rgba(0, 0, 0, 0.12));
+}
+
+.sticker[aria-grabbed="true"] {
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.16))
+    drop-shadow(0px 28px 44px rgba(0, 0, 0, 0.32))
+    drop-shadow(0px 8px 14px rgba(0, 0, 0, 0.14));
+}
+
+.sticker.is-sticking {
+  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.2))
+    drop-shadow(0px 8px 20px rgba(0, 0, 0, 0.15));
+  transition: filter 180ms ease-out;
+}
+
+/* Clipped to the card silhouette (incl. peeled corners) via the SVG mask. */
+.sticker-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.sticker-holo,
+.sticker-sheen {
+  position: absolute;
+  inset: -10%;
+  pointer-events: none;
+}
+
+/* Cool hues only: warm bands read as "more of the card's own colour" on the
+   saturated yellow-green and red cards instead of as iridescence. */
+.sticker-holo {
+  opacity: 0;
+  background:
+    linear-gradient(
+      125deg,
+      rgba(160, 190, 255, 0) 8%,
+      rgba(140, 200, 255, 0.3) 34%,
+      rgba(200, 165, 255, 0.26) 52%,
+      rgba(255, 160, 215, 0.22) 68%,
+      rgba(255, 160, 215, 0) 92%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05) 0 1px,
+      transparent 1px 3px
+    );
+  mix-blend-mode: screen;
+  transform: translateX(calc(var(--stk-glint) * 0.8%));
+  transition:
+    opacity 200ms ease,
+    transform 120ms linear;
+}
+
+.sticker-sheen {
+  opacity: 0;
+  background: linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0) 18%,
+    rgba(255, 255, 255, 0.08) 38%,
+    rgba(255, 255, 255, 0.26) 50%,
+    rgba(255, 255, 255, 0.08) 62%,
+    rgba(255, 255, 255, 0) 82%
+  );
+  mix-blend-mode: soft-light;
+  transform: translateX(calc(var(--stk-glint) * 1.1%));
+  transition:
+    opacity 240ms ease,
+    transform 140ms linear;
+}
+
+.sticker.is-peeling .sticker-holo {
+  opacity: 0.45;
+}
+
+.sticker.is-peeling .sticker-sheen {
+  opacity: 1;
+  animation: sticker-peel-sheen 320ms cubic-bezier(0.55, 0.04, 0.18, 1);
+}
+
+.sticker[aria-grabbed="true"] .sticker-holo {
+  opacity: 0.6;
+}
+
+.sticker[aria-grabbed="true"] .sticker-sheen {
+  opacity: 1;
+}
+
+.sticker.is-sticking .sticker-holo {
+  opacity: 0.65;
+}
+
+.sticker.is-sticking .sticker-sheen {
+  animation: sticker-stick-sheen 520ms ease-out;
+}
+
+@keyframes sticker-peel-sheen {
+  0% {
+    opacity: 0.15;
+    transform: translateX(-28%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(18%);
+  }
+}
+
+@keyframes password-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-password-shake {
+  animation: password-shake 320ms ease;
+}
+
+@keyframes sticker-stick-sheen {
+  0% {
+    opacity: 1;
+    transform: translateX(-22%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(36%);
   }
 }

@@ -53,15 +53,28 @@ export const projects: Project[] = [
     },
   },
   {
-    title: "🔒 CMUsed: A Student-to-Student Marketplace at Carnegie Mellon University",
-    tags: "Web, Product Design",
+    title: "Dasher: Building better delivery experiences",
+    tags: "Mobile, Product Design, B2C",
+    href: "/projects/dasher",
     locked: true,
-    media: { type: "image", src: "/media/cmused.png" },
+    media: { type: "image", src: "/media/doordash/thumbnail.png" },
+  },
+  {
+    title: "CMUsed: A Student-to-Student Marketplace at Carnegie Mellon University",
+    tags: "Product Design, Web Design",
+    href: "/projects/cmused",
+    media: { type: "image", src: "/media/cmused/thumbnail.png" },
   },
   {
     title: "Turning Toward",
     tags: "Spatial Experience, Creative Tech",
     href: "/projects/turning-toward",
     media: { type: "image", src: "/media/turning-toward.png" },
+  },
+  {
+    title: "Hybrid Exhibition: James Jean x Hunt Institute",
+    tags: "Exhibition Design, Creative Tech",
+    href: "/projects/hybrid-exhibition-james-jean",
+    media: { type: "image", src: "/media/james-jean/cover.png" },
   },
 ];
