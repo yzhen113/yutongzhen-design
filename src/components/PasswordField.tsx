@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { site } from "@/lib/site";
 
 export function PasswordField({
   autoFocus = false,
@@ -17,7 +18,7 @@ export function PasswordField({
   const [focused, setFocused] = useState(false);
 
   return (
-    <div className="flex w-[206px] flex-col gap-2">
+    <div className="flex w-[206px] flex-col gap-2.5">
       <label
         htmlFor={inputId}
         className="text-[14px] font-semibold leading-[18.2px] tracking-[0.14px] text-black"
@@ -44,6 +45,12 @@ export function PasswordField({
             '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif',
         }}
       />
+      <a
+        href={`mailto:${site.email}`}
+        className="request-access-link w-fit"
+      >
+        Request access
+      </a>
     </div>
   );
 }
