@@ -24,7 +24,7 @@ export function ProjectMedia({ project }: { project: Project }) {
     <div
       className={[
         "relative aspect-[690/392] w-full overflow-hidden",
-        project.media.src.startsWith("/media/doordash/") ? "bg-[#f2f2f2]" : "",
+        project.media.src.startsWith("/media/doordash/") ? "bg-[#fcfcfc]" : "",
       ].join(" ")}
     >
       <Image
