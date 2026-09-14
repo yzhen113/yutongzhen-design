@@ -161,7 +161,7 @@ export default function CmusedPage() {
               to help students move seamlessly from browsing to finding the right
               item.
             </Body>
-            <Subhead>layouts:</Subhead>
+            <Subhead>Layouts:</Subhead>
           </section>
         </article>
       </div>

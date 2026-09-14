@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { AutoplayVideo } from "@/components/AutoplayVideo";
 import {
   CaseStudyHeader,
   CaseStudySidebar,
@@ -67,15 +68,11 @@ function VideoFigure({
 }) {
   return (
     <div className="w-full overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-white">
-      <video
+      <AutoplayVideo
         className={`${aspectClass} h-auto w-full object-cover`}
         src={src}
         poster={poster}
         aria-label={alt}
-        autoPlay
-        muted
-        loop
-        playsInline
         preload="metadata"
       />
     </div>

@@ -89,6 +89,21 @@ a {
   text-decoration: none;
 }
 
+/* Safari draws a native play overlay on <video> even without controls. */
+.autoplay-video {
+  pointer-events: none;
+}
+
+.autoplay-video::-webkit-media-controls,
+.autoplay-video::-webkit-media-controls-enclosure,
+.autoplay-video::-webkit-media-controls-start-playback-button,
+.autoplay-video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
 button {
   font: inherit;
   color: inherit;

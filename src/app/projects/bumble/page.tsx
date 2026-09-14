@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { AutoplayVideo } from "@/components/AutoplayVideo";
 import {
   CaseStudyHeader,
   CaseStudySidebar,
@@ -126,15 +127,11 @@ function VideoFigure({
 }) {
   return (
     <div className="w-full overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-white">
-      <video
+      <AutoplayVideo
         className="aspect-square h-auto w-full object-cover"
         src={src}
         poster={poster}
         aria-label={alt}
-        autoPlay
-        muted
-        loop
-        playsInline
         preload="metadata"
       />
     </div>
@@ -147,7 +144,7 @@ export default function BumblePage() {
       <CaseStudyHeader title="BUZZ Signal" />
 
       {/* Hero — cover video (logo included in video); phones get the static cover instead */}
-      <div className="relative flex w-full items-center justify-center bg-[#f2f2f2] px-0 py-10 min-[600px]:px-4 min-[1200px]:h-[620px] min-[1200px]:px-0 min-[1200px]:py-0">
+      <div className="relative flex w-full items-center justify-center bg-[#f2f2f2] px-0 py-0 min-[600px]:px-4 min-[600px]:py-10 min-[1200px]:h-[620px] min-[1200px]:px-0 min-[1200px]:py-0">
         <div className="relative w-full max-w-[1020px] overflow-hidden">
           <Image
             className="aspect-[2992/1700] h-auto w-full object-contain min-[600px]:hidden"
@@ -158,14 +155,10 @@ export default function BumblePage() {
             loading="eager"
             sizes="(min-width: 600px) 1px, 100vw"
           />
-          <video
+          <AutoplayVideo
             className="hidden aspect-[2992/1700] h-auto w-full object-contain min-[600px]:block"
             src="/media/buzz.mp4"
             poster="/media/buzz-poster.jpg"
-            autoPlay
-            muted
-            loop
-            playsInline
             preload="auto"
           />
         </div>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { PittsburghClock } from "@/components/PittsburghClock";
 import { site } from "@/lib/site";
 
@@ -205,19 +205,132 @@ function MobileBar({
   );
 }
 
+const BIO_EASE = "cubic-bezier(0.44, 0, 0.56, 1)";
+const BIO_MS = 500;
+
+function HeaderBio({ collapsed }: { collapsed: boolean }) {
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState<number | "auto">(collapsed ? 0 : "auto");
+  const [ready, setReady] = useState(false);
+  const skipRef = useRef(true);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
+
+  useLayoutEffect(() => {
+    const inner = innerRef.current;
+    if (!inner) return;
+
+    if (skipRef.current) {
+      skipRef.current = false;
+      setHeight(collapsed ? 0 : "auto");
+      return;
+    }
+
+    if (collapsed) {
+      setHeight(inner.getBoundingClientRect().height || inner.scrollHeight);
+      let innerFrame = 0;
+      const outerFrame = requestAnimationFrame(() => {
+        innerFrame = requestAnimationFrame(() => setHeight(0));
+      });
+      return () => {
+        cancelAnimationFrame(outerFrame);
+        cancelAnimationFrame(innerFrame);
+      };
+    }
+
+    setHeight(inner.scrollHeight);
+  }, [collapsed]);
+
+  return (
+    <div
+      className="min-w-0 overflow-hidden motion-reduce:!transition-none"
+      style={{
+        height: height === "auto" ? "auto" : height,
+        transition: ready ? `height ${BIO_MS}ms ${BIO_EASE}` : undefined,
+      }}
+      onTransitionEnd={(event) => {
+        if (event.propertyName !== "height") return;
+        if (!collapsed) setHeight("auto");
+      }}
+    >
+      <div
+        ref={innerRef}
+        className={[
+          "flex w-full max-w-[453px] flex-col gap-3 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground motion-reduce:!transition-none",
+          collapsed
+            ? "pointer-events-none opacity-0"
+            : "opacity-100",
+        ].join(" ")}
+        style={{
+          transition: ready ? `opacity ${BIO_MS}ms ${BIO_EASE}` : undefined,
+        }}
+        aria-hidden={collapsed}
+      >
+        <p>
+          I design meaningful human experiences that integrate digital and
+          physical systems. At the moment, I&apos;m interested in translating
+          the expanding role of technology into intuitive and meaningful user
+          interfaces.
+        </p>
+        <p>
+          Currently, I&apos;m studying{" "}
+          <a
+            className="plain-link"
+            href={site.links.design}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Design
+          </a>
+          ,{" "}
+          <a
+            className="plain-link"
+            href={site.links.hci}
+            target="_blank"
+            rel="noreferrer"
+          >
+            HCI
+          </a>
+          ,{" "}
+          <a
+            className="plain-link"
+            href={site.links.physicalComputing}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Physical Computing
+          </a>{" "}
+          @ Carnegie Mellon Univeresity. Previously, desgining @{" "}
+          <a
+            className="plain-link"
+            href={site.links.doordash}
+            target="_blank"
+            rel="noreferrer"
+          >
+            DoorDash
+          </a>
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export function SiteHeader() {
   const pathname = usePathname();
   const active = activeFromPath(pathname);
   const collapsed = pathname === "/about";
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
   const [pinned, setPinned] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const [navHeight, setNavHeight] = useState(42);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
@@ -271,70 +384,7 @@ export function SiteHeader() {
             className="grid items-start gap-x-5 py-[3px]"
             style={{ gridTemplateColumns: "minmax(0,1fr) auto" }}
           >
-            <div
-              className={[
-                "grid min-w-0 transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.44,0,0.56,1)] motion-reduce:transition-none",
-                collapsed ? "grid-rows-[0fr]" : "grid-rows-[1fr]",
-              ].join(" ")}
-            >
-              <div
-                className="min-h-0 overflow-hidden"
-                aria-hidden={collapsed}
-                inert={collapsed || undefined}
-              >
-                <div
-                  className={[
-                    "flex max-w-[453px] flex-col gap-3 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground transition-opacity duration-300 ease-[cubic-bezier(0.44,0,0.56,1)] motion-reduce:transition-none",
-                    collapsed ? "opacity-0" : "opacity-100",
-                  ].join(" ")}
-                >
-                  <p>
-                    I design meaningful human experiences that integrate digital
-                    and physical systems. At the moment, I&apos;m interested in
-                    translating the expanding role of technology into intuitive
-                    and meaningful user interfaces.
-                  </p>
-                  <p>
-                    Currently, I&apos;m studying{" "}
-                    <a
-                      className="plain-link"
-                      href={site.links.design}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Design
-                    </a>
-                    ,{" "}
-                    <a
-                      className="plain-link"
-                      href={site.links.hci}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      HCI
-                    </a>
-                    ,{" "}
-                    <a
-                      className="plain-link"
-                      href={site.links.physicalComputing}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Physical Computing
-                    </a>{" "}
-                    @ Carnegie Mellon Univeresity. Previously, desgining @{" "}
-                    <a
-                      className="plain-link"
-                      href={site.links.doordash}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      DoorDash
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
+            <HeaderBio collapsed={collapsed} />
             <div className="justify-self-end pt-[3px]">
               <PittsburghClock />
             </div>

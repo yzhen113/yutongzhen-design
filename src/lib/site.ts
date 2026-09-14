@@ -19,15 +19,19 @@ export const site = {
   },
 };
 
+export type ProjectCategory = "product" | "experience";
+
 export type Project = {
   title: string;
   tags: string;
   href?: string;
   locked?: boolean;
+  category: ProjectCategory;
   media: {
     type: "video" | "image";
     src: string;
     poster?: string;
+    scale?: number;
   };
 };
 
@@ -36,6 +40,7 @@ export const projects: Project[] = [
     title: "BUZZ Signal",
     tags: "Product, Interaction Design,  iOS",
     href: "/projects/bumble",
+    category: "product",
     media: {
       type: "video",
       src: "/media/buzz.mp4",
@@ -43,38 +48,39 @@ export const projects: Project[] = [
     },
   },
   {
-    title: "TOM: On-the-Go Food Management",
-    tags: "Product Design, User Research",
-    href: "/projects/tom",
-    media: {
-      type: "video",
-      src: "/media/tom.mp4",
-      poster: "/media/tom-poster.jpg",
-    },
-  },
-  {
     title: "Dasher: Building better delivery experiences",
     tags: "Mobile, Product Design, B2C",
     href: "/projects/dasher",
+    category: "product",
     locked: true,
     media: { type: "image", src: "/media/doordash/thumbnail.png" },
-  },
-  {
-    title: "CMUsed: A Student-to-Student Marketplace at Carnegie Mellon University",
-    tags: "Product Design, Web Design",
-    href: "/projects/cmused",
-    media: { type: "image", src: "/media/cmused/project-thumbnail.png" },
   },
   {
     title: "Turning Toward",
     tags: "Spatial Experience, Creative Tech",
     href: "/projects/turning-toward",
+    category: "experience",
     media: { type: "image", src: "/media/turning-toward.png" },
+  },
+  {
+    title: "CMUsed: A Student-to-Student Marketplace at Carnegie Mellon University",
+    tags: "Product Design, Web Design",
+    href: "/projects/cmused",
+    category: "product",
+    media: { type: "image", src: "/media/cmused/project-thumbnail.png" },
+  },
+  {
+    title: "TOM: On-the-Go Food Management",
+    tags: "Product Design, User Research",
+    href: "/projects/tom",
+    category: "product",
+    media: { type: "image", src: "/media/tom/thumbnail.png" },
   },
   {
     title: "Hybrid Exhibition: James Jean x Hunt Institute",
     tags: "Exhibition Design, Creative Tech",
     href: "/projects/hybrid-exhibition-james-jean",
+    category: "experience",
     media: { type: "image", src: "/media/james-jean/cover.png" },
   },
 ];

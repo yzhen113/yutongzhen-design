@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { AutoplayVideo } from "@/components/AutoplayVideo";
 import { playgroundColumns, type PlaygroundItem } from "@/lib/playground";
 
 function PlaygroundCard({
@@ -11,15 +12,11 @@ function PlaygroundCard({
   return (
     <figure className="group relative w-full overflow-hidden">
       {item.media.type === "video" ? (
-        <video
+        <AutoplayVideo
           className="block h-auto w-full"
           src={item.media.src}
           width={item.media.width}
           height={item.media.height}
-          autoPlay
-          muted
-          loop
-          playsInline
           preload={priority ? "auto" : "metadata"}
           aria-label={item.alt}
         />
