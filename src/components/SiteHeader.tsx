@@ -381,11 +381,11 @@ export function SiteHeader() {
           </div>
 
           <div
-            className="grid items-start gap-x-5 py-[3px]"
+            className="grid items-start gap-x-5 pt-[3px]"
             style={{ gridTemplateColumns: "minmax(0,1fr) auto" }}
           >
             <HeaderBio collapsed={collapsed} />
-            <div className="justify-self-end pt-[3px]">
+            <div className="justify-self-end">
               <PittsburghClock />
             </div>
           </div>
