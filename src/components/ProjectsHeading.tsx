@@ -1,32 +1,30 @@
-"use client";
-
+import Link from "next/link";
 import type { ProjectCategory } from "@/lib/site";
 
 export type ProjectFilter = "all" | ProjectCategory;
 
-const filters: { id: ProjectFilter; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "product", label: "Product" },
-  { id: "experience", label: "Experience" },
+const filters: { id: ProjectFilter; label: string; href: string }[] = [
+  { id: "all", label: "All", href: "/" },
+  { id: "product", label: "Product", href: "/product" },
+  { id: "experience", label: "Experience", href: "/experience" },
 ];
 
-export function ProjectsHeading({
-  active,
-  onChange,
-}: {
-  active: ProjectFilter;
-  onChange: (id: ProjectFilter) => void;
-}) {
+export function ProjectsHeading({ active }: { active: ProjectFilter }) {
   return (
-    <div className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
-      <h1 className="sr-only">Projects</h1>
+    <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1 min-[1100px]:gap-x-5">
+      <h1 className="sr-only">
+        {active === "all"
+          ? "Projects"
+          : active === "product"
+            ? "Product"
+            : "Experience"}
+      </h1>
       {filters.map((filter) => {
         const selected = active === filter.id;
         return (
-          <button
+          <Link
             key={filter.id}
-            type="button"
-            onClick={() => onChange(filter.id)}
+            href={filter.href}
             className={[
               "transition-colors",
               filter.id === "all"
@@ -36,10 +34,10 @@ export function ProjectsHeading({
                 ? "!text-foreground"
                 : "!text-[#C6C6C6] hover:!text-foreground",
             ].join(" ")}
-            aria-pressed={selected}
+            aria-current={selected ? "page" : undefined}
           >
             {filter.label}
-          </button>
+          </Link>
         );
       })}
     </div>

@@ -1,6 +1,3 @@
-"use client";
-
-import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ProjectMedia, ProjectMeta } from "@/components/ProjectCardParts";
 import {
@@ -30,20 +27,20 @@ function ProjectCard({ project }: { project: Project }) {
   );
 }
 
-export function ProjectGrid() {
-  const [filter, setFilter] = useState<ProjectFilter>("all");
-  const visible = useMemo(
-    () =>
-      filter === "all"
-        ? projects
-        : projects.filter((project) => project.category === filter),
-    [filter],
-  );
+export function ProjectGrid({
+  filter = "all",
+}: {
+  filter?: ProjectFilter;
+}) {
+  const visible =
+    filter === "all"
+      ? projects
+      : projects.filter((project) => project.category === filter);
 
   return (
     <section className="w-full">
       <div className="flex min-h-[191px] items-end px-3 pb-6 min-[1100px]:min-h-[220px] min-[1100px]:px-5 min-[1100px]:pb-5">
-        <ProjectsHeading active={filter} onChange={setFilter} />
+        <ProjectsHeading active={filter} />
       </div>
 
       <div className="grid grid-cols-1 gap-x-5 gap-y-[33px] px-3 min-[1100px]:grid-cols-2 min-[1100px]:px-5">

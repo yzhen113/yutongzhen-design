@@ -418,6 +418,21 @@ export default function BumblePage() {
               </div>
             </div>
             <div className="space-y-5">
+              <Subhead>Loading Screen Animation</Subhead>
+              <Body>
+                I used the loading screen as an opportunity to incorporate soft
+                pulses &amp; gradients to create reassurance with supportive
+                microcopy, helping users understand the purpose of the loading
+                moment.
+              </Body>
+              <VideoFigure
+                src="/media/bumble/loading.mp4"
+                poster="/media/bumble/loading-poster.jpg"
+                alt="Loading screen animation"
+              />
+            </div>
+
+            <div className="space-y-5">
               <Subhead>Bottom Nav Bar</Subhead>
               <Body>
                 To ensure an intuitive user flow that felt familiar and
@@ -461,21 +476,6 @@ export default function BumblePage() {
                 src="/media/bumble/details.mp4"
                 poster="/media/bumble/details-poster.jpg"
                 alt="Scaling interaction explorations"
-              />
-            </div>
-
-            <div className="space-y-5">
-              <Subhead>Loading Screen Animation</Subhead>
-              <Body>
-                I used the loading screen as an opportunity to incorporate soft
-                pulses &amp; gradients to create reassurance with supportive
-                microcopy, helping users understand the purpose of the loading
-                moment.
-              </Body>
-              <VideoFigure
-                src="/media/bumble/loading.mp4"
-                poster="/media/bumble/loading-poster.jpg"
-                alt="Loading screen animation"
               />
             </div>
 
