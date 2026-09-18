@@ -48,8 +48,8 @@ export const projects: Project[] = [
     },
   },
   {
-    title: "Dasher: Building better delivery experiences",
-    tags: "Mobile, Product Design, B2C",
+    title: "Dasher: Making Dashers feel seen",
+    tags: "Mobile, Product, B2C",
     href: "/projects/dasher",
     category: "product",
     locked: true,

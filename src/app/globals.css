@@ -411,6 +411,15 @@ button {
   }
 }
 
+@keyframes dasher-card-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes password-shake {
   0%,
   100% {

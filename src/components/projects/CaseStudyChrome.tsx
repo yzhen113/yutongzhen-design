@@ -73,6 +73,15 @@ export const jamesJeanSections = [
   { id: "reflection", label: "Reflection" },
 ] as const;
 
+export const dasherSections = [
+  { id: "overview", label: "Overview" },
+  { id: "challenge", label: "Challenge" },
+  { id: "solution", label: "Solution" },
+  { id: "system", label: "System" },
+  { id: "motion", label: "Motion" },
+  { id: "outcome", label: "Outcome" },
+] as const;
+
 export function CaseStudySidebar({
   sections = bumbleSections,
   fadeUnderMedia = false,

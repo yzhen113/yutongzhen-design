@@ -1,0 +1,4680 @@
+/*
+ * Dash summary — modal bottom sheet with a dimming scrim behind, slides up
+ * from the bottom when `open` becomes true (mirrored from the
+ * first-delivery-celebration flow).
+ */
+._overlay_1w8fd_6 {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  font-family: var(--fontFamily);
+}
+
+._overlayOpen_1w8fd_14 {
+  pointer-events: auto;
+}
+
+/* Dim scrim behind the sheet. Fades in when overlay opens, out on close. */
+._scrim_1w8fd_19 {
+  position: absolute;
+  inset: 0;
+  background: var(--usageColorOverlay);
+  opacity: 0;
+  transition: opacity 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+._overlayOpen_1w8fd_14 ._scrim_1w8fd_19 {
+  opacity: 1;
+}
+
+._sheet_1w8fd_32 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--usageColorBackgroundDefault);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  padding-bottom: 34px;
+  /* No shadow while off-screen — translateY(100%) still lets an upward
+   * box-shadow bleed into the home screen as a black gradient at the bottom. */
+  box-shadow: none;
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1),
+    box-shadow 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+._overlayOpen_1w8fd_14 ._sheet_1w8fd_32 {
+  transform: translateY(0);
+  box-shadow: 0 -8px 32px rgba(20, 8, 0, 0.18);
+}
+
+/* Grabber pill at the top */
+._grabberContainer_1w8fd_55 {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+._grabber_1w8fd_55 {
+  width: 24px;
+  height: 4px;
+  border-radius: 100px;
+  background: var(--usageColorBorderStrongDefault);
+}
+
+/* Header — "Dash summary" small over "$40.00" big */
+._header_1w8fd_70 {
+  padding: 16px 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+._headerLabel_1w8fd_78 {
+  font-size: var(--usageTypeBodyMediumStrong-size);
+  font-weight: var(--usageTypeBodyMediumStrong-weight);
+  line-height: var(--usageTypeBodyMediumStrong-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextDefault);
+}
+
+._headerAmount_1w8fd_86 {
+  font-size: var(--usageTypeDisplayLarge-size);
+  font-weight: var(--usageTypeDisplayLarge-weight);
+  line-height: var(--usageTypeDisplayLarge-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextDefault);
+}
+
+/* Body — metrics + module card */
+._body_1w8fd_95 {
+  padding: 16px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+._metrics_1w8fd_102 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--usageColorBorderDefault);
+  border-radius: var(--usageBorderRadiusLarge);
+}
+
+._moduleCard_1w8fd_111 {
+  border: 1px solid var(--usageColorBorderDefault);
+  border-radius: var(--usageBorderRadiusLarge);
+  padding: 16px;
+}
+
+._lineItem_1w8fd_117 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+._lineLabel_1w8fd_124 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--usageColorTextDefault);
+  font-size: var(--usageTypeBodyMediumDefault-size);
+  font-weight: var(--usageTypeBodyMediumDefault-weight);
+  line-height: var(--usageTypeBodyMediumDefault-lineHeight);
+  letter-spacing: var(--letterSpacing);
+}
+
+._lineIcon_1w8fd_135 {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+._lineValue_1w8fd_144 {
+  font-size: var(--usageTypeBodyMediumStrong-size);
+  font-weight: var(--usageTypeBodyMediumStrong-weight);
+  line-height: var(--usageTypeBodyMediumStrong-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextDefault);
+}
+
+/* Payout note between body and footer */
+._footerCaption_1w8fd_153 {
+  padding: 0 16px 8px;
+  text-align: center;
+  font-size: var(--usageTypeBodySmallDefault-size);
+  font-weight: var(--usageTypeBodySmallDefault-weight);
+  line-height: var(--usageTypeBodySmallDefault-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextSubduedDefault);
+}
+
+._footer_1w8fd_153 {
+  padding: 12px 16px 8px;
+}
+
+._doneButton_1w8fd_167 {
+  width: 100%;
+  height: 52px;
+  border: none;
+  border-radius: var(--usageBorderRadiusXxLarge);
+  background: var(--usageColorActionPrimaryDefault);
+  color: var(--usageColorTextInverseDefault);
+  font-family: var(--fontFamily);
+  font-size: var(--usageTypeTitleLarge-size);
+  font-weight: var(--usageTypeTitleLarge-weight);
+  line-height: var(--usageTypeTitleLarge-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.15s ease;
+}
+
+._doneButton_1w8fd_167:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+._homeIndicator_1w8fd_188 {
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: var(--usageColorTextDefault);
+  opacity: 0.85;
+}
+/*
+ * Status bar layout — matches iPhone 14+ dynamic island framing.
+ * Three columns: left half (time), center spacer (matches the 124px
+ * dynamic island footprint in MobileFrame), right half (signal / wifi
+ * / battery). Each half `justify-content: center` so its contents sit
+ * evenly between the phone edge and the island — no more crowding at
+ * the left edge.
+ */
+._statusBar_16ubh_9 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 53px;
+  display: flex;
+  align-items: center;
+  z-index: 5;
+  pointer-events: none;
+  user-select: none;
+}
+
+._leftHalf_16ubh_22,
+._rightHalf_16ubh_23 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+._rightHalf_16ubh_23 {
+  gap: 6px;
+}
+
+/* Center spacer must match `.dynamicIsland { width: 124px }` in
+ * MobileFrame.module.css so the two halves fall on either side of the
+ * pill exactly. */
+._islandSpacer_16ubh_37 {
+  width: 124px;
+  flex-shrink: 0;
+}
+
+._light_16ubh_42 {
+  color: #FFFFFF;
+}
+
+._dark_16ubh_46 {
+  color: #191919;
+}
+
+._time_16ubh_50 {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.4px;
+  line-height: 22px;
+}
+._screen_6e9w7_1 {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+}
+
+._barebones_6e9w7_9,
+._barebones_6e9w7_9 * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Figma places the photo at 743x1115 offset (-59, -136) inside the
+ * 393x852 screen — a tighter, higher crop than object-fit: cover would
+ * give. Percentages keep that framing if the screen is ever scaled. */
+._wallpaper_6e9w7_18 {
+  position: absolute;
+  left: -15.013%;
+  top: -15.962%;
+  width: 189.058%;
+  height: 130.869%;
+  object-fit: cover;
+  z-index: 0;
+  user-select: none;
+  pointer-events: none;
+}
+
+._screen_6e9w7_1::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 72%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+._dateTime_6e9w7_44 {
+  position: absolute;
+  top: 81px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 2;
+  color: white;
+}
+
+._date_6e9w7_44 {
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 24px;
+  letter-spacing: 0.38px;
+}
+
+._time_6e9w7_61 {
+  font-family: "SF Pro Rounded", "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 500;
+  font-size: 100px;
+  line-height: 119px;
+  letter-spacing: -2.12px;
+  /* Figma fills the clock with a translucent white so the wallpaper
+   * tints it, the way iOS blends the lock-screen time. */
+  color: rgba(255, 255, 255, 0.93);
+}
+
+/* --- Notification ------------------------------------------------ */
+
+._notificationWrap_6e9w7_74 {
+  position: absolute;
+  top: 634px;
+  left: 16px;
+  right: 16px;
+  z-index: 3;
+  opacity: 0;
+  transform: translateY(56px) scale(0.94);
+  transition:
+    opacity 0.4s ease-out,
+    transform 0.6s cubic-bezier(0.18, 1.25, 0.4, 1);
+}
+
+._notificationShown_6e9w7_87 {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+._notificationShown_6e9w7_87 ._notification_6e9w7_74 {
+  animation: _nudge_6e9w7_1 2.6s ease-in-out 0.7s infinite;
+}
+
+@keyframes _nudge_6e9w7_1 {
+  0%, 92%, 100% { transform: scale(1); }
+  96% { transform: scale(1.018); }
+}
+
+._notification_6e9w7_74 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 18px 14px 14px;
+  border-radius: 23px;
+  background: rgba(245, 245, 245, 0.4);
+  backdrop-filter: blur(40px) saturate(130%);
+  -webkit-backdrop-filter: blur(40px) saturate(130%);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: black;
+  transition: transform 0.12s ease;
+}
+
+._notification_6e9w7_74:active {
+  transform: scale(0.97);
+  animation: none;
+}
+
+._notificationIconWrap_6e9w7_124 {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+._notificationIcon_6e9w7_124 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+._notificationBody_6e9w7_142 {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+._notificationTitleRow_6e9w7_150 {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+._notificationTitle_6e9w7_150 {
+  flex: 1;
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.4px;
+  color: #000;
+}
+
+._notificationTime_6e9w7_166 {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+._notificationDesc_6e9w7_174 {
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.08px;
+  color: #000;
+}
+
+/* --- Flashlight / camera ----------------------------------------- */
+
+._bottomActions_6e9w7_185 {
+  position: absolute;
+  bottom: 50px;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+}
+
+._bottomButton_6e9w7_196 {
+  width: 50px;
+  height: 50px;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  /* Soften PNG circle so it reads closer to Figma frosted glass */
+  border-radius: 100px;
+}
+
+._homeIndicator_6e9w7_207 {
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.85);
+  z-index: 3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ._notificationShown_6e9w7_87 ._notification_6e9w7_74 {
+    animation: none;
+  }
+}
+/* required styles */
+
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+.leaflet-container {
+	overflow: hidden;
+	}
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	  -webkit-user-drag: none;
+	}
+/* Prevents IE11 from highlighting tiles in blue */
+.leaflet-tile::selection {
+	background: transparent;
+}
+/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
+.leaflet-safari .leaflet-tile {
+	image-rendering: -webkit-optimize-contrast;
+	}
+/* hack that prevents hw layers "stretching" when loading new tiles */
+.leaflet-safari .leaflet-tile-container {
+	width: 1600px;
+	height: 1600px;
+	-webkit-transform-origin: 0 0;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	display: block;
+	}
+/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
+/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
+.leaflet-container .leaflet-overlay-pane svg {
+	max-width: none !important;
+	max-height: none !important;
+	}
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+	max-width: none !important;
+	max-height: none !important;
+	width: auto;
+	padding: 0;
+	}
+
+.leaflet-container img.leaflet-tile {
+	/* See: https://bugs.chromium.org/p/chromium/issues/detail?id=600120 */
+	mix-blend-mode: plus-lighter;
+}
+
+.leaflet-container.leaflet-touch-zoom {
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+	}
+.leaflet-container.leaflet-touch-drag {
+	-ms-touch-action: pinch-zoom;
+	/* Fallback for FF which doesn't support pinch-zoom */
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.leaflet-container {
+	-webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+.leaflet-tile {
+	filter: inherit;
+	visibility: hidden;
+	}
+.leaflet-tile-loaded {
+	visibility: inherit;
+	}
+.leaflet-zoom-box {
+	width: 0;
+	height: 0;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	z-index: 800;
+	}
+/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
+.leaflet-overlay-pane svg {
+	-moz-user-select: none;
+	}
+
+.leaflet-pane         { z-index: 400; }
+
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
+
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
+
+.leaflet-vml-shape {
+	width: 1px;
+	height: 1px;
+	}
+.lvml {
+	behavior: url(#default#VML);
+	display: inline-block;
+	position: absolute;
+	}
+
+
+/* control positioning */
+
+.leaflet-control {
+	position: relative;
+	z-index: 800;
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 1000;
+	pointer-events: none;
+	}
+.leaflet-top {
+	top: 0;
+	}
+.leaflet-right {
+	right: 0;
+	}
+.leaflet-bottom {
+	bottom: 0;
+	}
+.leaflet-left {
+	left: 0;
+	}
+.leaflet-control {
+	float: left;
+	clear: both;
+	}
+.leaflet-right .leaflet-control {
+	float: right;
+	}
+.leaflet-top .leaflet-control {
+	margin-top: 10px;
+	}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 10px;
+	}
+.leaflet-left .leaflet-control {
+	margin-left: 10px;
+	}
+.leaflet-right .leaflet-control {
+	margin-right: 10px;
+	}
+
+
+/* zoom and fade animations */
+
+.leaflet-fade-anim .leaflet-popup {
+	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear;
+	}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+	opacity: 1;
+	}
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	}
+svg.leaflet-zoom-animated {
+	will-change: transform;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
+	}
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+	        transition: none;
+	}
+
+.leaflet-zoom-anim .leaflet-zoom-hide {
+	visibility: hidden;
+	}
+
+
+/* cursors */
+
+.leaflet-interactive {
+	cursor: pointer;
+	}
+.leaflet-grab {
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+	cursor:         grab;
+	}
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+	cursor: crosshair;
+	}
+.leaflet-popup-pane,
+.leaflet-control {
+	cursor: auto;
+	}
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+	cursor:         grabbing;
+	}
+
+/* marker & overlays interactivity */
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+	pointer-events: none;
+	}
+
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+
+/* visual tweaks */
+
+.leaflet-container {
+	background: #ddd;
+	outline-offset: 1px;
+	}
+.leaflet-container a {
+	color: #0078A8;
+	}
+.leaflet-zoom-box {
+	border: 2px dotted #38f;
+	background: rgba(255,255,255,0.5);
+	}
+
+
+/* general typography */
+.leaflet-container {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	}
+
+
+/* general toolbar styles */
+
+.leaflet-bar {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	}
+.leaflet-bar a {
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	}
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+	}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+	background-color: #f4f4f4;
+	}
+.leaflet-bar a:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	}
+.leaflet-bar a:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: none;
+	}
+.leaflet-bar a.leaflet-disabled {
+	cursor: default;
+	background-color: #f4f4f4;
+	color: #bbb;
+	}
+
+.leaflet-touch .leaflet-bar a {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	}
+.leaflet-touch .leaflet-bar a:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	}
+.leaflet-touch .leaflet-bar a:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	}
+
+/* zoom control */
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+	}
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
+	font-size: 22px;
+	}
+
+
+/* layers control */
+
+.leaflet-control-layers {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+	background: #fff;
+	border-radius: 5px;
+	}
+.leaflet-control-layers-toggle {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAQAAAADQ4RFAAACf0lEQVR4AY1UM3gkARTePdvdoTxXKc+qTl3aU5U6b2Kbkz3Gtq3Zw6ziLGNPzrYx7946Tr6/ee/XeCQ4D3ykPtL5tHno4n0d/h3+xfuWHGLX81cn7r0iTNzjr7LrlxCqPtkbTQEHeqOrTy4Yyt3VCi/IOB0v7rVC7q45Q3Gr5K6jt+3Gl5nCoDD4MtO+j96Wu8atmhGqcNGHObuf8OM/x3AMx38+4Z2sPqzCxRFK2aF2e5Jol56XTLyggAMTL56XOMoS1W4pOyjUcGGQdZxU6qRh7B9Zp+PfpOFlqt0zyDZckPi1ttmIp03jX8gyJ8a/PG2yutpS/Vol7peZIbZcKBAEEheEIAgFbDkz5H6Zrkm2hVWGiXKiF4Ycw0RWKdtC16Q7qe3X4iOMxruonzegJzWaXFrU9utOSsLUmrc0YjeWYjCW4PDMADElpJSSQ0vQvA1Tm6/JlKnqFs1EGyZiFCqnRZTEJJJiKRYzVYzJck2Rm6P4iH+cmSY0YzimYa8l0EtTODFWhcMIMVqdsI2uiTvKmTisIDHJ3od5GILVhBCarCfVRmo4uTjkhrhzkiBV7SsaqS+TzrzM1qpGGUFt28pIySQHR6h7F6KSwGWm97ay+Z+ZqMcEjEWebE7wxCSQwpkhJqoZA5ivCdZDjJepuJ9IQjGGUmuXJdBFUygxVqVsxFsLMbDe8ZbDYVCGKxs+W080max1hFCarCfV+C1KATwcnvE9gRRuMP2prdbWGowm1KB1y+zwMMENkM755cJ2yPDtqhTI6ED1M/82yIDtC/4j4BijjeObflpO9I9MwXTCsSX8jWAFeHr05WoLTJ5G8IQVS/7vwR6ohirYM7f6HzYpogfS3R2OAAAAAElFTkSuQmCC);
+	width: 36px;
+	height: 36px;
+	}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAA0CAQAAABvcdNgAAAEsklEQVR4AWL4TydIhpZK1kpWOlg0w3ZXP6D2soBtG42jeI6ZmQTHzAxiTbSJsYLjO9HhP+WOmcuhciVnmHVQcJnp7DFvScowZorad/+V/fVzMdMT2g9Cv9guXGv/7pYOrXh2U+RRR3dSd9JRx6bIFc/ekqHI29JC6pJ5ZEh1yWkhkbcFeSjxgx3L2m1cb1C7bceyxA+CNjT/Ifff+/kDk2u/w/33/IeCMOSaWZ4glosqT3DNnNZQ7Cs58/3Ce5HL78iZH/vKVIaYlqzfdLu8Vi7dnvUbEza5Idt36tquZFldl6N5Z/POLof0XLK61mZCmJSWjVF9tEjUluu74IUXvgttuVIHE7YxSkaYhJZam7yiM9Pv82JYfl9nptxZaxMJE4YSPty+vF0+Y2up9d3wwijfjZbabqm/3bZ9ecKHsiGmRflnn1MW4pjHf9oLufyn2z3y1D6n8g8TZhxyzipLNPnAUpsOiuWimg52psrTZYnOWYNDTMuWBWa0tJb4rgq1UvmutpaYEbZlwU3CLJm/ayYjHW5/h7xWLn9Hh1vepDkyf7dE7MtT5LR4e7yYpHrkhOUpEfssBLq2pPhAqoSWKUkk7EDqkmK6RrCEzqDjhNDWNE+XSMvkJRDWlZTmCW0l0PHQGRZY5t1L83kT0Y3l2SItk5JAWHl2dCOBm+fPu3fo5/3v61RMCO9Jx2EEYYhb0rmNQMX/vm7gqOEJLcXTGw3CAuRNeyaPWwjR8PRqKQ1PDA/dpv+on9Shox52WFnx0KY8onHayrJzm87i5h9xGw/tfkev0jGsQizqezUKjk12hBMKJ4kbCqGPVNXudyyrShovGw5CgxsRICxF6aRmSjlBnHRzg7Gx8fKqEubI2rahQYdR1YgDIRQO7JvQyD52hoIQx0mxa0ODtW2Iozn1le2iIRdzwWewedyZzewidueOGqlsn1MvcnQpuVwLGG3/IR1hIKxCjelIDZ8ldqWz25jWAsnldEnK0Zxro19TGVb2ffIZEsIO89EIEDvKMPrzmBOQcKQ+rroye6NgRRxqR4U8EAkz0CL6uSGOm6KQCdWjvjRiSP1BPalCRS5iQYiEIvxuBMJEWgzSoHADcVMuN7IuqqTeyUPq22qFimFtxDyBBJEwNyt6TM88blFHao/6tWWhuuOM4SAK4EI4QmFHA+SEyWlp4EQoJ13cYGzMu7yszEIBOm2rVmHUNqwAIQabISNMRstmdhNWcFLsSm+0tjJH1MdRxO5Nx0WDMhCtgD6OKgZeljJqJKc9po8juskR9XN0Y1lZ3mWjLR9JCO1jRDMd0fpYC2VnvjBSEFg7wBENc0R9HFlb0xvF1+TBEpF68d+DHR6IOWVv2BECtxo46hOFUBd/APU57WIoEwJhIi2CdpyZX0m93BZicktMj1AS9dClteUFAUNUIEygRZCtik5zSxI9MubTBH1GOiHsiLJ3OCoSZkILa9PxiN0EbvhsAo8tdAf9Seepd36lGWHmtNANTv5Jd0z4QYyeo/UEJqxKRpg5LZx6btLPsOaEmdMyxYdlc8LMaJnikDlhclqmPiQnTEpLUIZEwkRagjYkEibQErwhkTAKCLQEbUgkzJQWc/0PstHHcfEdQ+UAAAAASUVORK5CYII=);
+	background-size: 26px 26px;
+	}
+.leaflet-touch .leaflet-control-layers-toggle {
+	width: 44px;
+	height: 44px;
+	}
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+	display: none;
+	}
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+	display: block;
+	position: relative;
+	}
+.leaflet-control-layers-expanded {
+	padding: 6px 10px 6px 6px;
+	color: #333;
+	background: #fff;
+	}
+.leaflet-control-layers-scrollbar {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-right: 5px;
+	}
+.leaflet-control-layers-selector {
+	margin-top: 2px;
+	position: relative;
+	top: 1px;
+	}
+.leaflet-control-layers label {
+	display: block;
+	font-size: 13px;
+	font-size: 1.08333em;
+	}
+.leaflet-control-layers-separator {
+	height: 0;
+	border-top: 1px solid #ddd;
+	margin: 5px -10px 5px -6px;
+	}
+
+/* Default icon URLs */
+.leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAApCAYAAADAk4LOAAAFgUlEQVR4Aa1XA5BjWRTN2oW17d3YaZtr2962HUzbDNpjszW24mRt28p47v7zq/bXZtrp/lWnXr337j3nPCe85NcypgSFdugCpW5YoDAMRaIMqRi6aKq5E3YqDQO3qAwjVWrD8Ncq/RBpykd8oZUb/kaJutow8r1aP9II0WmLKLIsJyv1w/kqw9Ch2MYdB++12Onxee/QMwvf4/Dk/Lfp/i4nxTXtOoQ4pW5Aj7wpici1A9erdAN2OH64x8OSP9j3Ft3b7aWkTg/Fm91siTra0f9on5sQr9INejH6CUUUpavjFNq1B+Oadhxmnfa8RfEmN8VNAsQhPqF55xHkMzz3jSmChWU6f7/XZKNH+9+hBLOHYozuKQPxyMPUKkrX/K0uWnfFaJGS1QPRtZsOPtr3NsW0uyh6NNCOkU3Yz+bXbT3I8G3xE5EXLXtCXbbqwCO9zPQYPRTZ5vIDXD7U+w7rFDEoUUf7ibHIR4y6bLVPXrz8JVZEql13trxwue/uDivd3fkWRbS6/IA2bID4uk0UpF1N8qLlbBlXs4Ee7HLTfV1j54APvODnSfOWBqtKVvjgLKzF5YdEk5ewRkGlK0i33Eofffc7HT56jD7/6U+qH3Cx7SBLNntH5YIPvODnyfIXZYRVDPqgHtLs5ABHD3YzLuespb7t79FY34DjMwrVrcTuwlT55YMPvOBnRrJ4VXTdNnYug5ucHLBjEpt30701A3Ts+HEa73u6dT3FNWwflY86eMHPk+Yu+i6pzUpRrW7SNDg5JHR4KapmM5Wv2E8Tfcb1HoqqHMHU+uWDD7zg54mz5/2BSnizi9T1Dg4QQXLToGNCkb6tb1NU+QAlGr1++eADrzhn/u8Q2YZhQVlZ5+CAOtqfbhmaUCS1ezNFVm2imDbPmPng5wmz+gwh+oHDce0eUtQ6OGDIyR0uUhUsoO3vfDmmgOezH0mZN59x7MBi++WDL1g/eEiU3avlidO671bkLfwbw5XV2P8Pzo0ydy4t2/0eu33xYSOMOD8hTf4CrBtGMSoXfPLchX+J0ruSePw3LZeK0juPJbYzrhkH0io7B3k164hiGvawhOKMLkrQLyVpZg8rHFW7E2uHOL888IBPlNZ1FPzstSJM694fWr6RwpvcJK60+0HCILTBzZLFNdtAzJaohze60T8qBzyh5ZuOg5e7uwQppofEmf2++DYvmySqGBuKaicF1blQjhuHdvCIMvp8whTTfZzI7RldpwtSzL+F1+wkdZ2TBOW2gIF88PBTzD/gpeREAMEbxnJcaJHNHrpzji0gQCS6hdkEeYt9DF/2qPcEC8RM28Hwmr3sdNyht00byAut2k3gufWNtgtOEOFGUwcXWNDbdNbpgBGxEvKkOQsxivJx33iow0Vw5S6SVTrpVq11ysA2Rp7gTfPfktc6zhtXBBC+adRLshf6sG2RfHPZ5EAc4sVZ83yCN00Fk/4kggu40ZTvIEm5g24qtU4KjBrx/BTTH8ifVASAG7gKrnWxJDcU7x8X6Ecczhm3o6YicvsLXWfh3Ch1W0k8x0nXF+0fFxgt4phz8QvypiwCCFKMqXCnqXExjq10beH+UUA7+nG6mdG/Pu0f3LgFcGrl2s0kNNjpmoJ9o4B29CMO8dMT4Q5ox8uitF6fqsrJOr8qnwNbRzv6hSnG5wP+64C7h9lp30hKNtKdWjtdkbuPA19nJ7Tz3zR/ibgARbhb4AlhavcBebmTHcFl2fvYEnW0ox9xMxKBS8btJ+KiEbq9zA4RthQXDhPa0T9TEe69gWupwc6uBUphquXgf+/FrIjweHQS4/pduMe5ERUMHUd9xv8ZR98CxkS4F2n3EUrUZ10EYNw7BWm9x1GiPssi3GgiGRDKWRYZfXlON+dfNbM+GgIwYdwAAAAASUVORK5CYII=);
+	}
+
+
+/* attribution and scale controls */
+
+.leaflet-container .leaflet-control-attribution {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0;
+	}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+	padding: 0 5px;
+	color: #333;
+	line-height: 1.4;
+	}
+.leaflet-control-attribution a {
+	text-decoration: none;
+	}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+	text-decoration: underline;
+	}
+.leaflet-attribution-flag {
+	display: inline !important;
+	vertical-align: baseline !important;
+	width: 1em;
+	height: 0.6669em;
+	}
+.leaflet-left .leaflet-control-scale {
+	margin-left: 5px;
+	}
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 5px;
+	}
+.leaflet-control-scale-line {
+	border: 2px solid #777;
+	border-top: none;
+	line-height: 1.1;
+	padding: 2px 5px 1px;
+	white-space: nowrap;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	text-shadow: 1px 1px #fff;
+	}
+.leaflet-control-scale-line:not(:first-child) {
+	border-top: 2px solid #777;
+	border-bottom: none;
+	margin-top: -2px;
+	}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+	border-bottom: 2px solid #777;
+	}
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	box-shadow: none;
+	}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+	}
+
+
+/* popup */
+
+.leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+	border-radius: 12px;
+	}
+.leaflet-popup-content {
+	margin: 13px 24px 13px 20px;
+	line-height: 1.3;
+	font-size: 13px;
+	font-size: 1.08333em;
+	min-height: 1px;
+	}
+.leaflet-popup-content p {
+	margin: 17px 0;
+	margin: 1.3em 0;
+	}
+.leaflet-popup-tip-container {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+.leaflet-popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+
+	margin: -10px auto 0;
+	pointer-events: auto;
+
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: white;
+	color: #333;
+	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+	}
+.leaflet-container a.leaflet-popup-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: none;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font: 16px/24px Tahoma, Verdana, sans-serif;
+	color: #757575;
+	text-decoration: none;
+	background: transparent;
+	}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+	color: #585858;
+	}
+.leaflet-popup-scrolled {
+	overflow: auto;
+	}
+
+.leaflet-oldie .leaflet-popup-content-wrapper {
+	-ms-zoom: 1;
+	}
+.leaflet-oldie .leaflet-popup-tip {
+	width: 24px;
+	margin: 0 auto;
+
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+	}
+
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+	border: 1px solid #999;
+	}
+
+
+/* div icon */
+
+.leaflet-div-icon {
+	background: #fff;
+	border: 1px solid #666;
+	}
+
+
+/* Tooltip */
+/* Base styles for the element that has a tooltip */
+.leaflet-tooltip {
+	position: absolute;
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	color: #222;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	}
+.leaflet-tooltip.leaflet-interactive {
+	cursor: pointer;
+	pointer-events: auto;
+	}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	position: absolute;
+	pointer-events: none;
+	border: 6px solid transparent;
+	background: transparent;
+	content: "";
+	}
+
+/* Directions */
+
+.leaflet-tooltip-bottom {
+	margin-top: 6px;
+}
+.leaflet-tooltip-top {
+	margin-top: -6px;
+}
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+	left: 50%;
+	margin-left: -6px;
+	}
+.leaflet-tooltip-top:before {
+	bottom: 0;
+	margin-bottom: -12px;
+	border-top-color: #fff;
+	}
+.leaflet-tooltip-bottom:before {
+	top: 0;
+	margin-top: -12px;
+	margin-left: -6px;
+	border-bottom-color: #fff;
+	}
+.leaflet-tooltip-left {
+	margin-left: -6px;
+}
+.leaflet-tooltip-right {
+	margin-left: 6px;
+}
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	top: 50%;
+	margin-top: -6px;
+	}
+.leaflet-tooltip-left:before {
+	right: 0;
+	margin-right: -12px;
+	border-left-color: #fff;
+	}
+.leaflet-tooltip-right:before {
+	left: 0;
+	margin-left: -12px;
+	border-right-color: #fff;
+	}
+
+/* Printing */
+
+@media print {
+	/* Prevent printers from removing background-images of controls. */
+	.leaflet-control {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		}
+	}
+/*
+ * HomeMap styles — same approach as R&R's Peak Mobilization Leaflet map.
+ * CartoDB Positron tiles behind the floating Dasher UI, with a dark-red
+ * zone-label pill matching the Swift original + red/dark-red time pins
+ * from the Figma spec.
+ */
+
+._map_14wat_8 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: #f6f2eb;
+}
+
+._map_14wat_8 .leaflet-tile-pane {
+  filter: saturate(0.95);
+}
+
+._map_14wat_8 .leaflet-container {
+  outline: none;
+  background: #f6f2eb;
+}
+
+/* --- Zone label pill (center of River North / Loop) ---------------- */
+
+._zonePillWrapper_14wat_28 {
+  background: transparent;
+  border: none;
+}
+
+._zonePill_14wat_28 {
+  display: inline-block;
+  padding: 6px 14px;
+  background: #6B1410;
+  color: #FFFFFF;
+  font-family: var(--fontFamily);
+  font-size: var(--usageTypeLabelMediumStrong-size);
+  font-weight: var(--usageTypeLabelMediumStrong-weight);
+  line-height: 18px;
+  letter-spacing: var(--letterSpacing);
+  border-radius: var(--usageBorderRadiusFull);
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(25, 25, 25, 0.18);
+}
+
+/* --- Secondary time pins ("3 min" / "6 min") ---------------------- */
+
+._timePillWrapper_14wat_50 {
+  background: transparent;
+  border: none;
+}
+
+._timePill_14wat_50 {
+  display: inline-block;
+  padding: 6px 12px;
+  color: #FFFFFF;
+  font-family: var(--fontFamily);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: var(--letterSpacing);
+  border-radius: var(--usageBorderRadiusFull);
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(25, 25, 25, 0.20);
+}
+
+._timePillDark_14wat_69 {
+  background: #B71000;
+}
+
+._timePillBright_14wat_73 {
+  background: var(--usageColorActionPrimaryDefault);
+}
+/*
+ * Dasher homescreen chrome — mirrors the first-delivery-celebration Home:
+ *   • Real Leaflet map behind everything (HomeMap fills absolute inset)
+ *   • Centered earnings pill under the dynamic island
+ *   • Hamburger left, bell + chat right
+ *   • Sheet at bottom: subheader + display title + info card + Dash row
+ */
+
+._home_1xl8l_9 {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  font-family: var(--fontFamily);
+}
+
+/* ------------------------------------------------------------ */
+/* Centered earnings pill + top nav */
+
+._earningsPillRow_1xl8l_19 {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+._earningsPillRow_1xl8l_19 > * {
+  pointer-events: auto;
+}
+
+._earningsPill_1xl8l_19 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--usageColorBackgroundDefault);
+  color: var(--usageColorTextDefault);
+  padding: var(--usageSpaceXxSmall) var(--usageSpaceMedium);
+  border-radius: var(--usageBorderRadiusXxLarge);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+._pillAmount_1xl8l_45 {
+  font-size: var(--usageTypeLabelMediumStrong-size);
+  font-weight: var(--usageTypeLabelMediumStrong-weight);
+  line-height: var(--usageTypeLabelMediumStrong-lineHeight);
+}
+
+._pillLabel_1xl8l_51 {
+  font-size: var(--usageTypeLabelXSmallDefault-size);
+  font-weight: var(--usageTypeLabelXSmallDefault-weight);
+  line-height: var(--usageTypeLabelXSmallDefault-lineHeight);
+  opacity: 0.7;
+}
+
+._topBar_1xl8l_58 {
+  position: absolute;
+  top: 70px;
+  left: var(--usageSpaceSmall);
+  right: var(--usageSpaceSmall);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+._topBarRight_1xl8l_69 {
+  display: flex;
+  gap: var(--usageSpaceXSmall);
+}
+
+._circleBtn_1xl8l_74 {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--usageBorderRadiusFull);
+  background: var(--usageColorBackgroundDefault);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--usageColorIconDefault);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+/* Red dot on the notification bell (present in Figma) */
+._circleBtnWithDot_1xl8l_92 {
+  overflow: visible;
+}
+
+._circleBtnDot_1xl8l_96 {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--usageColorActionPrimaryDefault);
+  border: 1.5px solid var(--usageColorBackgroundDefault);
+}
+
+/* ------------------------------------------------------------ */
+/* Bottom sheet + floating map buttons above it */
+
+._sheetWrapper_1xl8l_110 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+}
+
+._mapBtnRow_1xl8l_118 {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--usageSpaceMedium) var(--usageSpaceMedium);
+}
+
+._mapBtnRow_1xl8l_118 ._circleBtn_1xl8l_74 {
+  width: 40px;
+  height: 40px;
+}
+
+._sheet_1xl8l_110 {
+  background: var(--usageColorBackgroundDefault);
+  border-radius: var(--usageBorderRadiusXLarge) var(--usageBorderRadiusXLarge) 0 0;
+  box-shadow: none;
+  /* Bottom padding clears the home indicator the way the summary sheet
+   * does, so the Dash row never crowds the edge of the glass. */
+  padding: var(--usageSpaceLarge) var(--usageSpaceMedium) 42px;
+}
+
+._sheetSubheader_1xl8l_138 {
+  font-size: var(--usageTypeBodyMediumDefault-size);
+  font-weight: var(--usageTypeBodyMediumDefault-weight);
+  line-height: var(--usageTypeBodyMediumDefault-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextSubduedDefault);
+  margin-bottom: var(--usageSpaceXSmall);
+}
+
+._sheetTitle_1xl8l_147 {
+  font-size: var(--usageTypeDisplayLarge-size);
+  font-weight: var(--usageTypeDisplayLarge-weight);
+  line-height: var(--usageTypeDisplayLarge-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextDefault);
+  margin-bottom: var(--usageSpaceMedium);
+}
+
+._infoCard_1xl8l_156 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--usageSpaceXxxSmall);
+  padding: var(--usageSpaceSmall) var(--usageSpaceMedium);
+  border: var(--usageBorderWidthDefault) solid var(--usageColorBorderDefault);
+  border-radius: var(--usageBorderRadiusLarge);
+  margin-bottom: var(--usageSpaceMedium);
+}
+
+._infoLabel_1xl8l_166 {
+  font-size: var(--usageTypeBodySmallDefault-size);
+  font-weight: var(--usageTypeBodySmallDefault-weight);
+  line-height: var(--usageTypeBodySmallDefault-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextSubduedDefault);
+}
+
+._infoValue_1xl8l_174 {
+  font-size: var(--usageTypeBodyMediumStrong-size);
+  font-weight: var(--usageTypeBodyMediumStrong-weight);
+  line-height: var(--usageTypeBodyMediumStrong-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextDefault);
+}
+
+._sheetFooter_1xl8l_182 {
+  display: flex;
+  gap: var(--usageSpaceSmall);
+  align-items: center;
+}
+
+._dashBtn_1xl8l_188 {
+  flex: 1;
+  height: 52px;
+  background: var(--usageColorActionPrimaryDefault);
+  color: var(--usageColorTextInverseDefault);
+  border: none;
+  border-radius: var(--usageBorderRadiusXxLarge);
+  box-shadow: none;
+  font-size: var(--usageTypeTitleLarge-size);
+  font-weight: var(--usageTypeTitleLarge-weight);
+  line-height: var(--usageTypeTitleLarge-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  cursor: pointer;
+}
+
+._calendarBtn_1xl8l_203 {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--usageBorderRadiusFull);
+  background: var(--usageColorBackgroundSubduedDefault);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--usageColorIconDefault);
+  flex-shrink: 0;
+}
+
+._homeIndicator_1xl8l_217 {
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: var(--usageColorTextDefault);
+  z-index: 20;
+  opacity: 0.9;
+}
+/*
+ * Delicia illustration stage. The card slot is 200×200 per Figma; the
+ * stage keeps that box fixed so the surrounding layout never shifts
+ * while the art scales / bounces inside it.
+ */
+._stage_1lmua_6 {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* Freeze every nested CSS animation in its resting pose. */
+._static_1lmua_16 * {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+._art_1lmua_23 {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* --- Entrance / idle animation variants ------------------------- */
+
+/* Pop — scale up from small with a soft overshoot, then settle. */
+._anim_pop_1lmua_37 {
+  animation: _deliciaPop_1lmua_1 620ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+@keyframes _deliciaPop_1lmua_1 {
+  0%   { opacity: 0; transform: scale(0.4); }
+  60%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Drop + bounce — falls in from above, squashes on land, then a small
+ * secondary bounce before resting. */
+._anim_drop_1lmua_48 {
+  animation: _deliciaDrop_1lmua_1 900ms cubic-bezier(0.3, 0.7, 0.4, 1) both;
+}
+@keyframes _deliciaDrop_1lmua_1 {
+  0%   { opacity: 0; transform: translateY(-140px) scale(1); }
+  50%  { opacity: 1; transform: translateY(0) scale(1); }
+  62%  { transform: translateY(0) scaleX(1.12) scaleY(0.88); }
+  76%  { transform: translateY(-22px) scale(1); }
+  88%  { transform: translateY(0) scaleX(1.06) scaleY(0.94); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* Float — pop in, then bob gently up and down forever. */
+._anim_float_1lmua_61 {
+  animation:
+    _deliciaPop_1lmua_1 620ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both,
+    _deliciaFloat_1lmua_1 3200ms ease-in-out 620ms infinite;
+}
+@keyframes _deliciaFloat_1lmua_1 {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+/* Spin in — scale up while unwinding a small rotation. */
+._anim_spin_1lmua_73 {
+  animation: _deliciaSpin_1lmua_1 760ms cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
+}
+@keyframes _deliciaSpin_1lmua_1 {
+  0%   { opacity: 0; transform: scale(0.3) rotate(-90deg); }
+  70%  { opacity: 1; transform: scale(1.06) rotate(8deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* Pulse — pop in, then a repeating heartbeat pulse. */
+._anim_pulse_1lmua_83 {
+  animation:
+    _deliciaPop_1lmua_1 620ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both,
+    _deliciaPulse_1lmua_1 1600ms ease-in-out 720ms infinite;
+}
+@keyframes _deliciaPulse_1lmua_1 {
+  0%   { transform: scale(1); }
+  15%  { transform: scale(1.08); }
+  30%  { transform: scale(1); }
+  45%  { transform: scale(1.05); }
+  60%  { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+/* Wiggle — pop in, then tilt side to side a couple of times. */
+._anim_wiggle_1lmua_98 {
+  animation:
+    _deliciaPop_1lmua_1 620ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both,
+    _deliciaWiggle_1lmua_1 1400ms ease-in-out 640ms 2;
+}
+@keyframes _deliciaWiggle_1lmua_1 {
+  0%   { transform: rotate(0deg); }
+  20%  { transform: rotate(-7deg); }
+  40%  { transform: rotate(6deg); }
+  60%  { transform: rotate(-4deg); }
+  80%  { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ._art_1lmua_23 { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
+/*
+ * On-time bag whoosh. Distances / durations come from bag-motion.js
+ * via CSS variables (tuner + defaults). Softer ease, longer slide.
+ *
+ * Cyan cloud + dot ride the same smoke trail (no separate delayed puff).
+ */
+._wrap_197jb_7 {
+  width: 200px;
+  height: 200px;
+  overflow: visible;
+}
+
+._wrap_197jb_7 svg {
+  display: block;
+  overflow: visible;
+}
+
+._bag_197jb_18 {
+  animation: _bagWhoosh_197jb_1 var(--bag-duration, 0.68s) var(--bag-ease, cubic-bezier(0.16, 0.84, 0.2, 1)) both;
+}
+
+._splashBack_197jb_22,
+._cloud_197jb_23,
+._dot_197jb_24 {
+  transform-box: fill-box;
+  transform-origin: right center;
+  animation: _smokeTrail_197jb_1 var(--smoke-duration, 0.82s) var(--smoke-ease, cubic-bezier(0.18, 0.8, 0.22, 1)) both;
+  animation-delay: var(--smoke-delay, 0.06s);
+}
+
+._cloud_197jb_23,
+._dot_197jb_24 {
+  animation-delay: calc(var(--smoke-delay, 0.06s) + var(--smoke-cloud-lag, 0.05s));
+}
+
+@keyframes _bagWhoosh_197jb_1 {
+  0%   { transform: translateX(var(--bag-from, -148px)); }
+  78%  { transform: translateX(var(--bag-overshoot, 3px)); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes _smokeTrail_197jb_1 {
+  0%   { transform: translateX(var(--smoke-from, -168px)) scaleX(var(--smoke-stretch, 1.28)); }
+  58%  { transform: translateX(2px) scaleX(var(--smoke-mid-stretch, 1.1)); }
+  100% { transform: translateX(0) scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ._bag_197jb_18, ._splashBack_197jb_22, ._cloud_197jb_23, ._dot_197jb_24 {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+/*
+ * Acceptance bespoke animation. Wrapper clips to the 200×200 slot so the
+ * badge can start partly outside before landing on the bag.
+ */
+._wrap_4zt9j_5 {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+._wrap_4zt9j_5 svg {
+  display: block;
+}
+
+/*
+ * Check badge — snaps onto the bag from the upper-left with a quicker,
+ * more accelerated path and almost no bounce on land.
+ */
+._badge_4zt9j_19 {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: _badgeLand_4zt9j_1 0.38s cubic-bezier(0.4, 0.05, 0.85, 0.35) 0.06s both;
+}
+
+@keyframes _badgeLand_4zt9j_1 {
+  0%   { opacity: 0; transform: translate(-16px, -22px) scale(1.32) rotate(-6deg); }
+  28%  { opacity: 1; }
+  82%  { transform: translate(0, 0) scale(1.02) rotate(0deg); }   /* brief contact */
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }       /* settle — no bounce */
+}
+
+/* Bag stays still — no recoil so the badge reads as lightweight. */
+._bag_4zt9j_33 {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ._badge_4zt9j_19, ._bag_4zt9j_33 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+/*
+ * Completion bespoke animation. No overflow clip so the arrow can start
+ * off-screen upper-left and fly fully into the bullseye.
+ */
+._wrap_1e25u_5 {
+  width: 200px;
+  height: 200px;
+  overflow: visible;
+}
+
+._wrap_1e25u_5 svg {
+  display: block;
+  overflow: visible;
+}
+
+/*
+ * Target — ready quickly, then a very light thud on impact (almost no bounce).
+ */
+._target_1e25u_19 {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    _targetReady_1e25u_1 0.22s ease-out both,
+    _targetHit_1e25u_1 0.2s ease-out 0.36s both;
+}
+
+@keyframes _targetReady_1e25u_1 {
+  0%   { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+
+@keyframes _targetHit_1e25u_1 {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/*
+ * Arrow — starts well off-screen upper-left and accelerates into the
+ * bullseye. No lead delay; moderate ease-in so it doesn't crawl/hold
+ * at the start before picking up speed.
+ */
+._arrow_1e25u_43 {
+  transform-box: fill-box;
+  transform-origin: 85% 85%;
+  animation: _arrowHit_1e25u_1 0.42s cubic-bezier(0.45, 0.02, 0.88, 0.4) both;
+}
+
+@keyframes _arrowHit_1e25u_1 {
+  0%   { transform: translate(-170px, -170px) rotate(-10deg); }
+  18%  { transform: translate(-110px, -110px) rotate(-7deg); }    /* get moving */
+  84%  { transform: translate(0, 0) rotate(0deg); }               /* contact */
+  92%  { transform: translate(2px, 2px) rotate(0deg); }            /* dig in */
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ._target_1e25u_19, ._arrow_1e25u_43 {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+/*
+ * Quality bespoke animation. Overflow stays visible so the walking
+ * Dasher can enter from off-screen right without getting clipped.
+ */
+._wrap_ayk4f_5 {
+  width: 200px;
+  height: 200px;
+  overflow: visible;
+}
+
+._wrap_ayk4f_5 svg {
+  display: block;
+  overflow: visible;
+}
+
+/*
+ * Whole walker — enters from the lower-right (just above the
+ * “Your Quality rate” title, from the side) and walks diagonally
+ * up toward the door. Flat path, no bob.
+ */
+._walker_ayk4f_21 {
+  animation: _walkIn_ayk4f_1 1.55s cubic-bezier(0.33, 0.12, 0.2, 1) both;
+}
+
+@keyframes _walkIn_ayk4f_1 {
+  0%   { transform: translate(72px, 36px); }
+  100% { transform: translate(0, 0); }
+}
+
+/*
+ * Legs — opposite stride around the hip. Ease-in-out steps, then
+ * settle back to the illustration pose. No bounce on the body.
+ */
+._legBack_ayk4f_34,
+._legFront_ayk4f_35 {
+  transform-box: view-box;
+  transform-origin: 156px 128px;
+}
+
+._legBack_ayk4f_34 {
+  animation: _strideBack_ayk4f_1 1.55s ease-in-out both;
+}
+
+._legFront_ayk4f_35 {
+  animation: _strideFront_ayk4f_1 1.55s ease-in-out both;
+}
+
+/* ~4 slower steps while approaching, then rest at the drawn pose. */
+@keyframes _strideBack_ayk4f_1 {
+  0%   { transform: rotate(15deg); }
+  12%  { transform: rotate(-12deg); }
+  24%  { transform: rotate(15deg); }
+  36%  { transform: rotate(-12deg); }
+  48%  { transform: rotate(15deg); }
+  60%  { transform: rotate(-12deg); }
+  72%  { transform: rotate(12deg); }
+  86%  { transform: rotate(-6deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes _strideFront_ayk4f_1 {
+  0%   { transform: rotate(-13deg); }
+  12%  { transform: rotate(14deg); }
+  24%  { transform: rotate(-13deg); }
+  36%  { transform: rotate(14deg); }
+  48%  { transform: rotate(-13deg); }
+  60%  { transform: rotate(14deg); }
+  72%  { transform: rotate(-10deg); }
+  86%  { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/*
+ * Torso — tiny counter-sway so the walk reads, still no vertical move.
+ */
+._torso_ayk4f_76 {
+  transform-box: view-box;
+  transform-origin: 155px 100px;
+  animation: _torsoSway_ayk4f_1 1.55s ease-in-out both;
+}
+
+@keyframes _torsoSway_ayk4f_1 {
+  0%   { transform: rotate(-1deg); }
+  12%  { transform: rotate(0.9deg); }
+  24%  { transform: rotate(-1deg); }
+  36%  { transform: rotate(0.9deg); }
+  48%  { transform: rotate(-1deg); }
+  60%  { transform: rotate(0.8deg); }
+  72%  { transform: rotate(-0.6deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ._walker_ayk4f_21,
+  ._legBack_ayk4f_34,
+  ._legFront_ayk4f_35,
+  ._torso_ayk4f_76 {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+/* Container is the full 200x200 Figma frame; layers use frame-relative
+ * percentages so they compose like the full cupcake at any size.
+ * Timing / amplitude come from CSS vars (see src/shared/cupcake-motion.js). */
+._illo_1udjt_4 {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  align-self: center;
+  transform-origin: center bottom;
+  animation: _illoBounce_1udjt_1 var(--bounce-duration, 0.78s)
+    var(--bounce-ease, cubic-bezier(0.22, 0.7, 0.28, 1))
+    var(--bounce-delay, 0.22s) both;
+}
+
+._base_1udjt_15,
+._candle_1udjt_16 {
+  position: absolute;
+  object-fit: contain;
+}
+
+._base_1udjt_15 {
+  left: 29%;
+  top: 36%;
+  width: 42%;
+  height: 48.5%;
+  transform-origin: center bottom;
+  animation:
+    _basePop_1udjt_1 var(--base-pop-duration, 0.38s)
+      var(--base-pop-ease, cubic-bezier(0.25, 1.08, 0.4, 1)) both,
+    _baseSquash_1udjt_1 var(--base-squash-duration, 0.42s)
+      var(--base-squash-ease, cubic-bezier(0.25, 0.7, 0.3, 1))
+      var(--base-squash-delay, 0.2s) both;
+}
+
+._candle_1udjt_16 {
+  left: 40.5%;
+  top: 13.5%;
+  width: 13%;
+  height: 39%;
+  transform-origin: center bottom;
+  animation: _candleDrop_1udjt_1 var(--candle-duration, 0.4s)
+    var(--candle-ease, cubic-bezier(0.4, 0, 0.3, 1))
+    var(--candle-delay, 0.04s) both;
+}
+
+@keyframes _basePop_1udjt_1 {
+  0% { opacity: 0; transform: translateY(8px) scale(0.6); }
+  65% { opacity: 1; transform: translateY(0) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes _baseSquash_1udjt_1 {
+  0% { transform: scaleX(1) scaleY(1); }
+  28% { transform: scaleX(var(--squash-x1, 1.02)) scaleY(var(--squash-y1, 0.98)); }
+  62% { transform: scaleX(var(--squash-x2, 0.995)) scaleY(var(--squash-y2, 1.01)); }
+  100% { transform: scaleX(1) scaleY(1); }
+}
+
+@keyframes _illoBounce_1udjt_1 {
+  0% { transform: translateY(0) scaleY(1); }
+  16% { transform: translateY(var(--bounce-y1, 1px)) scaleY(var(--bounce-sy1, 0.99)); }
+  42% { transform: translateY(var(--bounce-y2, -2.4px)) scaleY(var(--bounce-sy2, 1.01)); }
+  68% { transform: translateY(var(--bounce-y3, 0.7px)) scaleY(var(--bounce-sy3, 0.997)); }
+  86% { transform: translateY(var(--bounce-y4, -0.4px)) scaleY(var(--bounce-sy4, 1.002)); }
+  100% { transform: translateY(0) scaleY(1); }
+}
+
+@keyframes _candleDrop_1udjt_1 {
+  0% {
+    opacity: 0;
+    transform: translateY(var(--candle-drop, -104px)) rotate(-4deg) scale(0.94);
+  }
+  22% { opacity: 1; }
+  48% {
+    transform: translateY(var(--candle-settle1, 1.2px)) rotate(1.2deg) scale(1.012);
+  }
+  72% {
+    transform: translateY(var(--candle-settle2, -1px)) rotate(-0.6deg) scale(0.997);
+  }
+  100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+._illo_1udjt_4._static_1udjt_83 {
+  animation: none;
+  transform: none;
+}
+
+._static_1udjt_83 ._base_1udjt_15,
+._static_1udjt_83 ._candle_1udjt_16 {
+  animation: none;
+  transform: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ._base_1udjt_15, ._candle_1udjt_16 { animation-duration: 0.01ms; }
+}
+._medalWrap_zh25t_1 {
+  position: relative;
+  align-self: center;
+  width: 160px;
+  height: 160px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+._medal_zh25t_1 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: center 30%;
+  animation: _medalDrop_zh25t_1 0.75s cubic-bezier(0.18, 1.3, 0.4, 1) 0.1s both,
+    _medalWiggle_zh25t_1 0.5s ease-out 0.7s;
+}
+
+/* The medal's own two gleams, recreated so they can twinkle. Positions are
+ * % of the 200px box, matched to the artwork. */
+._sparkle_zh25t_25 {
+  position: absolute;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+._sparkle_zh25t_25 svg { display: block; width: 100%; height: 100%; }
+
+._sparkleBig_zh25t_33 {
+  width: 16px;
+  height: 23px;
+  left: 57.2%;
+  top: 51.8%;
+  margin: -11.5px 0 0 -8px;
+  animation: _sparkleIn_zh25t_1 0.55s cubic-bezier(0.2, 1.4, 0.4, 1) 0.95s both;
+}
+
+._sparkleSmall_zh25t_42 {
+  width: 10px;
+  height: 15px;
+  left: 42.7%;
+  top: 54.7%;
+  margin: -7.5px 0 0 -5px;
+  animation: _sparkleIn_zh25t_1 0.55s cubic-bezier(0.2, 1.4, 0.4, 1) 1.15s both;
+}
+
+/* Barebones — medal + sparkles at rest, no motion. */
+._static_zh25t_52 ._medal_zh25t_1 {
+  animation: none;
+  transform: none;
+}
+._static_zh25t_52 ._sparkle_zh25t_25 {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes _medalDrop_zh25t_1 {
+  0% { opacity: 0; transform: translateY(-56px) scale(0.5); }
+  60% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes _medalWiggle_zh25t_1 {
+  0% { rotate: 0deg; }
+  25% { rotate: -7deg; }
+  55% { rotate: 5deg; }
+  80% { rotate: -2deg; }
+  100% { rotate: 0deg; }
+}
+
+@keyframes _sparkleIn_zh25t_1 {
+  0% { opacity: 0; transform: scale(0) rotate(-45deg); }
+  60% { opacity: 1; transform: scale(1.25) rotate(8deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ._medal_zh25t_1 { animation-duration: 0.01ms; }
+  ._sparkle_zh25t_25 { animation: _sparkleIn_zh25t_1 0.01ms both; }
+}
+._toast_1gtgw_1 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--usageBorderRadiusMedium, 12px);
+  background: rgba(25, 25, 25, 0.94);
+  color: #ffffff;
+  font-family: var(--fontFamily);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  box-shadow: var(--usageElevation3, 0 8px 24px rgba(0, 0, 0, 0.24));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.22s ease-out,
+    transform 0.28s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+._toastVisible_1gtgw_24 {
+  opacity: 1;
+  transform: translateY(0);
+}
+._overlay_epdqo_1 {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  font-family: var(--fontFamily);
+  letter-spacing: var(--letterSpacing);
+  background: radial-gradient(ellipse 120% 90% at 50% 36%, #FF2A12 0%, #EB1700 58%, #C81400 100%);
+  animation: _overlayIn_epdqo_1 0.42s ease-out both;
+}
+
+._closing_epdqo_12 {
+  animation: _overlayOut_epdqo_1 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes _overlayIn_epdqo_1 {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes _overlayOut_epdqo_1 {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+/* Barebones — cut all motion. */
+._barebones_epdqo_27,
+._barebones_epdqo_27 * {
+  animation: none !important;
+  transition: none !important;
+}
+
+._confetti_epdqo_33 {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  pointer-events: none;
+}
+
+._nav_epdqo_42 {
+  position: absolute;
+  top: 52px;
+  left: 16px;
+  z-index: 14;
+}
+
+._closeBtn_epdqo_49 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+}
+
+/* --- White recap card -------------------------------------------- */
+
+._card_epdqo_64 {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  right: 20px;
+  transform: translateY(-54%);
+  z-index: 12;
+  padding: 26px 22px 28px;
+  background: #ffffff;
+  border: 1px solid #E4E4E4;
+  border-radius: 32px;
+  box-shadow: 0 8px 24px rgba(25, 25, 25, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+._illustration_epdqo_81 {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  user-select: none;
+}
+
+._illo_epdqo_88 {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+._overlay_epdqo_1:not(._barebones_epdqo_27) ._illustration_epdqo_81 {
+  animation: _illoDrop_epdqo_1 0.62s cubic-bezier(0.22, 1.2, 0.32, 1) both;
+}
+
+@keyframes _illoDrop_epdqo_1 {
+  0% { opacity: 0; transform: translateY(-26px) scale(0.6); }
+  70% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+._body_epdqo_108 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+._illo_epdqo_88 + ._body_epdqo_108 {
+  gap: 16px;
+}
+
+._overlay_epdqo_1:not(._barebones_epdqo_27) ._body_epdqo_108 {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease-out, transform 0.55s cubic-bezier(0.22, 1.1, 0.32, 1);
+}
+
+._overlay_epdqo_1:not(._barebones_epdqo_27) ._bodyIn_epdqo_125 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Day 1 headline ---------------------------------------------- */
+
+._eyebrow_epdqo_132 {
+  margin-top: 14px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: -0.1px;
+  color: #191919;
+  text-align: center;
+}
+
+._headline_epdqo_142 {
+  margin: 2px 0 0;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #191919;
+  text-align: center;
+}
+
+._accent_epdqo_152 {
+  color: var(--usageColorActionPrimaryDefault);
+}
+
+/* --- Day 2 big stat ---------------------------------------------- */
+
+._day2Title_epdqo_158 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #606060;
+  text-align: center;
+}
+
+._bigStat_epdqo_168 {
+  font-size: 84px;
+  line-height: 80px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--usageColorTextDefault);
+  font-variant-numeric: tabular-nums;
+  --digitHeight: 80px;
+  min-height: 80px;
+}
+
+._ticker_epdqo_179 {
+  display: inline-flex;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+}
+
+._digitCell_epdqo_185 {
+  display: inline-block;
+  height: var(--digitHeight);
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+._digitStrip_epdqo_192 {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(0);
+  will-change: transform;
+}
+
+._tickerPlay_epdqo_199 ._digitStrip_epdqo_192 {
+  transform: translateY(calc(var(--target) * var(--digitHeight) * -1));
+  transition: transform var(--tickerDuration, 1500ms) cubic-bezier(0.12, 0.75, 0.18, 1);
+  transition-delay: var(--digitDelay, 0ms);
+}
+
+._digitSlot_epdqo_205 {
+  display: block;
+  height: var(--digitHeight);
+  line-height: var(--digitHeight);
+  text-align: center;
+}
+
+._percent_epdqo_212 {
+  display: inline-block;
+  line-height: var(--digitHeight);
+}
+
+._tickerStatic_epdqo_217 {
+  display: inline-block;
+  line-height: var(--digitHeight);
+  font-variant-numeric: tabular-nums;
+}
+
+._tag_epdqo_223 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  letter-spacing: -0.007em;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+._tagRank_epdqo_239 {
+  background: #E7FBEF;
+  color: #00832D;
+}
+
+._tagCheer_epdqo_244 {
+  background: #FDECEA;
+  color: #C81400;
+}
+
+._tagReveal_epdqo_249 {
+  max-height: 0;
+  margin-block: -8px;
+  opacity: 0;
+  transform: scale(0.85);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+._tagRevealIn_epdqo_258 {
+  animation: _tagReveal_epdqo_249 720ms cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+  pointer-events: auto;
+}
+
+@keyframes _tagReveal_epdqo_249 {
+  0% {
+    max-height: 0;
+    margin-block: -8px;
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  55% {
+    max-height: 32px;
+    margin-block: 0;
+    opacity: 0.4;
+    transform: scale(1.06);
+  }
+  100% {
+    max-height: 32px;
+    margin-block: 0;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Day 7 weekly (matches Figma 534:31093) ---------------------- */
+
+._weeklyTitle_epdqo_286 {
+  margin: 4px 0 0;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  letter-spacing: -0.32px;
+  color: #000000;
+  text-align: center;
+}
+
+._date_epdqo_296 {
+  margin-top: 0;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  color: #606060;
+  text-align: center;
+}
+
+._weeklyRows_epdqo_305 {
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* Deliveries / Earnings — two cells, icon left of a stacked value +
+ * label, split by a vertical inset divider. No divider above the stats. */
+._summaryRow_epdqo_312 {
+  display: flex;
+  width: 100%;
+}
+
+._summaryItem_epdqo_317 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+._summaryItem_epdqo_317 + ._summaryItem_epdqo_317 {
+  border-left: 1px solid #E4E4E4;
+}
+
+._summaryIcon_epdqo_330 {
+  width: 24px;
+  height: 24px;
+  flex: none;
+}
+
+._summaryText_epdqo_336 {
+  text-align: left;
+}
+
+._summaryValue_epdqo_340 {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 700;
+  color: #191919;
+  font-variant-numeric: tabular-nums;
+}
+
+._summaryLabel_epdqo_348 {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #606060;
+}
+
+._stats_epdqo_355 {
+  width: 100%;
+  margin-top: 12px;
+}
+
+._statRow_epdqo_360 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+}
+
+/* Inset dividers between rows only — nothing above the first row. */
+._statRow_epdqo_360 + ._statRow_epdqo_360 {
+  border-top: 1px solid #E4E4E4;
+}
+
+/* Figma renders the whole row label ("100% Completed offers") as one
+ * medium-weight text node, not a bold value + regular label. */
+._statLabel_epdqo_374 {
+  flex: 1;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  color: #191919;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Trailing detail is plain grey text in the Figma, not a green pill. */
+._statRank_epdqo_385 {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #606060;
+  white-space: nowrap;
+}
+
+/* Staggered entrance — each row rolls up in order once the card settles. */
+._rollRow_epdqo_394 {
+  opacity: 1;
+}
+
+._overlay_epdqo_1:not(._barebones_epdqo_27) ._rollRow_epdqo_394 {
+  opacity: 0;
+}
+
+._overlay_epdqo_1:not(._barebones_epdqo_27) ._rowsIn_epdqo_402 ._rollRow_epdqo_394 {
+  animation: _rollIn_epdqo_1 0.5s cubic-bezier(0.22, 1.1, 0.32, 1) both;
+}
+
+@keyframes _rollIn_epdqo_1 {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Post-MVP within-week improvement note ----------------------- */
+
+._improvement_epdqo_413 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: #FFF6E6;
+  color: #8A5A00;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* --- Toast ------------------------------------------------------- */
+/* Wrapper positions the shared Prism Toast (dark pill) just above the
+ * button group, matching metric-encouragement-02. */
+
+._toastWrap_epdqo_431 {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  /* Button group top ≈ bottom(40) + height(~110) = 150px; +16px gap. */
+  bottom: 166px;
+  z-index: 14;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* --- Buttons ----------------------------------------------------- */
+
+._buttonGroup_epdqo_445 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  z-index: 13;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+._primary_epdqo_458 {
+  width: 100%;
+  height: 54px;
+  border: none;
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #191919;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(120, 8, 0, 0.24);
+  transition: transform 0.12s ease, opacity 0.15s ease;
+}
+
+._secondary_epdqo_474 {
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+._primary_epdqo_458:active { transform: scale(0.99); }
+._secondary_epdqo_474:active { opacity: 0.7; }
+
+._homeIndicator_epdqo_489 {
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 14;
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: #ffffff;
+  opacity: 0.85;
+}
+._screen_t1sy9_1 {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--usageColorBackgroundDefault);
+  font-family: var(--fontFamily);
+  letter-spacing: var(--letterSpacing);
+  animation: _slideUp_t1sy9_1 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes _slideUp_t1sy9_1 {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+}
+
+/* --- Header ------------------------------------------------------- */
+
+._header_t1sy9_21 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  margin-top: 54px;
+  padding: 0 8px;
+}
+
+._iconBtn_t1sy9_30 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+._iconBtn_t1sy9_30:active {
+  background: var(--usageColorBackgroundSubduedDefault);
+}
+
+._headerTitle_t1sy9_46 {
+  flex: 1;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--usageColorTextDefault);
+  /* Offset the single back button on the left so the title stays
+   * optically centered against the two icons on the right. */
+  padding-left: 40px;
+}
+
+._headerRight_t1sy9_57 {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* --- Day picker --------------------------------------------------- */
+
+._dayRow_t1sy9_65 {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px 6px;
+}
+
+._dayCol_t1sy9_71 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+._dayLabel_t1sy9_82 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--usageColorTextSubduedDefault);
+}
+
+._dayDate_t1sy9_88 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--usageColorTextDefault);
+}
+
+._dayDateActive_t1sy9_100 {
+  background: #191919;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* --- Tabs --------------------------------------------------------- */
+
+._tabs_t1sy9_108 {
+  display: flex;
+  gap: 4px;
+  margin: 12px 16px 14px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--usageColorBackgroundSubduedDefault);
+}
+
+._tab_t1sy9_108 {
+  flex: 1;
+  height: 40px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--usageColorTextSubduedDefault);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+._tabActive_t1sy9_130 {
+  background: #191919;
+  color: #ffffff;
+}
+
+._divider_t1sy9_135 {
+  height: 1px;
+  background: var(--usageColorBorderDefault);
+}
+
+/* --- List --------------------------------------------------------- */
+
+._list_t1sy9_142 {
+  flex: 1;
+  overflow-y: auto;
+}
+
+._group_t1sy9_147 {
+  padding: 0 16px;
+}
+
+/* Grey separator band between zone groups. */
+._group_t1sy9_147 + ._group_t1sy9_147 {
+  border-top: 8px solid var(--usageColorBackgroundSubduedDefault);
+}
+
+._zoneHeader_t1sy9_156 {
+  padding: 18px 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--usageColorTextDefault);
+}
+
+._row_t1sy9_164 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+._row_t1sy9_164 + ._row_t1sy9_164 {
+  border-top: 1px solid var(--usageColorBorderDefault);
+}
+
+._rowMain_t1sy9_180 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+._rowTime_t1sy9_188 {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--usageColorTextDefault);
+}
+
+._busyTag_t1sy9_194 {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 8px;
+  background: var(--usageColorBackgroundSubduedDefault);
+  color: var(--usageColorTextSubduedDefault);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+._pencil_t1sy9_206 {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+._addLabel_t1sy9_211 {
+  flex: 1;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--usageColorTextDefault);
+}
+
+._addBtn_t1sy9_218 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--usageColorBackgroundSubduedDefault);
+}
+
+/* --- Scheduled empty state --------------------------------------- */
+
+._empty_t1sy9_231 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+  text-align: center;
+}
+
+._emptyTitle_t1sy9_241 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--usageColorTextDefault);
+}
+
+._emptySub_t1sy9_247 {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--usageColorTextSubduedDefault);
+}
+
+/* --- Confirmation state ------------------------------------------- */
+
+._confirmWrap_t1sy9_256 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 32px;
+  text-align: center;
+}
+
+._checkCircle_t1sy9_266 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 999px;
+  background: var(--usageColorPositiveDefault);
+  animation: _pop_t1sy9_1 0.5s cubic-bezier(0.22, 1.2, 0.32, 1) both;
+}
+
+@keyframes _pop_t1sy9_1 {
+  0% { transform: scale(0.4); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+._confirmTitle_t1sy9_282 {
+  margin: 20px 0 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--usageColorTextDefault);
+}
+
+._confirmSub_t1sy9_290 {
+  margin: 6px 0 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--usageColorTextSubduedDefault);
+}
+
+._confirmCard_t1sy9_297 {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 24px;
+  padding: 18px 24px;
+  border-radius: 16px;
+  background: var(--usageColorBackgroundSubduedDefault);
+}
+
+._confirmZone_t1sy9_307 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--usageColorTextDefault);
+}
+
+._confirmPay_t1sy9_313 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--usageColorTextSubduedDefault);
+}
+
+/* --- Footer button ------------------------------------------------ */
+
+._footer_t1sy9_321 {
+  padding: 12px 16px 32px;
+}
+
+._primary_t1sy9_325 {
+  width: 100%;
+  height: 54px;
+  border: none;
+  border-radius: 999px;
+  background: var(--usageColorActionPrimaryDefault);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.15s ease;
+}
+
+._primary_t1sy9_325:hover {
+  background: #c81400;
+}
+
+._primary_t1sy9_325:active {
+  transform: scale(0.99);
+}
+._root_x9nid_1 {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+._flow_x9nid_8 {
+  position: absolute;
+  inset: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Floating review controls (portaled to <body>, sits in the left
+ * margin next to the phone). Hidden on narrow screens. */
+
+._controls_x9nid_17 {
+  position: fixed;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 9990;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 208px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 16px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+._controlsTitle_x9nid_36 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #767676;
+}
+
+._divider_x9nid_44 {
+  height: 1px;
+  background: #ededed;
+}
+
+._field_x9nid_49 {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+._fieldLabel_x9nid_55 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #191919;
+}
+
+._badge_x9nid_64 {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #FFF1D6;
+  color: #8A5A00;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Small "Day 2" reminder shown next to the metric selector when the
+ * current touchpoint isn't Day 2. */
+._hint_x9nid_77 {
+  margin-left: auto;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #f2f2f2;
+  color: #767676;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+._replayBtn_x9nid_89 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 34px;
+  border: none;
+  border-radius: 999px;
+  background: #eb1700;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+._replayBtn_x9nid_89:hover {
+  background: #c81400;
+}
+
+._handoffLink_x9nid_108 {
+  display: block;
+  margin-top: 4px;
+  padding: 10px 0 2px;
+  color: #eb1700;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+._handoffLink_x9nid_108:hover {
+  text-decoration: underline;
+}
+
+/* Horizontal segmented control (2–3 short options). */
+._seg_x9nid_123 {
+  display: flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: #f2f2f2;
+}
+
+._segBtn_x9nid_130 {
+  flex: 1;
+  height: 30px;
+  padding: 0 4px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #767676;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+._segBtn_x9nid_130:disabled {
+  color: #c4c4c4;
+  cursor: not-allowed;
+}
+
+._segActive_x9nid_149 {
+  background: #ffffff;
+  color: #191919;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+}
+
+/* Vertical stack of options (longer labels). */
+._segStack_x9nid_156 {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+._stackBtn_x9nid_162 {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #767676;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+._stackActive_x9nid_175 {
+  border-color: #eb1700;
+  background: #fdecea;
+  color: #c81400;
+}
+
+@media (max-width: 940px) {
+  ._controls_x9nid_17 {
+    display: none;
+  }
+}
+._page_sgffr_1 {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  overflow: auto;
+  background: #f4f4f4;
+  color: #191919;
+  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  padding: 32px 24px 64px;
+}
+
+._header_sgffr_12 {
+  max-width: 960px;
+  margin: 0 auto 28px;
+}
+
+._back_sgffr_17 {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: #606060;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+._back_sgffr_17:hover {
+  color: #191919;
+}
+
+._title_sgffr_29 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+._lede_sgffr_36 {
+  margin: 0;
+  max-width: 640px;
+  color: #606060;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+._grid_sgffr_44 {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+._card_sgffr_52 {
+  background: #eb1700;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+._stage_sgffr_61 {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 16px;
+}
+
+._meta_sgffr_69 {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+._day_sgffr_76 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+._label_sgffr_84 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+._note_sgffr_90 {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+._filename_sgffr_96 {
+  margin-top: 6px;
+  font-size: 11px;
+  opacity: 0.7;
+  word-break: break-all;
+}
+
+._download_sgffr_103 {
+  margin-top: 8px;
+  align-self: flex-start;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #fff;
+  color: #eb1700;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+._download_sgffr_103:hover {
+  background: #ffe8e5;
+}
+._wrapper_1rxuz_1 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+  /* Cool linear base — dusty pink/taupe on the upper-left fading
+   * to warm champagne on the lower-right. Static; the warm wash
+   * drifts on top via .wrapper::before. */
+  background: linear-gradient(
+    135deg,
+    #DDD3D1 0%,
+    #D6CCC6 45%,
+    #D0C6BE 100%
+  );
+  padding: var(--usageSpaceLarge);
+}
+
+/*
+ * Gentle warm-champagne swell — translates + scales very slowly so the
+ * page reads as breathing. Mirrors the blob drift inside the phone mock
+ * but at lower amplitude (single blob, smaller range, longer cycle).
+ *
+ * The element is oversized via `inset: -25%` so the translate/scale
+ * never exposes the edges of the radial gradient against the linear
+ * base — it should always feel cloudy and edgeless.
+ */
+._wrapper_1rxuz_1::before {
+  content: '';
+  position: absolute;
+  inset: -25%;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(200, 187, 168, 0.75) 0%,
+    rgba(200, 187, 168, 0.35) 40%,
+    rgba(200, 187, 168, 0) 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: _bgSwell_1rxuz_1 34s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes _bgSwell_1rxuz_1 {
+  0%   { transform: translate(8%, 12%)   scale(1);    }
+  50%  { transform: translate(-4%, 4%)   scale(1.1);  }
+  100% { transform: translate(-8%, -8%)  scale(1.05); }
+}
+
+/* Bare mode — no iPhone chrome. Fills the device viewport so the prototype
+ * looks native when opened on a real phone (or with ?bare=1 on desktop). */
+._bare_1rxuz_53 {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--usageColorBackgroundDefault);
+  overflow: hidden;
+}
+
+/* Frameless mode — plain white page, no bezel / island / perimeter
+ * labels. The screen keeps iPhone proportions and is centered so the
+ * prototype reads as a clean phone canvas for crits and recordings.
+ *
+ * The 390x844 screen is masked to a 55px squircle (60% corner smoothing)
+ * via an exact figma-squircle path. A sibling shadow layer uses the same
+ * path so the drop shadow follows the squircle without applying `filter`
+ * to the screen content. */
+._framelessWrapper_1rxuz_70 {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+._framelessScale_1rxuz_80 {
+  transform-origin: center center;
+}
+
+._framelessDevice_1rxuz_84 {
+  position: relative;
+  width: 393px;
+  height: 852px;
+  border-radius: 55px;
+  /* Match the review controls panel elevation. */
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+}
+
+._framelessScreen_1rxuz_93 {
+  position: absolute;
+  inset: 0;
+  width: 393px;
+  height: 852px;
+  z-index: 1;
+  /* White — not black. A black screen bg anti-aliases at the squircle
+   * clip into a dark halo around the device (reads as a bottom shadow). */
+  background: #ffffff;
+  overflow: hidden;
+  /* Hard-clip so nothing (wide rows, maps, sliding overlays) paints past
+   * the squircle edges. */
+  clip-path: path("M 305 0 c 30.8029 0 46.2043 0 57.9695 5.9946 a 55.0000 55.0000 0 0 1 24.0359 24.0359 c 5.9946 11.7651 5.9946 27.1666 5.9946 57.9695 L 393 764 c 0 30.8029 0 46.2043 -5.9946 57.9695 a 55.0000 55.0000 0 0 1 -24.0359 24.0359 c -11.7651 5.9946 -27.1666 5.9946 -57.9695 5.9946 L 88 852 c -30.8029 0 -46.2043 0 -57.9695 -5.9946 a 55.0000 55.0000 0 0 1 -24.0359 -24.0359 c -5.9946 -11.7651 -5.9946 -27.1666 -5.9946 -57.9695 L 0 88 c 0 -30.8029 0 -46.2043 5.9946 -57.9695 a 55.0000 55.0000 0 0 1 24.0359 -24.0359 c 11.7651 -5.9946 27.1666 -5.9946 57.9695 -5.9946 Z");
+}
+
+/* Hairline edge only — same white as the page so it doesn't read as a
+ * shadow; still helps define the squircle slightly on pure white. */
+._framelessBorder_1rxuz_110 {
+  position: absolute;
+  inset: 0;
+  width: 393px;
+  height: 852px;
+  z-index: 2;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/*
+ * Page-level credit row pinned to the top of the wrapper.
+ *
+ * `justify-content: space-between` plus three equal-flex children
+ * with center/right text alignment puts:
+ *   - first label flush left
+ *   - second label centered in the row
+ *   - third label flush right
+ *
+ * `pointer-events: none` so the labels never block drag-snap-back
+ * gestures or other interactions on the page background. They sit
+ * above .wrapper::before's breathing radial wash via z-index: 2.
+ */
+._pageLabels_1rxuz_133 {
+  position: absolute;
+  top: var(--usageSpaceLarge);
+  left: var(--usageSpaceLarge);
+  right: var(--usageSpaceLarge);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--usageSpaceMedium);
+  z-index: 2;
+  pointer-events: none;
+}
+
+._pageLabel_1rxuz_133 {
+  flex: 1;
+  /* Apple San Francisco via the system-font stack — `-apple-system`
+   * resolves to SF Pro on macOS/iOS, BlinkMacSystemFont covers Chrome
+   * on macOS, and `system-ui` is the standards-track fallback. */
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif;
+  font-size: var(--usageTypeLabelSmallDefault-size);
+  font-weight: 500;
+  line-height: var(--usageTypeLabelSmallDefault-lineHeight);
+  letter-spacing: -0.05em;
+  color: #FFFFFF;
+  /* Barely-there ambient haze under the white text — enough to lift
+   * the letters off the warm taupe canvas without reading as a drop
+   * shadow. Single soft layer, low opacity. */
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.10);
+  /* The .pageLabels / .pageFooter containers set pointer-events: none
+   * so they don't intercept drags; explicitly re-enable on the labels
+   * themselves so :hover can fire for the tracking animation. */
+  pointer-events: auto;
+  /* Same Apple iOS spring curve used on the phone scale hover, so all
+   * perimeter microinteractions share one motion vocabulary. */
+  transition: letter-spacing 0.7s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Hover any perimeter label and its tracking eases open — visibly
+ * wider than the resting state but well short of a full em — then
+ * settles back when the cursor leaves. */
+._pageLabel_1rxuz_133:hover {
+  letter-spacing: 0.36em;
+}
+
+._pageLabels_1rxuz_133 ._pageLabel_1rxuz_133:nth-child(2) {
+  text-align: center;
+}
+
+._pageLabels_1rxuz_133 ._pageLabel_1rxuz_133:nth-child(3) {
+  text-align: right;
+}
+
+/*
+ * Bottom credit row — mirrors the top .pageLabels structure (two
+ * labels split flush-left and flush-right) but anchored to the
+ * bottom edge of the wrapper. Inherits all type/colour/shadow
+ * rules from .pageLabel.
+ */
+._pageFooter_1rxuz_161 {
+  position: absolute;
+  bottom: var(--usageSpaceLarge);
+  left: var(--usageSpaceLarge);
+  right: var(--usageSpaceLarge);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--usageSpaceMedium);
+  z-index: 2;
+  pointer-events: none;
+}
+
+._pageFooter_1rxuz_161 ._pageLabel_1rxuz_133:nth-child(2) {
+  text-align: right;
+}
+
+/*
+ * Off-screen SVG that hosts the displacement filter referenced by
+ * `.phone`'s `backdrop-filter: url(#mobile-frame-glass-distort)`. A
+ * 0x0 SVG can fail to resolve in some Chromium compositor paths, so
+ * the element gets a 1x1 footprint parked off-screen.
+ */
+._glassFilterSvg_1rxuz_214 {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/*
+ * iPhone 17 Pro liquid-glass frame: 402x874 pt, 55pt display corner
+ * radius. The bezel is the visible ~12px band between the outer
+ * device edge and the screen — a translucent white tint refracting
+ * whatever sits behind the phone (the breathing radial wash + linear
+ * base from .wrapper). Inset specular highlights and a soft drop
+ * shadow give it polished-glass thickness. `z-index: 1` keeps the
+ * phone above the .wrapper::before breathing radial swell.
+ *
+ * Note: vite.config.js disables cssMinify so the SVG `url()` reference
+ * inside `backdrop-filter` survives production builds. The webkit
+ * prefix duplicates only blur+saturate as a fallback for browsers
+ * that can't resolve the SVG filter.
+ */
+._phone_1rxuz_210 {
+  position: relative;
+  z-index: 1;
+  width: 402px;
+  height: 874px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.18) 100%
+    );
+  backdrop-filter: url(#mobile-frame-glass-distort) blur(8px) saturate(125%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  border-radius: 67px;
+  padding: var(--usageSpaceSmall);
+  /*
+   * Idle the phone at 97% scale; hover lifts it to 100%. A 3% delta
+   * is the smallest amount that still reads as a deliberate "lift" on
+   * a 402px-wide phone — anything smaller stops registering as motion
+   * and just looks like a render glitch.
+   *
+   * The easing curve `cubic-bezier(0.32, 0.72, 0, 1)` is Apple's
+   * iOS/macOS spring approximation: a quick acceleration into a long,
+   * heavily-decelerated settle. Reads like the underdamped springs
+   * Apple uses for hover/press microinteractions throughout iOS.
+   */
+  transform: scale(0.97);
+  transform-origin: center;
+  transition: transform 0.8s cubic-bezier(0.32, 0.72, 0, 1);
+  box-shadow:
+    /* Whisper-thin glass edge — bright on the outside so the
+     * silhouette catches light without reading as a drawn outline. */
+    0 0 0 1px rgba(255, 255, 255, 0.4),
+    /* Inset specular ring — 1px hairlines on all four edges so the
+     * polished-glass thickness reads without bulking up the bezel. */
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 1px 0 0 rgba(255, 255, 255, 0.4),
+    inset -1px 0 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.35),
+    /* Faint inner darker rim at the bottom for body. */
+    inset 0 -3px 8px rgba(0, 0, 0, 0.07),
+    /* Soft ambient + contact shadow stack for natural lift. */
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    0 24px 48px rgba(60, 50, 40, 0.22);
+  overflow: hidden;
+}
+
+/*
+ * Hover lifts the phone back to 100%. Uses :hover (not :focus-within
+ * etc.) so it's purely a mouse-pointer affordance — touch devices
+ * are already handled by the bare-mode branch in MobileFrame.jsx.
+ */
+._phone_1rxuz_210:hover {
+  transform: scale(1);
+}
+
+._dynamicIsland_1rxuz_295 {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 124px;
+  height: 36px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 100;
+}
+
+._screen_1rxuz_307 {
+  width: 100%;
+  height: 100%;
+  background: var(--usageColorBackgroundDefault);
+  border-radius: 55px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/*
+ * Off-screen 1×1 SVG host for the displacement filter. Some Chromium
+ * compositor paths can't resolve a 0×0 SVG, so the element gets a
+ * tiny footprint parked off-screen.
+ */
+._filterSvg_1bihz_6 {
+  position: fixed;
+  top: -1px;
+  left: -1px;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+
+/*
+ * The pointer-following glass orb. Flat by design — no inner radial
+ * gradient, no specular highlight. The only "shape" comes from the
+ * thin warm-dark outer ring (definition against light surfaces) and
+ * the backdrop-filter, which refracts whatever sits behind it via
+ * the SVG displacement filter + a light blur. Result reads like a
+ * tiny raindrop morphing the pixels under it.
+ *
+ * Sized 28×28 (slightly smaller than the previous SVG cursor) so it
+ * feels precise rather than overweight. Centered on the actual mouse
+ * coordinate via the inline `translate(-50%, -50%)` set by JS.
+ *
+ * `will-change: transform` hints the compositor to keep the cursor
+ * on its own layer — cheaper repaints when the cursor moves over a
+ * complex backdrop like the breathing gradient + iPhone frame.
+ */
+._cursor_1bihz_33 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+
+  /* Hidden until a pointer actually enters the document, and hidden
+   * again the moment it leaves — see GlassCursor.jsx. */
+  opacity: 0;
+  transition: opacity 0.12s ease;
+
+  /* Whisper-thin translucent fill so the cursor isn't pure backdrop
+   * (which can read as a hole punched in the page on some GPUs). */
+  background: rgba(255, 255, 255, 0.04);
+
+  /* vite.config.js disables cssMinify so the SVG url() reference
+   * survives the production build. The webkit prefix duplicates only
+   * blur + saturate as a fallback for browsers that can't resolve
+   * the SVG filter. */
+  backdrop-filter: url(#cursor-glass-distort) blur(1.5px) saturate(115%);
+  -webkit-backdrop-filter: blur(2px) saturate(115%);
+
+  /* Outer warm-dark hairline + thin inner white rim define the
+   * silhouette without resorting to the previous specular highlight
+   * (which the design feedback specifically asked us to remove). */
+  box-shadow:
+    0 0 0 0.6px rgba(61, 40, 23, 0.4),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.55),
+    0 2px 6px rgba(61, 40, 23, 0.16);
+}
+/*
+ * Shared gradient background — cream canvas + 3 drifting blurred blobs +
+ * film-grain noise. All layers are absolutely positioned and pinned to
+ * the nearest positioned ancestor (the parent must be position: relative
+ * and overflow: hidden).
+ */
+
+._filterSvg_zpct7_8 {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/*
+ * Cream base color matches the page wrapper's linear-gradient middle
+ * stop (#D6CCC6), so the screen interior reads as a continuation of
+ * the same dusty-taupe palette outside the phone frame.
+ */
+._cream_zpct7_23 {
+  position: absolute;
+  inset: 0;
+  background: #D6CCC6;
+  pointer-events: none;
+  z-index: 0;
+}
+
+._gradient_zpct7_31 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+._blob_zpct7_39 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+  mix-blend-mode: multiply;
+}
+
+/* Cool dusty-taupe wash — upper-left zone, matches the page
+ * wrapper's top stop (#DDD3D1). */
+._blobCool_zpct7_49 {
+  top: -20%;
+  left: -25%;
+  width: 90%;
+  height: 60%;
+  opacity: 0.55;
+  background: radial-gradient(
+    circle at center,
+    #DDD3D1 0%,
+    #D5CBC4 45%,
+    rgba(213, 203, 196, 0) 70%
+  );
+  animation: _blobDriftCool_zpct7_1 42s ease-in-out infinite alternate;
+}
+
+/* Warm champagne accent — same hue family as the radial wash on
+ * the page wrapper (rgba(200, 187, 168, …)). */
+._blobWarm_zpct7_66 {
+  top: 30%;
+  left: 30%;
+  width: 60%;
+  height: 40%;
+  opacity: 0.45;
+  background: radial-gradient(
+    circle at center,
+    #C8BBA8 0%,
+    rgba(200, 187, 168, 0.5) 35%,
+    rgba(200, 187, 168, 0) 70%
+  );
+  animation: _blobDriftWarm_zpct7_1 32s ease-in-out infinite alternate;
+}
+
+/* Lower-right anchor — same desaturated taupe as the page wrapper's
+ * linear-gradient end stop (#D0C6BE), so the bottom of the screen
+ * reads as a continuation of the page background instead of a darker
+ * sandstone zone. */
+._blobAccent_zpct7_85 {
+  bottom: -30%;
+  right: -30%;
+  width: 110%;
+  height: 80%;
+  opacity: 0.35;
+  background: radial-gradient(
+    circle at center,
+    #D0C6BE 0%,
+    rgba(208, 198, 190, 0.5) 35%,
+    rgba(208, 198, 190, 0) 70%
+  );
+  animation: _blobDriftAccent_zpct7_1 38s ease-in-out infinite alternate;
+}
+
+@keyframes _blobDriftWarm_zpct7_1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(35%, 25%) scale(1.15); }
+  100% { transform: translate(60%, 80%) scale(0.95); }
+}
+
+@keyframes _blobDriftCool_zpct7_1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-25%, -30%) scale(1.2); }
+  100% { transform: translate(-55%, -10%) scale(0.9); }
+}
+
+@keyframes _blobDriftAccent_zpct7_1 {
+  0%   { transform: translate(0, 0) scale(0.9); }
+  50%  { transform: translate(-30%, 20%) scale(1.1); }
+  100% { transform: translate(20%, -25%) scale(1); }
+}
+
+._noise_zpct7_118 {
+  position: absolute;
+  inset: -8%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+  mix-blend-mode: overlay;
+  background-color: #FFFFFF;
+  filter: url(#prototype-bg-grain) contrast(200%) brightness(118%);
+  animation: _noiseDrift_zpct7_1 1.2s steps(10) infinite;
+  will-change: transform;
+}
+
+@keyframes _noiseDrift_zpct7_1 {
+  0%   { transform: translate(0%,    0%);    }
+  10%  { transform: translate(-1.5%, -1%);   }
+  20%  { transform: translate(1.2%,  -1.5%); }
+  30%  { transform: translate(-1%,   1%);    }
+  40%  { transform: translate(1.5%,  1.4%);  }
+  50%  { transform: translate(-1.4%, -1.2%); }
+  60%  { transform: translate(1%,    1.5%);  }
+  70%  { transform: translate(-1.2%, -0.8%); }
+  80%  { transform: translate(1.4%,  0.4%);  }
+  90%  { transform: translate(-0.6%, 1.4%);  }
+  100% { transform: translate(0%,    0%);    }
+}
+._screen_u57he_1 {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* Scrolling moves to .scrollWrap so the bg gradient/noise stays pinned
+   * to the viewport while content scrolls. */
+  overflow: hidden;
+}
+
+/*
+ * Fade the interactive menu UI out before we navigate into a
+ * prototype. `.scrollWrap` covers the entire menu content (header,
+ * filters, cards) and the sticky bar / footer — everything except the
+ * ambient GradientBackground behind, which stays put so the route
+ * transition feels like a smooth crossfade instead of a hard cut.
+ * Keep the duration in sync with FADE_MS in PrototypeMenu.jsx.
+ */
+._fadingOut_u57he_19 ._scrollWrap_u57he_6 {
+  opacity: 0;
+  transition: opacity 380ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+/* Inner scroll container — absolutely positioned so it fills the
+ * screen above the persistent footer hint. `bottom: 80px` reserves
+ * room for the .footer so the prototype list never scrolls behind
+ * the shimmer text. `overscroll-behavior: contain` keeps the
+ * rubber-band confined to this surface and prevents the parent
+ * page from bouncing.
+ */
+._scrollWrap_u57he_6 {
+  position: absolute;
+  top: 0;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  z-index: 1;
+}
+
+/* Content stack inside the scroll wrapper. The extra `min-height`
+ * gives the drag-to-preview gesture some headroom (~200px). That
+ * headroom is invisible at rest and the JS handler rubber-bands
+ * `scrollTop` back to 0 on release. */
+._scrollContent_u57he_49 {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100% + 200px);
+  padding: 70px var(--usageSpaceMedium) var(--usageSpaceMedium);
+  box-sizing: border-box;
+  cursor: grab;
+}
+
+._scrollContent_u57he_49:active {
+  cursor: grabbing;
+}
+
+/* Make sure header / list / footer stay above the gradient layer. */
+._header_u57he_63,
+._list_u57he_64,
+._footer_u57he_27 {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * ---- Footer hint ----
+ *
+ * Persistent footer that lives OUTSIDE the scroll wrapper, so it
+ * stays in place as the prototype list scrolls. Sits in a reserved
+ * ~80px strip at the bottom of .screen (matched to .scrollWrap's
+ * `bottom: 80px`). `pointer-events: none` lets drags that originate
+ * over the footer area still reach the screen behind.
+ */
+._footer_u57he_27 {
+  position: absolute;
+  bottom: var(--usageSpaceLarge);
+  left: 0;
+  right: 0;
+  padding: var(--usageSpaceMedium) var(--usageSpaceMedium) var(--usageSpaceLarge);
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/*
+ * Slow continuous shimmer: a wide grey band drifts across the white
+ * text left→right at a constant pace and loops invisibly (both edges
+ * of the gradient are white so the position snap at the end of each
+ * cycle is imperceptible). `background-clip: text` masks the
+ * gradient to the letterforms.
+ */
+._footerHint_u57he_97 {
+  display: inline-block;
+  font-size: var(--usageTypeLabelSmallDefault-size);
+  font-weight: var(--usageTypeLabelSmallDefault-weight);
+  line-height: var(--usageTypeLabelSmallDefault-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  background: linear-gradient(
+    90deg,
+    #FFFFFF 0%,
+    #FFFFFF 30%,
+    #D6D6D6 42%,
+    #D6D6D6 58%,
+    #FFFFFF 70%,
+    #FFFFFF 100%
+  );
+  background-size: 400% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: _footerShimmer_u57he_1 9s linear infinite;
+}
+
+@keyframes _footerShimmer_u57he_1 {
+  0%   { background-position: 100% 0; }
+  100% { background-position: 0% 0; }
+}
+
+/*
+ * Off-screen SVG that hosts the displacement filter referenced by
+ * `backdrop-filter: url(#prototype-glass-distort)`. Some Chromium
+ * compositor paths can't resolve a 0×0 SVG, so the element gets a
+ * 1×1 footprint and is parked off-screen via `top: -1px`.
+ */
+._glassFilterSvg_u57he_132 {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ---- Header ---- */
+
+._header_u57he_63 {
+  margin-bottom: var(--usageSpaceXSmall);
+}
+
+/* usageTypeDisplayLarge: Bold 32/40 */
+._title_u57he_149 {
+  font-size: var(--usageTypeDisplayLarge-size);
+  font-weight: var(--usageTypeDisplayLarge-weight);
+  line-height: var(--usageTypeDisplayLarge-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: #FFFFFF;
+  margin: 0 0 var(--usageSpaceXxxSmall);
+}
+
+/* usageTypeBodyMediumDefault: Medium 16/22.
+ * Translucent white so it reads as a softer secondary against the
+ * taupe gradient — picks up a touch of warmth from the background
+ * while staying clearly below the pure-white title in hierarchy. */
+._subtitle_u57he_162 {
+  display: block;
+  font-size: var(--usageTypeBodyMediumDefault-size);
+  font-weight: var(--usageTypeBodyMediumDefault-weight);
+  line-height: var(--usageTypeBodyMediumDefault-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ---- List ---- */
+
+._list_u57he_64 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--usageSpaceMedium);
+}
+
+/* ---- Sticky bar (compact title) ---- */
+
+/*
+ * Wraps the compact title. Sticky to the top of the scrollable screen
+ * so the title remains visible as the list scrolls. Negative inline
+ * margins cancel the screen's horizontal padding so the bar extends
+ * edge-to-edge.
+ */
+._stickyBar_u57he_187 {
+  position: sticky;
+  top: 56px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--usageSpaceXxSmall);
+  margin: 0 calc(-1 * var(--usageSpaceMedium)) var(--usageSpaceMedium);
+  padding: var(--usageSpaceSmall) var(--usageSpaceMedium);
+}
+
+/*
+ * Glass tray that appears behind the title only when the bar is
+ * pinned. Rendered as a pseudo-element so it can cross-fade smoothly.
+ * `top: -200px` extends the block all the way to the very top of the
+ * screen so it reads continuously around the dynamic island.
+ */
+._stickyBar_u57he_187::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #EAE0CB;
+  border-bottom: 1px solid var(--usageColorBorderDefault);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+._stickyBarCollapsed_u57he_219::before {
+  opacity: 1;
+}
+
+._stickyBarCollapsed_u57he_219 {
+  /* (intentionally empty — hook for the compact title fade-in) */
+}
+
+/*
+ * Compact title that appears once the big header has scrolled past.
+ * At rest the title takes up no space so the list sits flush with
+ * the top of the bar. When the bar collapses the title smoothly
+ * expands into place.
+ */
+._compactTitle_u57he_233 {
+  display: block;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-size: var(--usageTypeLabelMediumStrong-size);
+  font-weight: var(--usageTypeLabelMediumStrong-weight);
+  line-height: var(--usageTypeLabelMediumStrong-lineHeight);
+  color: var(--usageColorTextDefault);
+  opacity: 0;
+  max-height: 0;
+  margin-bottom: 0;
+  overflow: hidden;
+  transition:
+    opacity 0.25s ease,
+    max-height 0.25s ease,
+    margin-bottom 0.25s ease;
+  pointer-events: none;
+}
+
+._stickyBarCollapsed_u57he_219 ._compactTitle_u57he_233 {
+  opacity: 1;
+  max-height: 40px;
+}
+
+/* ---- Filter chips ---- */
+
+/*
+ * Horizontal row of pill chips inside the sticky bar. Only "All" is
+ * populated for now; the row is in place so adding more filters is a
+ * one-line change in PrototypeMenu.jsx.
+ */
+._filters_u57he_265 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--usageSpaceXSmall);
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * Inactive filter chip — liquid-glass treatment matching the prototype
+ * cards: translucent fill, SVG-displacement backdrop, inset highlights.
+ * No outer border so the glass edge reads more like the cards.
+ */
+._filterChip_u57he_278 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--usageSpaceXxSmall);
+  font-size: var(--usageTypeLabelSmallStrong-size);
+  font-weight: var(--usageTypeLabelSmallStrong-weight);
+  line-height: 1;
+  letter-spacing: var(--letterSpacing);
+  color: #FFFFFF;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(255, 255, 255, 0.16) 100%
+    );
+  border: none;
+  padding: 8px var(--usageSpaceSmall);
+  border-radius: var(--usageBorderRadiusFull);
+  cursor: pointer;
+  backdrop-filter: url(#prototype-glass-distort) blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  transition: background 0.15s, transform 0.1s;
+}
+
+/* Chips that include an avatar trim the left padding so the avatar
+ * tucks closer to the chip's rounded edge. Deliberately hardcoded
+ * at 6px (not a Prism token) — the circular avatar visually fills
+ * a couple pixels of edge space on its own, so 6px sits between the
+ * tokens 4px and 8px to read as optically balanced against the 12px
+ * right padding on the text side. */
+._filterChipWithAvatar_u57he_312 {
+  padding-left: 6px;
+}
+
+/* Circular author headshot inside a filter chip. Slightly smaller
+ * than the card avatar so the chip stays a comfortable pill height. */
+._filterChipAvatar_u57he_318 {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Slight brightening on hover instead of a color shift — keeps the
+ * white text consistent and signals interactivity via the glass fill. */
+._filterChip_u57he_278:hover {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.26) 0%,
+      rgba(255, 255, 255, 0.12) 50%,
+      rgba(255, 255, 255, 0.24) 100%
+    );
+}
+
+._filterChip_u57he_278:active {
+  transform: translateY(1px);
+}
+
+/* Active chip — solid dark-rich-brown fill with white text. Picked
+ * from the same warm palette as the page wrapper and sandstone
+ * gradient inside the phone so the strong active weight harmonizes
+ * with the rest of the canvas instead of reading as a foreign black. */
+._filterChipActive_u57he_347,
+._filterChipActive_u57he_347:hover {
+  color: var(--usageColorBackgroundDefault);
+  background: #4A3221;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  /* Drop shadow tinted with the same brown so the lift reads warm. */
+  box-shadow: 0 1px 3px rgba(74, 50, 33, 0.25);
+}
+
+/*
+ * Floating Prism list cell — elevated card with shadow, no left accent rail.
+ * The "01" tag sits above the title using a Prism subdued background pill.
+ */
+._cell_u57he_361 {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--usageSpaceMedium);
+  width: 100%;
+  padding: var(--usageSpaceMedium);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.14) 50%,
+      rgba(255, 255, 255, 0.24) 100%
+    );
+  /* A touch more blur smooths out the residual noise after the SVG
+   * displacement, so the gradient behind the cards reads cleanly. */
+  backdrop-filter: url(#prototype-glass-distort) blur(5px) saturate(108%);
+  -webkit-backdrop-filter: blur(8px) saturate(115%);
+  border: none;
+  /* Squircle math concentrates curvature near the corner — at the
+   * same radius value a superellipse(2.2) reads tighter than a
+   * standard circular border-radius. Bump up to 32px so the card
+   * keeps the same visual roundness as the previous XxLarge (24px)
+   * Prism token did with circular corners. */
+  border-radius: 32px;
+  /* iOS-style corner smoothing (Figma "60% smoothing" ≈ K=2.2).
+   * Shipped in Chrome/Edge 139+. Safari and Firefox don't support
+   * `corner-shape` yet — they silently ignore it and fall back to
+   * the standard elliptical `border-radius` above. Spec: CSS
+   * Borders and Box Decorations Module Level 4. */
+  corner-shape: superellipse(2.2);
+  cursor: pointer;
+  text-align: left;
+  box-shadow:
+    /* outer shadow for lift */
+    0 1px 3px rgba(25, 25, 25, 0.06),
+    0 18px 40px rgba(25, 25, 25, 0.10),
+    /* inset specular ring along all edges */
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset 1px 0 0 rgba(255, 255, 255, 0.55),
+    inset -1px 0 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1.5px 0 rgba(255, 255, 255, 0.35),
+    /* faint inner darker rim at the bottom for thickness */
+    inset 0 -3px 6px rgba(0, 0, 0, 0.06);
+  transition: transform 0.15s, box-shadow 0.15s;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: _cellFadeIn_u57he_1 0.7s ease-out forwards;
+  animation-delay: var(--cellDelay, 0ms);
+  overflow: hidden;
+}
+
+/* Top "lens flare" highlight — soft elongated radial glow that fakes
+ * a curved glass surface across the upper half of the card.
+ * `corner-shape: inherit` mirrors the parent's squircle so the
+ * gradient clip-bounds match the visible card edge instead of an
+ * elliptical arc. */
+._cell_u57he_361::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  corner-shape: inherit;
+  background:
+    radial-gradient(
+      120% 70% at 30% 0%,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.02) 35%,
+      rgba(255, 255, 255, 0) 60%
+    );
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Perimeter glisten — a thin diagonal highlight band that slowly
+ * sweeps across the card every few seconds, masked to just the
+ * 1.5px outer rim. Sells the polished-glass feel.
+ * `corner-shape: inherit` keeps the masked rim aligned with the
+ * parent's squircle edge. */
+._cell_u57he_361::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  corner-shape: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(255, 255, 255, 0.9) 50%,
+    transparent 62%,
+    transparent 100%
+  );
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: _cellRimGlisten_u57he_1 7s ease-in-out infinite;
+  animation-delay: var(--cellDelay, 0ms);
+}
+
+@keyframes _cellRimGlisten_u57he_1 {
+  0%   { background-position: 100% 0; }
+  35%  { background-position: -100% 0; }
+  /* Invisible snap: highlight is off-screen at both ends. */
+  36%  { background-position: 100% 0; }
+  100% { background-position: 100% 0; }
+}
+
+@keyframes _cellFadeIn_u57he_1 {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+._cell_u57he_361:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 2px 8px rgba(25, 25, 25, 0.10);
+}
+
+._cellText_u57he_492 {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+/* Author byline above the prototype title — circular avatar + name.
+ * `inline-flex` so the row hugs its content (avatar + label) instead
+ * of stretching the full card width. */
+._cellAuthor_u57he_505 {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--usageSpaceXSmall);
+  font-size: var(--usageTypeLabelXSmallDefault-size);
+  font-weight: var(--usageTypeLabelXSmallDefault-weight);
+  line-height: var(--usageTypeLabelXSmallDefault-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextSubduedDefault);
+  margin-bottom: var(--usageSpaceXSmall);
+}
+
+/* Circular author headshot. `object-fit: cover` centers and crops
+ * regardless of the source PNG's framing. */
+._cellAuthorAvatar_u57he_519 {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* usageTypeBodyLargeStrong: Bold 18/24 */
+._cellLabel_u57he_529 {
+  font-size: var(--usageTypeBodyLargeDefault-size);
+  font-weight: var(--usageTypeBodyLargeStrong-weight);
+  line-height: var(--usageTypeBodyLargeDefault-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextDefault);
+  margin-bottom: var(--usageSpaceXxxSmall);
+}
+
+/* usageTypeLabelSmallDefault: Medium 14/20 */
+._cellDescription_u57he_539 {
+  font-size: var(--usageTypeLabelSmallDefault-size);
+  font-weight: var(--usageTypeLabelSmallDefault-weight);
+  line-height: var(--usageTypeLabelSmallDefault-lineHeight);
+  letter-spacing: var(--letterSpacing);
+  color: var(--usageColorTextSubduedDefault);
+}
+._layout_1kotq_1 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+/*
+ * Prism Design Tokens — Complete Set
+ * Source: PrismDefault{Color,Space,Font,BorderRadius}TokenProvider.swift
+ * Generated by Supernova, mirrored via RedStudio SkinnyPrism.
+ *
+ * Font family: TT Norms (all tokens)
+ * Weights: Medium (500), Bold (700) — no other weights exist
+ * Sizes: 12, 14, 16, 18, 20, 24, 32 — no other sizes exist
+ * Letter spacing: -0.01em — universal
+ */
+
+:root {
+  /* ================================================================
+   * TYPOGRAPHY
+   * ================================================================ */
+
+  --fontFamily: "TT Norms", "DD Norms", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --letterSpacing: -0.01em;
+
+  /* Display */
+  --usageTypeDisplayLarge-size: 32px;
+  --usageTypeDisplayLarge-lineHeight: 40px;
+  --usageTypeDisplayLarge-weight: 700;
+
+  --usageTypeDisplayMedium-size: 24px;
+  --usageTypeDisplayMedium-lineHeight: 28px;
+  --usageTypeDisplayMedium-weight: 700;
+
+  /* Title */
+  --usageTypeTitleLarge-size: 20px;
+  --usageTypeTitleLarge-lineHeight: 24px;
+  --usageTypeTitleLarge-weight: 700;
+
+  --usageTypeTitleMedium-size: 18px;
+  --usageTypeTitleMedium-lineHeight: 22px;
+  --usageTypeTitleMedium-weight: 700;
+
+  /* Label */
+  --usageTypeLabelLargeStrong-size: 18px;
+  --usageTypeLabelLargeStrong-lineHeight: 24px;
+  --usageTypeLabelLargeStrong-weight: 700;
+
+  --usageTypeLabelLargeDefault-size: 18px;
+  --usageTypeLabelLargeDefault-lineHeight: 24px;
+  --usageTypeLabelLargeDefault-weight: 500;
+
+  --usageTypeLabelMediumStrong-size: 16px;
+  --usageTypeLabelMediumStrong-lineHeight: 22px;
+  --usageTypeLabelMediumStrong-weight: 700;
+
+  --usageTypeLabelMediumDefault-size: 16px;
+  --usageTypeLabelMediumDefault-lineHeight: 22px;
+  --usageTypeLabelMediumDefault-weight: 500;
+
+  --usageTypeLabelSmallStrong-size: 14px;
+  --usageTypeLabelSmallStrong-lineHeight: 20px;
+  --usageTypeLabelSmallStrong-weight: 700;
+
+  --usageTypeLabelSmallDefault-size: 14px;
+  --usageTypeLabelSmallDefault-lineHeight: 20px;
+  --usageTypeLabelSmallDefault-weight: 500;
+
+  --usageTypeLabelXSmallStrong-size: 12px;
+  --usageTypeLabelXSmallStrong-lineHeight: 18px;
+  --usageTypeLabelXSmallStrong-weight: 700;
+
+  --usageTypeLabelXSmallDefault-size: 12px;
+  --usageTypeLabelXSmallDefault-lineHeight: 18px;
+  --usageTypeLabelXSmallDefault-weight: 500;
+
+  /* Body */
+  --usageTypeBodyLargeStrong-size: 18px;
+  --usageTypeBodyLargeStrong-lineHeight: 24px;
+  --usageTypeBodyLargeStrong-weight: 700;
+
+  --usageTypeBodyLargeDefault-size: 18px;
+  --usageTypeBodyLargeDefault-lineHeight: 24px;
+  --usageTypeBodyLargeDefault-weight: 500;
+
+  --usageTypeBodyMediumStrong-size: 16px;
+  --usageTypeBodyMediumStrong-lineHeight: 22px;
+  --usageTypeBodyMediumStrong-weight: 700;
+
+  --usageTypeBodyMediumDefault-size: 16px;
+  --usageTypeBodyMediumDefault-lineHeight: 22px;
+  --usageTypeBodyMediumDefault-weight: 500;
+
+  --usageTypeBodySmallStrong-size: 14px;
+  --usageTypeBodySmallStrong-lineHeight: 20px;
+  --usageTypeBodySmallStrong-weight: 700;
+
+  --usageTypeBodySmallDefault-size: 14px;
+  --usageTypeBodySmallDefault-lineHeight: 20px;
+  --usageTypeBodySmallDefault-weight: 500;
+
+  /* Link */
+  --usageTypeLinkLarge-size: 18px;
+  --usageTypeLinkLarge-lineHeight: 24px;
+  --usageTypeLinkLarge-weight: 700;
+
+  --usageTypeLinkMedium-size: 16px;
+  --usageTypeLinkMedium-lineHeight: 22px;
+  --usageTypeLinkMedium-weight: 700;
+
+  --usageTypeLinkSmall-size: 14px;
+  --usageTypeLinkSmall-lineHeight: 20px;
+  --usageTypeLinkSmall-weight: 700;
+
+  /* Component typography */
+  --compTypeButtonLabelLarge-size: 18px;
+  --compTypeButtonLabelLarge-weight: 700;
+
+  --compTypeButtonLabelMedium-size: 16px;
+  --compTypeButtonLabelMedium-weight: 700;
+
+  --compTypeButtonLabelSmall-size: 14px;
+  --compTypeButtonLabelSmall-weight: 700;
+
+  --compTypeTagLabelSmall-size: 12px;
+  --compTypeTagLabelSmall-weight: 700;
+
+  --compTypeTableBody-size: 14px;
+  --compTypeTableBody-weight: 500;
+
+  /* ================================================================
+   * COLORS — Semantic
+   * ================================================================ */
+
+  /* Text */
+  --usageColorTextDefault: #191919;
+  --usageColorTextSubduedDefault: #606060;
+  --usageColorTextDisabled: #B2B2B2;
+  --usageColorTextInverseDefault: #FFFFFF;
+  --usageColorTextLinkDefault: #4969F5;
+
+  /* Icon */
+  --usageColorIconDefault: #191919;
+  --usageColorIconSubduedDefault: #606060;
+
+  /* Background */
+  --usageColorBackgroundDefault: #FFFFFF;
+  --usageColorBackgroundSubduedDefault: #F7F7F7;
+  --usageColorBackgroundElevatedDefault: #FFFFFF;
+
+  /* Border */
+  --usageColorBorderDefault: #E4E4E4;
+  --usageColorBorderStrongDefault: #D6D6D6;
+
+  /* Overlay */
+  --usageColorOverlay: rgba(25, 25, 25, 0.5);
+
+  /* Action */
+  --usageColorActionPrimaryDefault: #EB1700;
+  --usageColorActionSecondaryDefault: #191919;
+  --usageColorActionSecondarySubduedDefault: #F1F1F1;
+
+  /* Status: Positive */
+  --usageColorPositiveDefault: #00832D;
+  --usageColorPositiveSubduedDefault: #E7FBEF;
+
+  /* Status: Negative */
+  --usageColorNegativeDefault: #D91400;
+  --usageColorNegativeSubduedDefault: #FFF0ED;
+
+  /* Status: Warning */
+  --usageColorWarningDefault: #A36500;
+  --usageColorWarningSubduedDefault: #FFF4D9;
+
+  /* ================================================================
+   * COLORS — Base (for tier/brand use)
+   * ================================================================ */
+
+  --baseColorNeutral0: #F7F7F7;
+  --baseColorNeutral5: #F1F1F1;
+  --baseColorNeutral10: #D6D6D6;
+  --baseColorNeutral30: #B2B2B2;
+  --baseColorNeutral70: #606060;
+  --baseColorNeutral100: #191919;
+  --baseColorWhite: #FFFFFF;
+
+  --baseColorGreen5: #E7FBEF;
+  --baseColorGreen10: #CEF4DD;
+  --baseColorGreen60: #00832D;
+  --baseColorRed5: #FFF0ED;
+  --baseColorRed10: #FFE0DB;
+  --baseColorRed60: #EB1700;
+  --baseColorRed70: #D91400;
+
+  /* ================================================================
+   * COLORS — Component (ButtonToggleGroup)
+   * ================================================================ */
+
+  --compColorToggleGroupBgDefault: #F1F1F1;
+  --compColorToggleGroupBgSelected: #191919;
+  --compColorToggleGroupTextSelected: #FFFFFF;
+  --compColorToggleGroupTextDefault: #191919;
+
+  /* ================================================================
+   * COLORS — Tier (from iOS asset catalogs + RewardsGemStyle)
+   * ================================================================ */
+
+  /* RewardsGemStyle.associatedBrandColor (light) */
+  --tierBronzeBrandColor: #380500;
+  --tierSilverBrandColor: #006B4F;
+  --tierGoldBrandColor: #AE4A23;
+  --tierPlatinumBrandColor: #1537C7;
+
+  /* header-arc-*.colorset */
+  --headerArcBronze: #511E1E;
+  --headerArcSilver: #0FCC87;
+  --headerArcGold: #FE8210;
+  --headerArcPlatinum: #063CEF;
+
+  /* gradient-*-start/end.colorset */
+  --gradientGoldStart: #FEBF10;
+  --gradientGoldEnd: #FE8210;
+  --gradientSilverStart: #02BC8D;
+  --gradientSilverEnd: #3FEB8C;
+  --gradientPlatinumStart: #10ABFE;
+  --gradientPlatinumEnd: #2556F9;
+
+  /* *_background_*.colorset */
+  --goldBackgroundEmphasized: #FF891D;
+  --goldBackgroundSubdued: #FFE0C4;
+  --silverBackgroundEmphasized: #63D7AD;
+  --silverBackgroundSubdued: #D3F3E0;
+  --platinumBackgroundEmphasized: #081543;
+  --platinumBackgroundSubdued: #D1DCFF;
+
+  /* ================================================================
+   * SPACING (4pt scale)
+   * ================================================================ */
+
+  --usageSpaceNone: 0px;
+  --usageSpaceXxxSmall: 2px;
+  --usageSpaceXxSmall: 4px;
+  --usageSpaceXSmall: 8px;
+  --usageSpaceSmall: 12px;
+  --usageSpaceMedium: 16px;
+  --usageSpaceLarge: 24px;
+  --usageSpaceXLarge: 32px;
+
+  /* ================================================================
+   * BORDER RADIUS
+   * ================================================================ */
+
+  --usageBorderRadiusNone: 0px;
+  --usageBorderRadiusXSmall: 2px;
+  --usageBorderRadiusSmall: 4px;
+  --usageBorderRadiusMedium: 8px;
+  --usageBorderRadiusLarge: 12px;
+  --usageBorderRadiusXLarge: 16px;
+  --usageBorderRadiusXxLarge: 24px;
+  --usageBorderRadiusFull: 9999px;
+
+  /* ================================================================
+   * BORDER WIDTH
+   * ================================================================ */
+
+  --usageBorderWidthDefault: 1px;
+  --usageBorderWidthThick: 2px;
+
+  /* ================================================================
+   * SHADOWS (PrismDefaultShadowTokenProvider)
+   * All use color rgba(25, 25, 25, 0.20) in light mode
+   * ================================================================ */
+
+  --usageElevation1: 0 1px 4px rgba(25, 25, 25, 0.20);
+  --usageElevation2: 0 2px 8px rgba(25, 25, 25, 0.20);
+  --usageElevation3: 0 4px 12px rgba(25, 25, 25, 0.20);
+  --usageElevation4: 0 4px 16px rgba(25, 25, 25, 0.20);
+  --usageElevation5: 0 6px 20px rgba(25, 25, 25, 0.20);
+  --usageElevation6: 0 8px 24px rgba(25, 25, 25, 0.20);
+}
+
+/*
+ * Apple San Francisco fonts — copied from /System/Library/Fonts/ into
+ * public/fonts/ and registered here so anywhere referencing "SF Pro
+ * Display" or "SF Pro Rounded" resolves to the real Apple faces
+ * regardless of the OS the prototype is viewed on. Both files are
+ * TrueType Collections (variable fonts) covering the full weight
+ * range, so we register them once and pick weights via CSS.
+ *
+ * NOTE: SF Pro is licensed by Apple for use in Apple-adjacent design
+ * work (mockups/prototypes). Fine for this internal playground; not
+ * intended for public distribution of the fonts themselves.
+ */
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('/proto/week-one-kudos/fonts/SFPro.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('/proto/week-one-kudos/fonts/SFPro.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Rounded';
+  src: url('/proto/week-one-kudos/fonts/SFProRounded.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* DDNorms — registered as both "TT Norms" (Prism token name) and "DD Norms" (fallback). */
+
+@font-face {
+  font-family: 'TT Norms';
+  src: url('/proto/week-one-kudos/fonts/DDNorms-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms';
+  src: url('/proto/week-one-kudos/fonts/DDNorms-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms';
+  src: url('/proto/week-one-kudos/fonts/DDNorms-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms';
+  src: url('/proto/week-one-kudos/fonts/DDNorms-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DD Norms';
+  src: url('/proto/week-one-kudos/fonts/DDNorms-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DD Norms';
+  src: url('/proto/week-one-kudos/fonts/DDNorms-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DD Norms';
+  src: url('/proto/week-one-kudos/fonts/DDNorms-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DD Norms';
+  src: url('/proto/week-one-kudos/fonts/DDNorms-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+html,
+body {
+  font-family: var(--fontFamily);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--baseColorNeutral100);
+  overflow: hidden;
+  height: 100%;
+  letter-spacing: var(--letterSpacing);
+}
+
+/*
+ * Hide the OS cursor everywhere — the visible cursor is now the
+ * <GlassCursor /> DOM element that follows the pointer and uses
+ * `backdrop-filter` to refract the page behind it (something a
+ * traditional cursor image can't do).
+ *
+ * `!important` is required to win over per-element rules
+ * (cursor: pointer on .cell / .filterChip, cursor: grab on
+ * .scrollContent). On touch / no-hover devices the GlassCursor
+ * component hides itself, but since there's no system cursor on
+ * those devices either, hiding it here is a no-op.
+ */
+
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
+
+#root {
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

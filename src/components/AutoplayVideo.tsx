@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 
 export function AutoplayVideo({
   src,
   poster,
   className,
+  style,
   width,
   height,
   preload = "auto",
@@ -15,6 +16,7 @@ export function AutoplayVideo({
   src: string;
   poster?: string;
   className?: string;
+  style?: CSSProperties;
   width?: number;
   height?: number;
   preload?: "auto" | "metadata" | "none";
@@ -69,6 +71,7 @@ export function AutoplayVideo({
     <video
       ref={ref}
       className={["autoplay-video", className].filter(Boolean).join(" ")}
+      style={style}
       src={src}
       poster={poster}
       width={width}

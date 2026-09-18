@@ -83,7 +83,7 @@ function MobileBar({
   }, [menuOpen, setMenuOpen]);
 
   return (
-    <div className="sticky top-0 z-50 min-[1100px]:hidden">
+    <div className="sticky top-0 z-50 min-[600px]:hidden">
       <div
         className={[
           "relative z-20 flex items-center justify-between px-3 py-3",
@@ -355,7 +355,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <div className="hidden min-[1100px]:block">
+      <div className="hidden min-[600px]:block">
         <div
           className="grid items-start gap-x-5 gap-y-2.5 px-5 py-3"
           style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)" }}
@@ -385,7 +385,7 @@ export function SiteHeader() {
             style={{ gridTemplateColumns: "minmax(0,1fr) auto" }}
           >
             <HeaderBio collapsed={collapsed} />
-            <div className="justify-self-end">
+            <div className="hidden justify-self-end min-[1200px]:block">
               <PittsburghClock />
             </div>
           </div>
@@ -394,11 +394,11 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div ref={sentinelRef} className="hidden h-0 min-[1100px]:block" aria-hidden />
+      <div ref={sentinelRef} className="hidden h-0 min-[600px]:block" aria-hidden />
 
       {pinned ? (
         <div
-          className="hidden min-[1100px]:block"
+          className="hidden min-[600px]:block"
           style={{ height: navHeight }}
           aria-hidden
         />
@@ -407,7 +407,7 @@ export function SiteHeader() {
       <div
         ref={navRef}
         className={[
-          "z-50 hidden min-[1100px]:block",
+          "z-50 hidden min-[600px]:block",
           pinned
             ? "fixed inset-x-0 top-0 bg-white/70 backdrop-blur-[3px]"
             : "relative bg-transparent",
