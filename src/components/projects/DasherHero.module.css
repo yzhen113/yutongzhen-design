@@ -1,0 +1,79 @@
+@font-face {
+  font-family: "Dasher Hero Norms";
+  src: url("/proto/week-one-kudos/fonts/DDNorms-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Dasher Hero Norms";
+  src: url("/proto/week-one-kudos/fonts/DDNorms-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+.hero {
+  --card-scale: 0.2972972973;
+  position: relative;
+  display: flex;
+  min-height: 380px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #f2f2f2;
+  padding: 40px 12px;
+}
+.cards { display: flex; align-items: flex-end; justify-content: center; gap: 8px; }
+.cardFrame { position: relative; flex: none; width: calc(370px * var(--card-scale)); height: calc(var(--card-height) * var(--card-scale)); }
+.lifted { margin-bottom: calc(100px * var(--card-scale)); transform: translateY(calc(-20px * var(--card-scale))); }
+.lowered { transform: translateY(calc(78px * var(--card-scale))); }
+.card {
+  width: 370px;
+  height: var(--card-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: inset 0 0 0 1px #e4e4e4, 0 8px 24px rgb(25 25 25 / 20%);
+  transform: scale(var(--card-scale));
+  transform-origin: top left;
+  font-family: "Dasher Hero Norms", sans-serif;
+  font-weight: 500;
+  color: #191919;
+}
+.card p { margin: 0; }
+.card > div { flex-shrink: 0; }
+.firstDash { padding: 32px 32px 24px; }
+.firstEyebrow { height: 24px; font-size: 20px; line-height: 24px; font-weight: 700; }
+.firstTitle { height: 60px; font-size: 40px; line-height: 60px; font-weight: 700; letter-spacing: -.008px; white-space: nowrap; }
+.firstTitle span { color: #eb1700; }
+.metric { padding: 32px; }
+.metricLabel { height: 24px; font-size: 20px; line-height: 24px; font-weight: 700; color: #606060; white-space: nowrap; }
+.card .metricValue { margin-top: 8px; height: 80px; font-size: 84px; line-height: 80px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.5px; }
+.benchmark { display: flex; align-items: center; justify-content: center; gap: 8px; height: 32px; margin-top: 16px; padding: 0 8px; border-radius: 4px; color: #00832d; background: #e7fbef; font-size: 14px; line-height: 20px; letter-spacing: -.01px; font-weight: 700; white-space: nowrap; }
+.benchmark img { flex: none; }
+.week { padding: 32px 20.5px 16px; }
+.dates { height: 22px; font-size: 16px; line-height: 22px; color: #606060; }
+.card .weekTitle { margin-top: 4px; height: 40px; font-size: 32px; line-height: 40px; font-weight: 700; color: #000; }
+.totals { display: flex; width: 100%; height: 68px; margin-top: 12px; }
+.total { position: relative; display: flex; align-items: center; gap: 16px; width: 50%; padding: 0 16px; }
+.total:first-child::after { content: ""; position: absolute; right: 0; top: 12px; width: 1px; height: 44px; background: #e4e4e4; }
+.total img { flex: none; }
+.totalValue { height: 22px; font-size: 16px; line-height: 22px; font-weight: 700; white-space: nowrap; }
+.card .totalLabel { margin-top: 2px; height: 20px; font-size: 14px; line-height: 20px; color: #606060; }
+.ratings { width: 100%; margin-top: 12px; padding: 0 16px; }
+.rating { display: flex; align-items: center; justify-content: space-between; gap: 4px; height: 48px; font-size: 16px; line-height: 22px; white-space: nowrap; }
+.rating:not(:last-child) { border-bottom: 1px solid #e4e4e4; }
+.ratingValue { font-size: 14px; line-height: 20px; color: #606060; }
+.ratingValue strong { font-weight: 700; color: #000; }
+@media (min-width: 600px) {
+  .hero { --card-scale: 0.4864864865; min-height: 520px; }
+  .cards { gap: 32px; }
+}
+@media (min-width: 1200px) {
+  .hero { --card-scale: 0.5675675676; height: 620px; padding-top: 0; padding-bottom: 0; }
+}
+@media (max-width: 369px) {
+  .hero { --card-scale: 0.25; }
+  .cards { gap: 6px; }
+}

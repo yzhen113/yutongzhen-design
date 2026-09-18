@@ -9,13 +9,12 @@ import { DasherConfigCard } from "@/components/projects/DasherConfigCard";
 import { DasherHero } from "@/components/projects/DasherHero";
 import { DasherLockScreen } from "@/components/projects/DasherLockScreen";
 import { DasherMotionGrid } from "@/components/projects/DasherMotionGrid";
-import { AutoplayVideo } from "@/components/AutoplayVideo";
-import { KudosPhone } from "@/components/projects/KudosPhone";
+import { FramedDeviceVideo } from "@/components/projects/FramedDeviceVideo";
 import { SiteFooter } from "@/components/SiteFooter";
 import { isDasherUnlocked } from "@/lib/project-lock";
 
 export const metadata = {
-  title: "Yutong Zhen - Dasher: Making Dashers feel seen",
+  title: "Yutong Zhen - Dasher: Building better delivery experiences",
   description:
     "A DoorDash experiment on whether recognition can motivate new Dashers without paying them more.",
 };
@@ -55,31 +54,12 @@ function Subhead({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Highlight({
-  children,
-  bold = false,
-}: {
-  children: React.ReactNode;
-  bold?: boolean;
-}) {
-  return (
-    <p
-      className={[
-        "border-l-2 border-solid border-black/10 pl-3 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground",
-        bold ? "font-semibold" : "font-normal",
-      ].join(" ")}
-    >
-      {children}
-    </p>
-  );
-}
-
 export default async function DasherPage() {
   const unlocked = await isDasherUnlocked();
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-clip bg-white">
-      <CaseStudyHeader title="Dasher: Making Dashers feel seen" />
+      <CaseStudyHeader title="Dasher: Building better delivery experiences" />
       {unlocked ? <DasherCaseStudy /> : <DasherLockScreen />}
       <SiteFooter compact={!unlocked} />
     </div>
@@ -101,7 +81,7 @@ function DasherCaseStudy() {
         <article className="mx-auto w-full max-w-[550px] px-3 pt-16 pb-0 min-[1200px]:px-0 min-[1200px]:pt-[60px]">
           <section id="overview" className="scroll-mt-[32px] space-y-5">
             <h1 className="text-[26px] font-medium leading-[31.2px] tracking-[-1.04px] text-foreground">
-              Dasher: Making Dashers feel seen
+              Dasher: Building better delivery experiences
             </h1>
             <Body muted>
               A 0→1 experiment exploring whether recognition and progress can
@@ -146,30 +126,32 @@ function DasherCaseStudy() {
             className="scroll-mt-[32px] mt-10 space-y-5 border-t border-black/10 pt-10"
           >
             <SectionHeading>Challenge</SectionHeading>
-            <Body>
-              Today, after finishing a dash, new Dashers are often left
-              wondering whether they did well, how they can improve, and if they
-              are making meaningful progress.
-            </Body>
+            <div className="space-y-10">
+              <Body>
+                Today, after finishing a dash, new Dashers are often left
+                wondering whether they did well, how they can improve, and if they
+                are making meaningful progress.
+              </Body>
 
-            <div className="flex items-start gap-3 border-l-2 border-solid border-black/10 pl-3">
-              <Image
-                src="/media/dasher/prakash.png"
-                alt=""
-                width={160}
-                height={160}
-                quality={100}
-                sizes="40px"
-                unoptimized
-                className="size-10 shrink-0 rounded-full object-cover"
-              />
-              <div className="space-y-2">
-                <p className="text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground">
-                  I was excited about my first dash, but DoorDash was not.
-                </p>
-                <p className="text-[14px] leading-[18.2px] tracking-[0.14px] text-[#7e7e7e]">
-                  Prakash Rochlani · VP, Dasher &amp; Logistics
-                </p>
+              <div className="flex items-start gap-3 border-l-2 border-solid border-black/10 pl-3">
+                <Image
+                  src="/media/dasher/prakash.png"
+                  alt=""
+                  width={160}
+                  height={160}
+                  quality={100}
+                  sizes="40px"
+                  unoptimized
+                  className="size-10 shrink-0 rounded-full object-cover"
+                />
+                <div className="space-y-2">
+                  <p className="text-[14px] font-normal leading-[18.2px] tracking-[0.14px] text-foreground">
+                    I was excited about my first dash, but DoorDash was not.
+                  </p>
+                  <p className="text-[14px] leading-[18.2px] tracking-[0.14px] text-[#7e7e7e]">
+                    Prakash Rochlani · VP, Dasher &amp; Logistics
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -200,30 +182,25 @@ function DasherCaseStudy() {
 
             <div className="space-y-5">
               <Subhead>First dash celebration</Subhead>
-              <div className="w-full overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-white">
-                <AutoplayVideo
-                  className="aspect-square h-auto w-full object-cover"
-                  src="/media/dasher/day-1.mp4?v=casestudy"
-                  poster="/media/dasher/day-1-poster.jpg?v=casestudy"
-                  aria-label="First dash recognition prototype"
-                  preload="auto"
-                  playWhenVisible
-                />
-              </div>
+              <FramedDeviceVideo
+                src="/media/dasher/day-1-screen.mp4"
+                poster="/media/dasher/day-1-screen-poster.png"
+                alt="First dash recognition prototype"
+              />
             </div>
 
             <div className="space-y-5">
-              <Subhead>Day two</Subhead>
+              <Subhead>Day 2: First metric highlight</Subhead>
               <Body>
-                Day two celebrates their strongest metric and benchmarks it
-                against nearby new Dashers, turning recognition into clear,
-                actionable progress.
+                Day two celebrates each Dasher’s strongest metric, benchmarked
+                against nearby new Dashers. A plain-language headline explains what the rating measures
+                and which actions drive future ratings and rewards.
               </Body>
-              <KudosPhone day={2} />
-              <Body muted>
-                Tap through: push notification → home → 96% on-time card → save
-                / share.
-              </Body>
+              <FramedDeviceVideo
+                src="/media/dasher/day-2-screen.mp4"
+                poster="/media/dasher/day-2-screen-poster.png"
+                alt="Day two metrics celebration prototype"
+              />
             </div>
 
             <div className="space-y-5">
@@ -234,11 +211,11 @@ function DasherCaseStudy() {
                 gives the moment somewhere to go: the next dash gets scheduled
                 right there.
               </Body>
-              <KudosPhone day={7} />
-              <Body muted>
-                Tap through: push → home → week recap → save / share → schedule
-                the next dash.
-              </Body>
+              <FramedDeviceVideo
+                src="/media/dasher/day-8-screen.mp4"
+                poster="/media/dasher/day-8-screen-poster.png"
+                alt="End-of-week recognition prototype"
+              />
             </div>
           </section>
 
@@ -247,18 +224,15 @@ function DasherCaseStudy() {
             className="scroll-mt-[32px] mt-10 space-y-5 border-t border-black/10 pt-10"
           >
             <SectionHeading>One configurable system</SectionHeading>
-            <Body>
-              Engineering was building in parallel, so I designed a reusable
-              SDUI card instead of three custom celebrations. Illustration,
-              headline, metric, benchmark, and action are all content slots —
-              a new milestone is a payload change, not a new component.
-            </Body>
-            <DasherConfigCard />
-            <Highlight>
-              The tradeoff is per-moment art direction. Every card shares one
-              layout, which bought a two-week lead time and the ability to
-              change content without an app release.
-            </Highlight>
+            <div className="space-y-10">
+              <Body>
+                To move quickly within engineering constraints, I designed a
+                reusable SDUI framework that adapts to different milestones through
+                configurable content — enabling rapid experimentation without
+                building new components.
+              </Body>
+              <DasherConfigCard />
+            </div>
           </section>
 
           <section
@@ -267,11 +241,8 @@ function DasherCaseStudy() {
           >
             <SectionHeading>Crafting the celebration</SectionHeading>
             <Body>
-              To work within those same constraints, I created reusable Lottie
-              animations that made each milestone feel rewarding without custom
-              engineering. The cupcake, for example, had to land as a
-              celebration rather than a bounce for bounce&apos;s sake: entrance,
-              a short hold, then rest on the settled illustration.
+              I created reusable Lottie animations from static brand illustrations
+              to make each milestone feel rewarding without custom engineering.
             </Body>
             <DasherMotionGrid />
           </section>
@@ -282,27 +253,20 @@ function DasherCaseStudy() {
           >
             <SectionHeading>Outcome</SectionHeading>
             <Body>
-              The experiment went live after a two-week engineering lead time.
-              Incremental Dasher hours was the north star, but a pilot was never
-              expected to move it — so we watched leading indicators at 7, 14,
-              and 30 days: week-one return, whether people saved the card, and
-              whether recognition started to feel like pressure.
+              The experiment reached roughly 5% of Dashers. Nearly 40% of those
+              exposed downloaded their recognition card, and the experiment showed
+              statistically significant increases in online and active hours.
             </Body>
-            <Highlight>
-              The Dx achievement recognition work has surprised us all. We&apos;ve
-              exposed the experiment to roughly 5% of Dx and nearly 40% of them
-              download the image asset. It&apos;s also shown a statistically
-              significant increase in online hours and active hours.
-            </Highlight>
-            <p className="text-[14px] leading-[18.2px] tracking-[0.14px] text-[#7e7e7e]">
-              Manager, after the experiment launched
-            </p>
             <Body>
-              What I would keep: a connected system, not one celebration, and
-              cards that reflect real work rather than badges or streaks. What I
-              would refine: giving each milestone a little more visual identity
-              without giving up the configurable shell that made the experiment
-              possible.
+              These early behavioral signals suggest potential for long-term growth
+              in Dasher hours, helping the Dasher Habituation team prioritize time
+              and resources throughout H2 and into 2027.
+            </Body>
+            <Body>
+              The results support investing in more moments of recognition across
+              the Dasher journey, using intrinsic motivation to encourage more
+              frequent, higher-quality deliveries and make dashing a more rewarding
+              experience.
             </Body>
           </section>
         </article>

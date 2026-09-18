@@ -1,0 +1,60 @@
+@font-face {
+  font-family: "Dasher Config Norms";
+  src: url("/proto/week-one-kudos/fonts/DDNorms-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dasher Config Norms";
+  src: url("/proto/week-one-kudos/fonts/DDNorms-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+
+.root { container-type: inline-size; width: 100%; }
+.layout { display: grid; grid-template-columns: var(--card-width) minmax(0, 1fr); gap: 24px; }
+.cardStage { width: var(--card-width); height: var(--card-height); transition: height 500ms cubic-bezier(.22, 1, .36, 1); }
+.cardScale { width: 361px; transform: scale(var(--card-scale)); transform-origin: top left; }
+.card {
+  width: 361px;
+  box-sizing: border-box;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e4e4e4;
+  border-radius: 32px;
+  box-shadow: 0 8px 24px rgb(25 25 25 / 14%);
+  font-family: "Dasher Config Norms", sans-serif;
+  transition: height 500ms cubic-bezier(.22, 1, .36, 1);
+}
+.notes { position: relative; min-width: 0; height: var(--card-height); transition: height 500ms cubic-bezier(.22, 1, .36, 1); }
+.note {
+  position: absolute;
+  top: var(--note-top);
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  transition: top 500ms cubic-bezier(.22, 1, .36, 1), opacity 260ms linear;
+}
+.note[data-shown="false"] { opacity: 0; pointer-events: none; visibility: hidden; }
+.leader { display: flex; align-items: center; flex: none; padding-top: 7px; }
+.leader span:first-child { width: 5px; height: 5px; border-radius: 50%; background: #a3a3a3; }
+.leader span:last-child { width: 48px; height: 1px; background: #e4e4e4; }
+.note h3 { margin: 0; color: #191919; font-size: 14px; font-weight: 400; line-height: 18px; }
+
+@container (max-width: 499px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .cardStage { justify-self: center; height: var(--card-height); transition: height 500ms cubic-bezier(.22, 1, .36, 1); }
+  .notes { height: auto; display: flex; flex-direction: column; gap: 20px; }
+  .note { position: static; }
+  .note[data-shown="false"] { display: none; }
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .root *, .root *::before, .root *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
