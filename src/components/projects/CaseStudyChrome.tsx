@@ -79,6 +79,7 @@ export const dasherSections = [
   { id: "solution", label: "Solution" },
   { id: "system", label: "System" },
   { id: "motion", label: "Motion" },
+  { id: "future", label: "Future" },
   { id: "outcome", label: "Outcome" },
 ] as const;
 

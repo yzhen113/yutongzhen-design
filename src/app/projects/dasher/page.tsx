@@ -241,10 +241,87 @@ function DasherCaseStudy() {
           >
             <SectionHeading>Crafting the celebration</SectionHeading>
             <Body>
-              I created reusable Lottie animations from static brand illustrations
-              to make each milestone feel rewarding without custom engineering.
+              Working with the same constraints, I created reusable Lottie
+              animations from static brand illustrations to make each milestone
+              feel rewarding without custom engineering.
             </Body>
             <DasherMotionGrid />
+          </section>
+
+          <section
+            id="future"
+            className="scroll-mt-[32px] mt-10 space-y-10 border-t border-black/10 pt-10"
+          >
+            <div className="space-y-5">
+              <SectionHeading>Future designs</SectionHeading>
+              <Body>
+                If behavioral signals validated the pilot, the next question
+                would be how this framework could grow beyond the first week and
+                support Dashers throughout their full journey.
+              </Body>
+            </div>
+
+            <div className="space-y-5">
+              <Subhead>Beyond new Dashers</Subhead>
+              <Body>
+                We could extend recognition beyond new Dashers to celebrate
+                meaningful milestones throughout a driver’s journey: such as a
+                100th or 500th delivery, sustained quality, or long-term service.
+              </Body>
+              <div className="overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-[#fcfcfc]">
+                <Image
+                  src="/media/dasher/future1.png"
+                  alt="Recognition mock celebrating a Dasher’s 500th dash"
+                  width={4324}
+                  height={4324}
+                  quality={100}
+                  sizes="(max-width: 1199px) 100vw, 550px"
+                  unoptimized
+                  className="h-auto w-full"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-5">
+              <Subhead>Extend earning goals into consumer app</Subhead>
+              <Body>
+                We could bring recognition into the consumer app to give
+                customers more visibility into the person completing their
+                delivery, and ultimately provide more opportunity for tips.
+              </Body>
+              <div className="overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-[#fcfcfc]">
+                <Image
+                  src="/media/dasher/future2.png"
+                  alt="Consumer app mock showing a Dasher earning goal during order tracking"
+                  width={4324}
+                  height={4324}
+                  quality={100}
+                  sizes="(max-width: 1199px) 100vw, 550px"
+                  unoptimized
+                  className="h-auto w-full"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-5">
+              <Subhead>More intrinsic motivators</Subhead>
+              <Body>
+                We could celebrate consecutive dash days and continued strong
+                performance as streaks to help reinforce consistency and quality.
+              </Body>
+              <div className="overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-[#fcfcfc]">
+                <Image
+                  src="/media/dasher/future3.png"
+                  alt="Dasher app mock showing a four-day streak during an active dash"
+                  width={4324}
+                  height={4324}
+                  quality={100}
+                  sizes="(max-width: 1199px) 100vw, 550px"
+                  unoptimized
+                  className="h-auto w-full"
+                />
+              </div>
+            </div>
           </section>
 
           <section
