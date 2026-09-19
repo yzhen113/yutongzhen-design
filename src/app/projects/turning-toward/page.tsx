@@ -1,8 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CaseStudyHeader } from "@/components/projects/CaseStudyChrome";
+import {
+  CaseStudyHeader,
+  CaseStudySidebar,
+  turningTowardSections,
+} from "@/components/projects/CaseStudyChrome";
 import { BehindScenesFigure } from "@/components/projects/BehindScenesFigure";
 import { CaseStudyVideo } from "@/components/projects/CaseStudyVideo";
+import { ScrollShrinkCoverProvider } from "@/components/projects/ScrollShrinkCover";
 import { ScrollShrinkMedia } from "@/components/projects/ScrollShrinkMedia";
 import { SiteFooter } from "@/components/SiteFooter";
 
@@ -181,7 +186,14 @@ export default function TurningTowardPage() {
         />
       </div>
 
-      <div className="relative mx-auto w-full max-w-[1440px]">
+      <ScrollShrinkCoverProvider>
+      <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
+        <aside className="pointer-events-none absolute top-0 bottom-0 left-0 hidden w-[200px] pb-10 min-[1200px]:block">
+          <div className="pointer-events-auto sticky top-[52px] pt-[60px] pl-20">
+            <CaseStudySidebar fadeUnderMedia sections={turningTowardSections} />
+          </div>
+        </aside>
+
         <article className="relative mx-auto w-full max-w-[550px] overflow-visible px-3 pt-16 pb-0 min-[1200px]:px-0 min-[1200px]:pt-[60px]">
           <section id="overview" className="scroll-mt-[32px] space-y-5">
             <h1 className="text-[26px] font-medium leading-[31.2px] tracking-[-1.04px] text-foreground">
@@ -490,6 +502,7 @@ export default function TurningTowardPage() {
           </section>
         </article>
       </div>
+      </ScrollShrinkCoverProvider>
 
       <section className="mx-auto w-full max-w-[1440px] px-5 pt-[134px] pb-16 min-[1200px]:pb-[60px]">
         <div className="space-y-5 border-t border-black/10 pt-10">

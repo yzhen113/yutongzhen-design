@@ -83,6 +83,15 @@ export const dasherSections = [
   { id: "outcome", label: "Outcome" },
 ] as const;
 
+export const turningTowardSections = [
+  { id: "overview", label: "Overview" },
+  { id: "context", label: "Context" },
+  { id: "research", label: "Research" },
+  { id: "solution", label: "Concept" },
+  { id: "process", label: "Process" },
+  { id: "reflection", label: "Reflection" },
+] as const;
+
 export function CaseStudySidebar({
   sections = bumbleSections,
   fadeUnderMedia = false,

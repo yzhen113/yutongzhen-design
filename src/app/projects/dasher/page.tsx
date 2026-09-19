@@ -126,11 +126,12 @@ function DasherCaseStudy() {
             className="scroll-mt-[32px] mt-10 space-y-5 border-t border-black/10 pt-10"
           >
             <SectionHeading>Challenge</SectionHeading>
-            <div className="space-y-10">
+            <div className="space-y-5">
               <Body>
-                Today, after finishing a dash, new Dashers are often left
-                wondering whether they did well, how they can improve, and if they
-                are making meaningful progress.
+                Today, after finishing a dash, new Dashers,{" "}
+                <span className="text-[#7e7e7e]">the delivery drivers at DoorDash</span>,
+                are left wondering whether they did well, how they can
+                improve, and if they are making meaningful progress.
               </Body>
 
               <div className="flex items-start gap-3 border-l-2 border-solid border-black/10 pl-3">
@@ -173,10 +174,10 @@ function DasherCaseStudy() {
                 Three moments of recognition in week one
               </SectionHeading>
               <Body>
-                I designed recognition as a connected arc within the Dashers
-                first week: celebrate getting started, put an early metric in
-                context, then close the week with a recap that leads into the
-                next dash.
+                I designed three moments of celebrations as a connected arc
+                within the Dashers first week. Hypothesizing that recognizing
+                early wins would lift satisfaction and retention, and turn into
+                online hours over time.
               </Body>
             </div>
 
@@ -204,12 +205,10 @@ function DasherCaseStudy() {
             </div>
 
             <div className="space-y-5">
-              <Subhead>End of week one</Subhead>
+              <Subhead>Day 8: Week one recap</Subhead>
               <Body>
-                End of week one is the decision point for whether dashing
-                becomes a habit. The recap celebrates what they built, then
-                gives the moment somewhere to go: the next dash gets scheduled
-                right there.
+                The recap celebrates what the Dashers built, then gives an
+                action moment to their next delivery.
               </Body>
               <FramedDeviceVideo
                 src="/media/dasher/day-8-screen.mp4"

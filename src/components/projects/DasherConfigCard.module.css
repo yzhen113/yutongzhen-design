@@ -45,11 +45,16 @@
 .note h3 { margin: 0; color: #191919; font-size: 14px; font-weight: 400; line-height: 18px; }
 
 @container (max-width: 499px) {
-  .layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-  .cardStage { justify-self: center; height: var(--card-height); transition: height 500ms cubic-bezier(.22, 1, .36, 1); }
-  .notes { height: auto; display: flex; flex-direction: column; gap: 20px; }
-  .note { position: static; }
-  .note[data-shown="false"] { display: none; }
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .cardStage { justify-self: center; }
+  .notes { display: none; }
+}
+
+/* Site phone breakpoint — annotations sit beside the card on desktop only. */
+@media (max-width: 599px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .cardStage { justify-self: center; }
+  .notes { display: none; }
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
