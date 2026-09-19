@@ -198,8 +198,8 @@ function DasherCaseStudy() {
                 and which actions drive future ratings and rewards.
               </Body>
               <FramedDeviceVideo
-                src="/media/dasher/day-2-screen.mp4"
-                poster="/media/dasher/day-2-screen-poster.png"
+                src="/media/dasher/day-2-all-stats-screen.mp4"
+                poster="/media/dasher/day-2-all-stats-screen-poster.png"
                 alt="Day two metrics celebration prototype"
               />
             </div>
@@ -288,18 +288,11 @@ function DasherCaseStudy() {
                 customers more visibility into the person completing their
                 delivery, and ultimately provide more opportunity for tips.
               </Body>
-              <div className="overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-[#fcfcfc]">
-                <Image
-                  src="/media/dasher/future2.png"
-                  alt="Consumer app mock showing a Dasher earning goal during order tracking"
-                  width={4324}
-                  height={4324}
-                  quality={100}
-                  sizes="(max-width: 1199px) 100vw, 550px"
-                  unoptimized
-                  className="h-auto w-full"
-                />
-              </div>
+              <FramedDeviceVideo
+                src="/media/dasher/earnings-goal-screen.mp4"
+                poster="/media/dasher/earnings-goal-screen-poster.png"
+                alt="Consumer app prototype showing a Dasher’s college tuition savings goal expanding during order tracking"
+              />
             </div>
 
             <div className="space-y-5">
@@ -308,18 +301,11 @@ function DasherCaseStudy() {
                 We could celebrate consecutive dash days and continued strong
                 performance as streaks to help reinforce consistency and quality.
               </Body>
-              <div className="overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-[#fcfcfc]">
-                <Image
-                  src="/media/dasher/future3.png"
-                  alt="Dasher app mock showing a four-day streak during an active dash"
-                  width={4324}
-                  height={4324}
-                  quality={100}
-                  sizes="(max-width: 1199px) 100vw, 550px"
-                  unoptimized
-                  className="h-auto w-full"
-                />
-              </div>
+              <FramedDeviceVideo
+                src="/media/dasher/streak-screen.mp4"
+                poster="/media/dasher/streak-screen-poster.png"
+                alt="Dasher prototype showing This dash earnings expanding into a four-day streak card"
+              />
             </div>
           </section>
 
