@@ -3,12 +3,12 @@ import { DeviceVideo } from "@/components/projects/DeviceVideo";
 
 const demos = [
   {
-    name: "day-1",
-    alt: "First dash: dash summary opening into a celebration",
-  },
-  {
     name: "day-2-all-stats",
     alt: "Day two: rotating delivery metric celebrations",
+  },
+  {
+    name: "day-1",
+    alt: "First dash: dash summary opening into a celebration",
   },
   {
     name: "day-8",

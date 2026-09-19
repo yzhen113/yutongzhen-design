@@ -43,9 +43,15 @@ export function AutoplayVideo({
       void video.play().catch(() => {});
     };
 
+    const restart = () => {
+      video.currentTime = 0;
+      play();
+    };
+
     play();
     video.addEventListener("loadeddata", play);
     video.addEventListener("canplay", play);
+    video.addEventListener("ended", restart);
 
     let observer: IntersectionObserver | undefined;
     if (playWhenVisible) {
@@ -63,6 +69,7 @@ export function AutoplayVideo({
     return () => {
       video.removeEventListener("loadeddata", play);
       video.removeEventListener("canplay", play);
+      video.removeEventListener("ended", restart);
       observer?.disconnect();
     };
   }, [playWhenVisible, src]);
