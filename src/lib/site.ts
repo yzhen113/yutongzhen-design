@@ -64,7 +64,7 @@ export const projects: Project[] = [
   },
   {
     title: "CMUsed: A Student-to-Student Marketplace at Carnegie Mellon University",
-    tags: "Product Design, Web Design",
+    tags: "Product Design, Web",
     href: "/projects/cmused",
     category: "product",
     media: { type: "image", src: "/media/cmused/project-thumbnail.png" },
@@ -78,7 +78,7 @@ export const projects: Project[] = [
   },
   {
     title: "Hybrid Exhibition: James Jean x Hunt Institute",
-    tags: "Exhibition Design, Creative Tech",
+    tags: "Exhibition Design, XR",
     href: "/projects/hybrid-exhibition-james-jean",
     category: "experience",
     media: { type: "image", src: "/media/james-jean/cover.png" },

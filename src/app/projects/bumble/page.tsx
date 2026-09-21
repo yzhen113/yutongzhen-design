@@ -564,7 +564,7 @@ export default function BumblePage() {
                 University
               </p>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground/70">
-                Product Design, Web Design
+                Product Design, Web
               </p>
             </Link>
           </div>

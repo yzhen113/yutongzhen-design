@@ -53,28 +53,32 @@ function StudyLinks() {
 const TRAVEL_LEFT = [
   {
     src: "/media/about/travel-l1.jpg",
-    alt: "Skateboard on a concrete plaza",
+    alt: "Tokyo Tower seen through trees",
+    title: "Tokyo",
     width: 1365,
     height: 2048,
     portrait: true,
   },
   {
     src: "/media/about/travel-l2.jpg",
-    alt: "Sitting on the floor with a book and coffee",
+    alt: "Torii gate and paper streamers in Enoshima",
+    title: "Enoshima",
     width: 2048,
     height: 1365,
     portrait: false,
   },
   {
     src: "/media/about/travel-l3.jpg",
-    alt: "Travel portrait from the Fujifilm X-S20",
+    alt: "Two dogs resting on the sand in Kenting",
+    title: "Kenting",
     width: 1365,
     height: 2048,
     portrait: true,
   },
   {
-    src: "/media/about/travel-l4.jpg",
-    alt: "Silhouette of someone holding a camera",
+    src: "/media/about/travel-otaru.jpg",
+    alt: "Snow-covered Otaru seen from above the harbor",
+    title: "Otaru",
     width: 2048,
     height: 1365,
     portrait: false,
@@ -84,28 +88,32 @@ const TRAVEL_LEFT = [
 const TRAVEL_RIGHT = [
   {
     src: "/media/about/travel-r1.jpg",
-    alt: "Box filled with many colors of thread",
+    alt: "Sunset silhouettes along the water in Kamakura",
+    title: "Kamakura",
     width: 2048,
     height: 1365,
     portrait: false,
   },
   {
     src: "/media/about/travel-r2.jpg",
-    alt: "Person holding a camera against the sky",
+    alt: "Niagara Falls from the water's edge",
+    title: "Niagara Falls",
     width: 1365,
     height: 2048,
     portrait: true,
   },
   {
     src: "/media/about/travel-r3.jpg",
-    alt: "Landscape from a recent trip",
+    alt: "Orange cat on a sidewalk in Tainan",
+    title: "Tainan",
     width: 2048,
     height: 1365,
     portrait: false,
   },
   {
     src: "/media/about/travel-r4.jpg",
-    alt: "Travel photograph from the Fujifilm X-S20",
+    alt: "Corner apartment building and yellow cab in NYC",
+    title: "NYC",
     width: 2048,
     height: 3072,
     portrait: true,
@@ -115,19 +123,21 @@ const TRAVEL_RIGHT = [
 function TravelPhoto({
   src,
   alt,
+  title,
   width,
   height,
   portrait,
 }: {
   src: string;
   alt: string;
+  title?: string;
   width: number;
   height: number;
   portrait: boolean;
 }) {
   return (
-    <div
-      className={`relative w-full overflow-hidden ${portrait ? "aspect-[2/3]" : "aspect-[3/2]"}`}
+    <figure
+      className={`group relative w-full overflow-hidden ${portrait ? "aspect-[2/3]" : "aspect-[3/2]"}`}
     >
       <Image
         src={src}
@@ -135,23 +145,28 @@ function TravelPhoto({
         width={width}
         height={height}
         className="h-full w-full object-cover"
-        sizes="(max-width: 1099px) 100vw, 50vw"
+        sizes="(max-width: 809px) 100vw, 50vw"
         quality={95}
       />
-    </div>
+      {title ? (
+        <figcaption className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] flex translate-y-full flex-col gap-1 p-4 text-[14px] leading-[18.2px] tracking-[0.14px] text-white transition-[translate] duration-[400ms] ease-[cubic-bezier(0.44,0,0.56,1)] group-hover:translate-y-0 motion-reduce:translate-y-0">
+          <p>{title}</p>
+        </figcaption>
+      ) : null}
+    </figure>
   );
 }
 
 export default function AboutPage() {
   return (
     <main>
-        <div className="px-3 pt-[146px] min-[1100px]:px-5 min-[1100px]:pt-[122px]">
-          <h1 className="text-[26px] font-medium leading-[31.2px] tracking-[-1.04px] text-foreground min-[1100px]:text-[28px] min-[1100px]:leading-[33.6px] min-[1100px]:tracking-[-1.12px]">
+        <div className="px-3 pt-[146px] min-[810px]:px-5 min-[810px]:pt-[122px]">
+          <h1 className="text-[26px] font-medium leading-[31.2px] tracking-[-1.04px] text-foreground min-[810px]:text-[28px] min-[810px]:leading-[33.6px] min-[810px]:tracking-[-1.12px]">
             About
           </h1>
         </div>
 
-        <div className="flex flex-col gap-7 px-3 pt-7 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground min-[1100px]:hidden">
+        <div className="flex flex-col gap-7 px-3 pt-7 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground min-[810px]:hidden">
           <div className="flex flex-col gap-[17px]">
             <p>Hello again!</p>
             <p>
@@ -181,7 +196,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="hidden px-5 pt-5 min-[1100px]:grid min-[1100px]:grid-cols-2 min-[1100px]:gap-5">
+        <div className="hidden px-5 pt-5 min-[810px]:grid min-[810px]:grid-cols-2 min-[810px]:gap-5">
           <div className="relative aspect-[3/2] w-full overflow-hidden">
             <Image
               src="/media/about/hero.jpg"
@@ -214,7 +229,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <section className="hidden px-5 pt-[99px] min-[1100px]:block">
+        <section className="hidden px-5 pt-[99px] min-[810px]:block">
           <RecentTravelsMark />
           <div className="mt-3 grid grid-cols-2 gap-5">
             <div className="flex flex-col gap-5">

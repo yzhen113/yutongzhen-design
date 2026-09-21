@@ -171,7 +171,7 @@ export default function HybridExhibitionPage() {
                   Type:
                 </span>
                 <span className="text-foreground/70">
-                  Exhibition Design, Creative Tech
+                  Exhibition Design, XR
                 </span>
               </div>
               <div className="flex items-center min-[600px]:contents">

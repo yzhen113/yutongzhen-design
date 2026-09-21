@@ -129,7 +129,6 @@ function MobileBar({
                 tabIndex={menuOpen ? 0 : -1}
               >
                 {item.label}
-                <NavDoodle />
               </Link>
             ))}
           </nav>
