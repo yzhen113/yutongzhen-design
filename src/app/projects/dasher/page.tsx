@@ -268,7 +268,7 @@ function DasherCaseStudy() {
                 100th or 500th delivery, sustained quality, or long-term service.
               </Body>
               <FramedDeviceVideo
-                src="/media/dasher/500th-dash-screen.mp4"
+                src="/media/dasher/500th-dash-screen.mp4?v=2"
                 poster="/media/dasher/500th-dash-screen-poster.png"
                 alt="Confetti celebration recognizing a Dasher’s 500th dash"
               />
