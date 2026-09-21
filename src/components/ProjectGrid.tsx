@@ -1,9 +1,6 @@
 import Link from "next/link";
 import { ProjectMedia, ProjectMeta } from "@/components/ProjectCardParts";
-import {
-  ProjectsHeading,
-  type ProjectFilter,
-} from "@/components/ProjectsHeading";
+import { type ProjectFilter } from "@/components/ProjectsHeading";
 import { projects, type Project } from "@/lib/site";
 
 function ProjectCard({ project }: { project: Project }) {
@@ -28,21 +25,14 @@ function ProjectCard({ project }: { project: Project }) {
 }
 
 export function ProjectGrid({
-  filter = "all",
+  filter = "product",
 }: {
   filter?: ProjectFilter;
 }) {
-  const visible =
-    filter === "all"
-      ? projects
-      : projects.filter((project) => project.category === filter);
+  const visible = projects.filter((project) => project.category === filter);
 
   return (
     <section className="w-full">
-      <div className="flex min-h-[191px] items-end px-3 pb-6 min-[1100px]:min-h-[220px] min-[1100px]:px-5 min-[1100px]:pb-5">
-        <ProjectsHeading active={filter} />
-      </div>
-
       <div className="grid grid-cols-1 gap-x-5 gap-y-[33px] px-3 min-[1100px]:grid-cols-2 min-[1100px]:px-5">
         {visible.map((project) => (
           <ProjectCard key={project.title} project={project} />

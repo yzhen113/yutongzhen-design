@@ -194,6 +194,52 @@ button {
   stroke-dashoffset: 0;
 }
 
+.section-filter {
+  position: relative;
+  color: #c6c6c6 !important;
+  transition: color 160ms ease;
+}
+
+.section-filter[aria-current="page"] {
+  color: #202020 !important;
+}
+
+.section-filter:hover:not([aria-current="page"]) {
+  color: #202020 !important;
+}
+
+.section-underline {
+  position: absolute;
+  left: 0;
+  bottom: -0.48em;
+  width: 100%;
+  height: 0.55em;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.section-underline svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.section-underline path {
+  fill: none;
+  stroke: #202020;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 420ms ease;
+}
+
+.section-filter:hover:not([aria-current="page"]) .section-underline path,
+.section-filter.is-underline-held .section-underline path {
+  stroke-dashoffset: 0;
+}
+
 .mobile-menu-panel {
   transition:
     transform 1s cubic-bezier(0.22, 1.12, 0.36, 1),
@@ -205,7 +251,8 @@ button {
     transition: none;
   }
 
-  .nav-doodle path {
+  .nav-doodle path,
+  .section-underline path {
     transition: none;
   }
 }

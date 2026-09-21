@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import { ProjectsHeading } from "@/components/ProjectsHeading";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
@@ -9,7 +11,8 @@ export default function SiteLayout({
   return (
     <div className="min-h-screen overflow-x-clip bg-white">
       <SiteHeader />
-      {children}
+      <ProjectsHeading />
+      <Suspense fallback={null}>{children}</Suspense>
       <SiteFooter />
     </div>
   );
