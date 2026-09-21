@@ -12,7 +12,7 @@ function StudyLinks() {
   return (
     <>
       <a
-        className="underline underline-offset-2"
+        className="plain-link"
         href={site.links.design}
         target="_blank"
         rel="noreferrer"
@@ -21,7 +21,7 @@ function StudyLinks() {
       </a>
       ,{" "}
       <a
-        className="underline underline-offset-2"
+        className="plain-link"
         href={site.links.hci}
         target="_blank"
         rel="noreferrer"
@@ -30,7 +30,7 @@ function StudyLinks() {
       </a>
       ,{" "}
       <a
-        className="underline underline-offset-2"
+        className="plain-link"
         href={site.links.physicalComputing}
         target="_blank"
         rel="noreferrer"
@@ -39,7 +39,7 @@ function StudyLinks() {
       </a>{" "}
       @ Carnegie Mellon. Previously, designing @{" "}
       <a
-        className="underline underline-offset-2"
+        className="plain-link"
         href={site.links.doordash}
         target="_blank"
         rel="noreferrer"

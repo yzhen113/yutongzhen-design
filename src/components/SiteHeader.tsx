@@ -174,7 +174,7 @@ function MobileBar({
                 >
                   Physical Computing
                 </a>{" "}
-                @ Carnegie Mellon Univeresity. Previously, desgining @{" "}
+                @ Carnegie Mellon Univeresity. Previously, designing @{" "}
                 <a
                   className="plain-link"
                   href={site.links.doordash}
@@ -301,7 +301,7 @@ function HeaderBio({ collapsed }: { collapsed: boolean }) {
           >
             Physical Computing
           </a>{" "}
-          @ Carnegie Mellon Univeresity. Previously, desgining @{" "}
+          @ Carnegie Mellon Univeresity. Previously, designing @{" "}
           <a
             className="plain-link"
             href={site.links.doordash}
