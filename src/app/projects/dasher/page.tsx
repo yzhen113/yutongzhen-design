@@ -267,18 +267,11 @@ function DasherCaseStudy() {
                 meaningful milestones throughout a driver’s journey: such as a
                 100th or 500th delivery, sustained quality, or long-term service.
               </Body>
-              <div className="overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-[#fcfcfc]">
-                <Image
-                  src="/media/dasher/future1.png"
-                  alt="Recognition mock celebrating a Dasher’s 500th dash"
-                  width={4324}
-                  height={4324}
-                  quality={100}
-                  sizes="(max-width: 1199px) 100vw, 550px"
-                  unoptimized
-                  className="h-auto w-full"
-                />
-              </div>
+              <FramedDeviceVideo
+                src="/media/dasher/500th-dash-screen.mp4"
+                poster="/media/dasher/500th-dash-screen-poster.png"
+                alt="Confetti celebration recognizing a Dasher’s 500th dash"
+              />
             </div>
 
             <div className="space-y-5">
