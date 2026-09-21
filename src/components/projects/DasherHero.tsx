@@ -7,7 +7,7 @@ const demos = [
     alt: "Day two: delivery metric celebrations",
   },
   {
-    name: "day-1",
+    name: "day-1-close",
     alt: "First dash: dash summary opening into a celebration",
   },
   {

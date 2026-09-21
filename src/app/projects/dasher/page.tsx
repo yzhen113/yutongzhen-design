@@ -184,8 +184,8 @@ function DasherCaseStudy() {
             <div className="space-y-5">
               <Subhead>First dash celebration</Subhead>
               <FramedDeviceVideo
-                src="/media/dasher/day-1-screen.mp4"
-                poster="/media/dasher/day-1-screen-poster.png"
+                src="/media/dasher/day-1-close-screen.mp4"
+                poster="/media/dasher/day-1-close-screen-poster.png"
                 alt="First dash recognition prototype"
               />
             </div>
