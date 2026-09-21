@@ -289,9 +289,9 @@ function DasherCaseStudy() {
                 delivery, and ultimately provide more opportunity for tips.
               </Body>
               <FramedDeviceVideo
-                src="/media/dasher/earnings-goal-screen.mp4?v=hold"
-                poster="/media/dasher/earnings-goal-screen-poster.png"
-                alt="Consumer app prototype showing a Dasher’s college tuition savings goal expanding during order tracking"
+                src="/media/dasher/earnings-goal-collapse-screen.mp4"
+                poster="/media/dasher/earnings-goal-collapse-screen-poster.png"
+                alt="Consumer app prototype showing a Dasher’s college tuition savings goal expanding and automatically collapsing during order tracking"
               />
             </div>
 
