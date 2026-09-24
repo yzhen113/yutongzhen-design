@@ -16,16 +16,16 @@ const demos = [
   },
 ];
 
-export function DasherHero() {
+function DasherHeroStage({ thumbnail }: { thumbnail: boolean }) {
   return (
     <div
-      className="relative w-full overflow-hidden bg-[#202020]"
-      style={{ aspectRatio: "9280 / 5272" }}
+      className={`relative w-full overflow-hidden ${thumbnail ? "bg-[#F2F2F2]" : "bg-[#202020]"}`}
+      style={{ aspectRatio: thumbnail ? "9280 / 5272" : "2992 / 1700" }}
       aria-label="DoorDash for Dashers prototype demos"
     >
-      <div className="absolute top-[15.6%] left-[18%] flex w-[64%] items-start justify-between">
+      <div className="absolute top-[7.7%] inset-x-0 flex items-start justify-center gap-[2.34%]">
         {demos.map(({ name, alt }) => (
-          <div key={name} className="w-[29.84375%] shrink-0">
+          <div key={name} className="w-[22.96%] shrink-0">
             <DeviceVideo
               src={`/media/dasher/${name}-screen.mp4`}
               poster={`/media/dasher/${name}-screen-poster.png`}
@@ -41,8 +41,22 @@ export function DasherHero() {
         height={130}
         priority
         unoptimized
-        className="absolute bottom-[6.7%] left-1/2 h-auto w-[17.5%] -translate-x-1/2"
+        className={`absolute bottom-[3.53%] left-1/2 h-auto w-[15%] -translate-x-1/2 ${thumbnail ? "brightness-0" : ""}`}
       />
+    </div>
+  );
+}
+
+export function DasherHero({ thumbnail = false }: { thumbnail?: boolean }) {
+  if (thumbnail) {
+    return <DasherHeroStage thumbnail />;
+  }
+
+  return (
+    <div className="relative flex w-full items-center justify-center bg-[#202020] px-0 min-[600px]:px-4 min-[1200px]:h-[620px] min-[1200px]:px-0">
+      <div className="relative w-full max-w-[1020px] overflow-hidden">
+        <DasherHeroStage thumbnail={false} />
+      </div>
     </div>
   );
 }

@@ -101,7 +101,7 @@ function DasherCaseStudy() {
                   Type:
                 </span>
                 <span className="text-foreground/70">
-                  Mobile, Product, B2C
+                  Mobile, Product, Shipped
                 </span>
               </div>
               <div className="flex items-center min-[600px]:contents">
