@@ -52,10 +52,7 @@ export function SiteFooter({ compact = false }: { compact?: boolean }) {
 
         <div className="flex items-start justify-end gap-1 self-end text-foreground min-[1100px]:self-auto">
           <span className="text-[14px] leading-[18.2px] tracking-[0.14px]">©</span>
-          <span
-            className="text-[12px] leading-[15.6px] tracking-[-0.24px]"
-            style={{ fontFamily: "Inter, sans-serif" }}
-          >
+          <span className="text-[12px] leading-[15.6px] tracking-[-0.24px]">
             2026
           </span>
         </div>
