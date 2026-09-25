@@ -4,8 +4,7 @@ export const site = {
   description:
     "Yutong is a visual and experience designer studying Design, Human-Computer Interaction, Physical Computing @ Carnegie Mellon University. ",
   email: "yzhen2@andrew.cmu.edu",
-  resume:
-    "https://drive.google.com/file/d/1nhLvCWdmSXkYIC221A1bTpM02HQ-LcbS/view?usp=sharing",
+  resume: "/Yutong-Zhen-Resume.pdf",
   linkedin: "https://www.linkedin.com/in/yutongzhen",
   medium: "https://medium.com/@zhenyutongg",
   x: "https://x.com/zhenyutong",
