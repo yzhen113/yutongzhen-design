@@ -312,7 +312,26 @@ button {
   text-decoration: none;
 }
 
-/* Case study TOC — default / hover / active (in-section) */
+/* Keep the reading position constant; only switch at the article boundaries. */
+.case-study-sidebar-pin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+}
+
+.case-study-sidebar-pin[data-position="pinned"] {
+  position: fixed;
+  top: 52px;
+  left: var(--sidebar-left);
+}
+
+.case-study-sidebar-pin[data-position="after"] {
+  top: auto;
+  bottom: 40px;
+}
+
+/* Case study TOC — color changes must not change text metrics or wrapping. */
 .case-study-toc-link {
   color: rgba(26, 26, 26, 0.7);
   font-weight: 400;
@@ -325,7 +344,7 @@ button {
 
 .case-study-toc-link.is-active {
   color: var(--nav-active);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 @media (max-width: 1199px) {
@@ -529,4 +548,53 @@ button {
     opacity: 0;
     transform: translateX(36%);
   }
+}
+
+/* Figma's 60% iOS corner smoothing. Native radii remain the no-JS fallback. */
+[data-smooth-corners] { position: relative; }
+[data-corners-ready="true"] {
+  border-radius: 0 !important;
+  border-color: transparent !important;
+  /* The path clips at the outer border edge. overflow:hidden clips children
+     at the padding edge instead, erasing straight strokes but leaving corners. */
+  overflow: visible !important;
+  clip-path: var(--smooth-clip);
+}
+.smooth-corner-border {
+  position: absolute;
+  pointer-events: none;
+  z-index: 20;
+  overflow: visible;
+}
+/* Native CSS strips keep long, faint edges even in Safari. The SVG draws
+   only the corner quadrants, with no overlap or doubled border at the joins. */
+.smooth-corner-border > span {
+  position: absolute;
+  display: block;
+  background: var(--outline-color);
+}
+.smooth-border-top, .smooth-border-bottom {
+  left: var(--outline-corner);
+  right: var(--outline-corner);
+  height: var(--outline-width);
+}
+.smooth-border-top { top: var(--outline-inset); }
+.smooth-border-bottom { bottom: var(--outline-inset); }
+.smooth-border-left, .smooth-border-right {
+  top: var(--outline-corner);
+  bottom: var(--outline-corner);
+  width: var(--outline-width);
+}
+.smooth-border-left { left: var(--outline-inset); }
+.smooth-border-right { right: var(--outline-inset); }
+.smooth-corner-border > svg { position: absolute; inset: 0; overflow: visible; }
+[data-smooth-corners]:fullscreen {
+  clip-path: none;
+  border-radius: 0;
+  overflow: hidden !important;
+}
+[data-smooth-corners]:fullscreen > .smooth-corner-border { display: none; }
+@supports selector(:-webkit-full-screen) {
+  [data-smooth-corners]:-webkit-full-screen { clip-path: none; border-radius: 0; overflow: hidden !important; }
+  [data-smooth-corners]:-webkit-full-screen > .smooth-corner-border { display: none; }
 }

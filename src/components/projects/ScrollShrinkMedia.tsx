@@ -9,6 +9,8 @@ const MIN_VIEWPORT = 1200;
 const TOP_GAP = 16;
 /** Gap above the viewport bottom so corner controls stay on screen. */
 const BOTTOM_GAP = 20;
+/** Keep the entire rounded player inside both viewport and clipping ancestors. */
+const SIDE_GAP = 20;
 
 function clamp01(value: number) {
   return value < 0 ? 0 : value > 1 ? 1 : value;
@@ -113,11 +115,31 @@ export function ScrollShrinkMedia({
       const header = document.querySelector("header");
       const headerH = header?.getBoundingClientRect().height ?? 34;
       const offsetTop = headerH + TOP_GAP;
-      const maxHeight = window.innerHeight - offsetTop - BOTTOM_GAP;
-      const bleedWidth = Math.min(
-        window.innerWidth,
-        maxHeight * aspect,
+      const viewport = window.visualViewport;
+      const viewportHeight = Math.min(window.innerHeight, viewport?.height ?? Infinity);
+      const viewportLeft = viewport?.offsetLeft ?? 0;
+      const viewportWidth = Math.min(
+        document.documentElement.clientWidth,
+        viewport?.width ?? Infinity,
       );
+      let left = viewportLeft;
+      let right = viewportLeft + viewportWidth;
+
+      // A full-window width can overflow the case study's capped container.
+      // Respect every ancestor that clips horizontal overflow, including Safari.
+      for (let ancestor = host.parentElement; ancestor; ancestor = ancestor.parentElement) {
+        if (/^(hidden|clip|auto|scroll)$/.test(getComputedStyle(ancestor).overflowX)) {
+          const rect = ancestor.getBoundingClientRect();
+          const contentLeft = rect.left + ancestor.clientLeft;
+          left = Math.max(left, contentLeft);
+          right = Math.min(right, contentLeft + ancestor.clientWidth);
+        }
+      }
+      const hostRect = host.getBoundingClientRect();
+      const center = hostRect.left + columnWidth / 2;
+      const maxWidth = 2 * Math.min(center - left - SIDE_GAP, right - center - SIDE_GAP);
+      const maxHeight = viewportHeight - offsetTop - BOTTOM_GAP;
+      const bleedWidth = Math.min(maxWidth, maxHeight * aspect);
 
       if (
         reduceMotion ||
@@ -154,10 +176,13 @@ export function ScrollShrinkMedia({
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", measure);
+    window.visualViewport?.addEventListener("resize", measure);
+
     return () => {
       if (frame) cancelAnimationFrame(frame);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", measure);
+      window.visualViewport?.removeEventListener("resize", measure);
       reset();
     };
   }, [aspect, setCover]);

@@ -1,5 +1,7 @@
 "use client";
 
+import { SmoothCorners } from "@/components/SmoothCorners";
+
 import { useEffect, useRef, useState } from "react";
 
 const SRC = "/proto/week-one-kudos/index.html";
@@ -104,9 +106,10 @@ export function KudosPhone({
   }, [day, live, query, stage]);
 
   return (
-    <div
+    <div className="mx-auto w-fit drop-shadow-[0_12px_14px_rgba(0,0,0,0.08)]">
+    <SmoothCorners radius={36}
       ref={hostRef}
-      className="mx-auto overflow-hidden rounded-[36px] border border-solid border-[#f2f2f2] bg-white shadow-[0_12px_28px_rgba(0,0,0,0.08)]"
+      className="mx-auto overflow-hidden rounded-[36px] border border-solid border-[#f2f2f2] bg-white"
       style={{ width, height, background: EDGE[day] ?? "#fff" }}
     >
       {live ? (
@@ -126,6 +129,7 @@ export function KudosPhone({
           }}
         />
       ) : null}
+    </SmoothCorners>
     </div>
   );
 }

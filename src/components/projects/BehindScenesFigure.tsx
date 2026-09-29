@@ -1,5 +1,6 @@
 "use client";
 
+import { SmoothCorners } from "@/components/SmoothCorners";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -37,11 +38,9 @@ const MIN_GAP = 5;
 
 export function BehindScenesFigure() {
   const imgRef = useRef<HTMLImageElement>(null);
-  const labelRefs = [
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-    useRef<HTMLDivElement>(null),
-  ];
+  const firstLabelRef = useRef<HTMLDivElement>(null);
+  const secondLabelRef = useRef<HTMLDivElement>(null);
+  const thirdLabelRef = useRef<HTMLDivElement>(null);
   // Each annotation sits on one side of the photo; that determines which edges
   // we compare when checking the gap.
   const sides: Side[] = ["left", "left", "right"];
@@ -52,7 +51,7 @@ export function BehindScenesFigure() {
       const img = imgRef.current?.getBoundingClientRect();
       if (!img) return;
       setHidden(
-        labelRefs.map((ref, i) => {
+        [firstLabelRef, secondLabelRef, thirdLabelRef].map((ref, i) => {
           const r = ref.current?.getBoundingClientRect();
           if (!r) return false;
           const gap =
@@ -82,18 +81,18 @@ export function BehindScenesFigure() {
 
   return (
     <div className="relative w-full [--arrow-len:clamp(120px,18vw,180px)] min-[1200px]:[--arrow-len:200px]">
-      <div className="overflow-hidden rounded-[8px]">
+      <SmoothCorners className="overflow-hidden rounded-[8px]">
         <Image
           ref={imgRef}
           src="/media/turning-toward/behind-scenes-photo.png"
           alt="Behind the scenes: Unity scripted interactions, Motive Optitrack system, and motion tracking markers on a 3D printed object"
           width={1840}
           height={1124}
-          className="h-auto w-full rounded-[8px]"
+          className="h-auto w-full"
           sizes="(max-width: 1199px) 100vw, 550px"
           quality={100}
         />
-      </div>
+      </SmoothCorners>
 
       <div className="pointer-events-none absolute inset-0 hidden min-[600px]:block">
         <ArrowLeader
@@ -122,7 +121,7 @@ export function BehindScenesFigure() {
         />
 
         <div
-          ref={labelRefs[0]}
+          ref={firstLabelRef}
           className="absolute whitespace-nowrap text-[13px] font-normal leading-[18.2px] tracking-[0.13px] text-foreground"
           style={{
             left: "calc(4.891% - var(--arrow-len))",
@@ -135,7 +134,7 @@ export function BehindScenesFigure() {
           Scripted interactions
         </div>
         <div
-          ref={labelRefs[1]}
+          ref={secondLabelRef}
           className="absolute whitespace-nowrap text-[13px] font-normal leading-[20px] tracking-[0.13px] text-foreground"
           style={{
             left: "calc(4.891% - var(--arrow-len))",
@@ -148,7 +147,7 @@ export function BehindScenesFigure() {
           on 3D printed object
         </div>
         <div
-          ref={labelRefs[2]}
+          ref={thirdLabelRef}
           className="absolute whitespace-nowrap text-left text-[13px] font-normal leading-[18.2px] tracking-[0.13px] text-foreground"
           style={{
             right: "calc(2.935% - var(--arrow-len))",

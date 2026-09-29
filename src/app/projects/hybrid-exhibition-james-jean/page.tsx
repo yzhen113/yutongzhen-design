@@ -1,3 +1,4 @@
+import { SmoothCorners } from "@/components/SmoothCorners";
 import Image from "next/image";
 import Link from "next/link";
 import { AutoplayVideo } from "@/components/AutoplayVideo";
@@ -67,7 +68,7 @@ function VideoFigure({
   aspectClass?: string;
 }) {
   return (
-    <div className="w-full overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-white">
+    <SmoothCorners className="w-full overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-white">
       <AutoplayVideo
         className={`${aspectClass} h-auto w-full object-cover`}
         src={src}
@@ -75,7 +76,7 @@ function VideoFigure({
         aria-label={alt}
         preload="metadata"
       />
-    </div>
+    </SmoothCorners>
   );
 }
 
@@ -96,7 +97,7 @@ function Figure({
 }) {
   return (
     <figure className="w-full">
-      <div
+      <SmoothCorners radius={framed ? 8 : 0}
         className={
           framed
             ? "w-full overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-white"
@@ -113,7 +114,7 @@ function Figure({
           quality={100}
           unoptimized={unoptimized ?? !framed}
         />
-      </div>
+      </SmoothCorners>
     </figure>
   );
 }
@@ -139,7 +140,7 @@ export default function HybridExhibitionPage() {
       <ScrollShrinkCoverProvider>
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
         <aside className="pointer-events-none absolute top-0 bottom-0 left-0 hidden w-[200px] pb-10 min-[1200px]:block">
-          <div className="pointer-events-auto sticky top-[52px] pt-[60px] pl-20">
+          <div className="case-study-sidebar-pin pointer-events-auto pt-[60px] pl-20">
             <CaseStudySidebar fadeUnderMedia sections={jamesJeanSections} />
           </div>
         </aside>

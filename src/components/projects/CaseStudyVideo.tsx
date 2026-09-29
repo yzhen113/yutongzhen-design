@@ -1,5 +1,7 @@
 "use client";
 
+import { SmoothCorners } from "@/components/SmoothCorners";
+
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
 const PLAY_PATH =
@@ -70,7 +72,6 @@ export function CaseStudyVideo({
   const barRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);
   const [playing, setPlaying] = useState(false);
-  const [started, setStarted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [muted, setMuted] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
@@ -179,7 +180,6 @@ export function CaseStudyVideo({
     };
     const onPlay = () => {
       setPlaying(true);
-      setStarted(true);
       if (wrapRef.current?.matches(":hover")) showChrome();
       else scheduleHide();
     };
@@ -231,7 +231,7 @@ export function CaseStudyVideo({
   }, []);
 
   return (
-    <div
+    <SmoothCorners
       ref={wrapRef}
       onPointerEnter={showChrome}
       onPointerLeave={() => {
@@ -377,6 +377,6 @@ export function CaseStudyVideo({
           />
         </div>
       </div>
-    </div>
+    </SmoothCorners>
   );
 }

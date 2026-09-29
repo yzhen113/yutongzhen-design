@@ -1,5 +1,7 @@
 "use client";
 
+import { SmoothCorners } from '@/components/SmoothCorners'
+
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import styles from './DasherConfigCard.module.css'
@@ -191,11 +193,11 @@ export function DasherConfigCard() {
       <div className={styles.layout}>
         <div className={styles.cardStage}>
           <div className={styles.cardScale}>
-            <div className={styles.card} style={{ height: bodyHeight + 34 }}>
+            <SmoothCorners radius={32} className={styles.card} style={{ height: bodyHeight + 34 }}>
               <div ref={bodyRef}>
                 <CardBody key={card.kind} card={card} playing={live} />
               </div>
-            </div>
+            </SmoothCorners>
           </div>
         </div>
         <div className={styles.notes}>

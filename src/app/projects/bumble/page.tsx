@@ -1,3 +1,4 @@
+import { SmoothCorners } from "@/components/SmoothCorners";
 import Image from "next/image";
 import Link from "next/link";
 import { AutoplayVideo } from "@/components/AutoplayVideo";
@@ -88,7 +89,7 @@ function Figure({
 }) {
   return (
     <figure className="w-full">
-      <div
+      <SmoothCorners radius={framed ? 8 : 0}
         className={
           framed
             ? "w-full overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-white"
@@ -106,7 +107,7 @@ function Figure({
           // Charts stay unoptimized so thin lines/type stay crisp
           unoptimized={unoptimized ?? !framed}
         />
-      </div>
+      </SmoothCorners>
       {caption ? (
         <figcaption className="mt-3 text-[14px] font-normal leading-[18.2px] tracking-[0.14px] text-[#7e7e7e]">
           {caption}
@@ -126,7 +127,7 @@ function VideoFigure({
   alt: string;
 }) {
   return (
-    <div className="w-full overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-white">
+    <SmoothCorners className="w-full overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-white">
       <AutoplayVideo
         className="aspect-square h-auto w-full object-cover"
         src={src}
@@ -134,7 +135,7 @@ function VideoFigure({
         aria-label={alt}
         preload="metadata"
       />
-    </div>
+    </SmoothCorners>
   );
 }
 
@@ -165,9 +166,9 @@ export default function BumblePage() {
       </div>
 
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
-        {/* Sticky sidebar — desktop only (≥1200px). Bottom pad keeps gap above More projects. */}
+        {/* Fixed sidebar — desktop only (≥1200px). Bottom pad keeps gap above More projects. */}
         <aside className="pointer-events-none absolute top-0 bottom-0 left-0 hidden w-[200px] pb-10 min-[1200px]:block">
-          <div className="pointer-events-auto sticky top-[52px] pt-[60px] pl-20">
+          <div className="case-study-sidebar-pin pointer-events-auto pt-[60px] pl-20">
             <CaseStudySidebar />
           </div>
         </aside>
@@ -514,6 +515,26 @@ export default function BumblePage() {
               Watch.
             </Body>
           </section>
+
+          <div className="mt-10 border-t border-black/10 py-5">
+            <p className="text-[14px] font-normal leading-[18.2px] tracking-[0.14px] text-[#7e7e7e]">
+              Made with Figma &amp; Origami Studio
+              <svg
+                aria-hidden="true"
+                className="ml-1.5 inline-block h-[14px] w-[15px] align-[-2px]"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M10 17.1C9.65 17.1 9.3 16.9 8.8 16.5C5.3 13.65 2 10.8 2 7.45C2 4.95 3.7 3.2 6.05 3.2C7.75 3.2 9.1 4.2 10 5.6C10.9 4.2 12.25 3.2 13.95 3.2C16.3 3.2 18 4.95 18 7.45C18 10.8 14.7 13.65 11.2 16.5C10.7 16.9 10.35 17.1 10 17.1Z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </p>
+          </div>
         </article>
       </div>
 

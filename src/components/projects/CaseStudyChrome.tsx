@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from "react";
 import { useScrollShrinkCover } from "@/components/projects/ScrollShrinkCover";
 
 const navItems = [
@@ -99,9 +99,47 @@ export function CaseStudySidebar({
   sections?: readonly { id: string; label: string }[];
   fadeUnderMedia?: boolean;
 }) {
+  const navRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(sections[0]?.id ?? "");
   const mediaCover = useScrollShrinkCover();
   const hidden = fadeUnderMedia && mediaCover > 0;
+
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    const pin = nav?.parentElement;
+    const aside = pin?.closest("aside");
+    if (!nav || !pin || !aside) return;
+
+    // Change positioning only at the article boundaries. While reading, the
+    // sidebar is viewport-fixed: no sticky offsets or scroll-driven transforms.
+    const update = () => {
+      const bounds = aside.getBoundingClientRect();
+      const mode = bounds.top > 52
+        ? "before"
+        : bounds.bottom - 40 <= 52 + pin.offsetHeight
+          ? "after"
+          : "pinned";
+      if (pin.dataset.position !== mode) pin.dataset.position = mode;
+      const left = `${bounds.left}px`;
+      if (pin.style.getPropertyValue("--sidebar-left") !== left) {
+        pin.style.setProperty("--sidebar-left", left);
+      }
+    };
+
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(aside);
+    observer.observe(nav);
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      delete pin.dataset.position;
+      pin.style.removeProperty("--sidebar-left");
+    };
+  }, []);
 
   useEffect(() => {
     const elements = sections
@@ -154,12 +192,13 @@ export function CaseStudySidebar({
 
   return (
     <nav
+      ref={navRef}
       aria-label="Case study sections"
       data-case-study-sidebar={fadeUnderMedia ? "" : undefined}
       aria-hidden={hidden || undefined}
       className={[
-        "flex w-[105px] flex-col gap-[3px] transition-[opacity,filter] duration-500 ease-out",
-        hidden ? "pointer-events-none opacity-0 blur-sm" : "opacity-100 blur-0",
+        "flex w-[105px] flex-col gap-[3px] transition-opacity duration-500 ease-out",
+        hidden ? "pointer-events-none opacity-0" : "opacity-100",
       ].join(" ")}
     >
       {sections.map((section) => {
