@@ -13,7 +13,7 @@ export function ProjectMedia({ project }: { project: Project }) {
     return (
       <div className="w-full overflow-hidden">
         <AutoplayVideo
-          className="block h-auto w-full"
+          className="block h-auto w-full transition-transform duration-300 ease-out group-hover:scale-105"
           src={project.media.src}
           poster={project.media.poster}
           playWhenVisible

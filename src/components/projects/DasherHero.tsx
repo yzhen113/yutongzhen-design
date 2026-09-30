@@ -209,7 +209,15 @@ function MetricCardsHero({ thumbnail = false }: { thumbnail?: boolean }) {
     </div>
   );
 
-  if (thumbnail) return <div className={styles.thumbnailFrame}>{hero}</div>;
+  if (thumbnail) {
+    return (
+      <div className={`${styles.thumbnailFrame} overflow-hidden`}>
+        <div className="h-full w-full origin-center transition-transform duration-300 ease-out group-hover:scale-105">
+          {hero}
+        </div>
+      </div>
+    );
+  }
   return hero;
 }
 
