@@ -5,6 +5,7 @@ import {
   CaseStudySidebar,
   dasherSections,
 } from "@/components/projects/CaseStudyChrome";
+import { CupcakeTuner } from "@/components/projects/CupcakeTuner";
 import { DasherConfigCard } from "@/components/projects/DasherConfigCard";
 import { DasherHero } from "@/components/projects/DasherHero";
 import { DasherLockScreen } from "@/components/projects/DasherLockScreen";
@@ -245,6 +246,15 @@ function DasherCaseStudy() {
               feel rewarding without custom engineering.
             </Body>
             <DasherMotionGrid />
+            <div className="space-y-5 pt-5">
+              <Subhead>From stills to motion</Subhead>
+              <Body>
+                Here is a snippet of how I built the animations: I split the
+                first-dash cupcake into a base and a candle, then fine-tuned
+                the behaviors until it felt like a celebration.
+              </Body>
+              <CupcakeTuner />
+            </div>
           </section>
 
           <section
@@ -326,7 +336,7 @@ function DasherCaseStudy() {
           </section>
           <div className="mt-10 border-t border-black/10 py-5">
             <p className="text-[14px] font-normal leading-[18.2px] tracking-[0.14px] text-[#7e7e7e]">
-              Made with Xcode
+              Made with Claude Code, Codex, and Xcode
               <svg
                 aria-hidden="true"
                 className="ml-1.5 inline-block h-[1em] w-[1em] align-[-0.125em]"

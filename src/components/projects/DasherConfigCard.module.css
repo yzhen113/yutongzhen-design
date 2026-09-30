@@ -23,7 +23,6 @@
   box-sizing: border-box;
   padding: 16px;
   background: #fff;
-  border: 1px solid #e4e4e4;
   border-radius: 32px;
   font-family: "Dasher Config Norms", sans-serif;
   transition: height 500ms cubic-bezier(.22, 1, .36, 1);
