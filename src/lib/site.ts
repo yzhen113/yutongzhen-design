@@ -56,7 +56,7 @@ export const projects: Project[] = [
   },
   {
     title: "Crimson",
-    tags: "Mobile, Product, Fintech",
+    tags: "Product, Fintech, Shipped",
     href: "/projects/crimson",
     category: "product",
     locked: true,
