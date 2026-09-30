@@ -58,8 +58,15 @@ export function PasswordField({
           className="pointer-events-none absolute inset-0 overflow-visible"
         >
           <defs>
-            <mask id={haloMaskId}>
-              <rect x={-20} y={-20} width={245} height={81} fill="white" />
+            <mask
+              id={haloMaskId}
+              maskUnits="userSpaceOnUse"
+              x={-12}
+              y={-12}
+              width={229}
+              height={65}
+            >
+              <rect x={-12} y={-12} width={229} height={65} fill="white" />
               <path d={boxPath} fill="black" />
             </mask>
           </defs>
