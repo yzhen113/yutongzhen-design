@@ -1,9 +1,14 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import { AutoplayVideo } from "@/components/AutoplayVideo";
+import { DasherHero } from "@/components/projects/DasherHero";
 import type { Project } from "@/lib/site";
 
 export function ProjectMedia({ project }: { project: Project }) {
+  if (project.href === "/projects/dasher") {
+    return <DasherHero thumbnail />;
+  }
+
   if (project.media.type === "video") {
     return (
       <div className="w-full overflow-hidden">
