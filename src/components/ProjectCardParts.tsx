@@ -13,7 +13,7 @@ export function ProjectMedia({ project }: { project: Project }) {
     return (
       <div className="w-full overflow-hidden">
         <AutoplayVideo
-          className="block h-auto w-full transition-transform duration-300 ease-out group-hover:scale-105"
+          className="block h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
           src={project.media.src}
           poster={project.media.poster}
           playWhenVisible
@@ -39,13 +39,14 @@ export function ProjectMedia({ project }: { project: Project }) {
         quality={100}
         unoptimized={
           project.media.src.startsWith("/media/cmused/") ||
-          project.media.src.startsWith("/media/doordash/")
+          project.media.src.startsWith("/media/doordash/") ||
+          project.media.src.startsWith("/media/crimson/")
         }
         className="object-cover transition-transform duration-300 ease-out [transform:scale(var(--thumb-scale))] group-hover:[transform:scale(var(--thumb-hover-scale))]"
         style={
           {
             "--thumb-scale": String(scale),
-            "--thumb-hover-scale": String(scale * 1.05),
+            "--thumb-hover-scale": String(scale * 1.03),
           } as CSSProperties
         }
         sizes="(max-width: 1099px) 100vw, 50vw"

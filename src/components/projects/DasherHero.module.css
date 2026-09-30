@@ -111,29 +111,33 @@
 .ratingValue { font-size: 14px; line-height: 20px; color: #606060; }
 .ratingValue strong { font-weight: 700; color: #000; }
 .thumbnailFrame {
-  container-type: inline-size;
+  position: relative;
   width: 100%;
   aspect-ratio: 690 / 392;
+  background: #f2f2f2;
+}
+.thumbnailCanvas {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 690px;
+  height: 392px;
+  transform: scale(var(--thumbnail-scale, 0));
+  transform-origin: top left;
 }
 .thumbnail {
-  --card-scale: 0.26;
+  --card-scale: 0.42;
   width: 100%;
   height: 100%;
   min-height: 0;
   padding: 0;
 }
-.thumbnail .cards { gap: 12px; }
-@container (min-width: 420px) {
-  .thumbnail { --card-scale: 0.34; }
-  .thumbnail .cards { gap: 16px; }
+.thumbnail .cards { gap: 24px; }
+@media (min-width: 600px) and (max-width: 1099px) {
+  .thumbnail { --card-scale: 0.48; }
+  .thumbnail .cards { transform: translateY(-32px); }
 }
-@container (min-width: 640px) {
-  .thumbnail { --card-scale: 0.42; }
-  .thumbnail .cards { gap: 24px; }
-}
-@container (min-width: 860px) {
-  .thumbnail { --card-scale: 0.5; }
-  .thumbnail .cards { gap: 28px; }
+@media (min-width: 1100px) {
+  .thumbnail .cards { transform: translateY(-12px); }
 }
 @media (min-width: 600px) {
   .hero:not(.thumbnail) { --card-scale: 0.54; min-height: 520px; }

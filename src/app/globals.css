@@ -205,7 +205,7 @@ button {
 }
 
 .section-filter:hover:not([aria-current="page"]) {
-  color: #202020 !important;
+  color: color-mix(in srgb, #202020 80%, #fff) !important;
 }
 
 .section-underline {

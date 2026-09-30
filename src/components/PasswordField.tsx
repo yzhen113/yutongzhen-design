@@ -16,7 +16,9 @@ export function PasswordField({
   onValueChange?: () => void;
 }) {
   const inputId = useId();
+  const haloMaskId = `password-halo-${useId().replace(/:/g, "")}`;
   const [focused, setFocused] = useState(false);
+  const boxPath = smoothCornerPath(205, 41, 10);
 
   return (
     <div className="flex w-[206px] flex-col gap-2.5">
@@ -55,10 +57,22 @@ export function PasswordField({
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 overflow-visible"
         >
+          <defs>
+            <mask id={haloMaskId}>
+              <rect x={-20} y={-20} width={245} height={81} fill="white" />
+              <path d={boxPath} fill="black" />
+            </mask>
+          </defs>
           {(focused || error) && (
-            <path d={smoothCornerPath(205, 41, 10)} fill="none" stroke={error ? "rgba(194,59,59,0.18)" : "rgba(0,122,255,0.22)"} strokeWidth={12} />
+            <path
+              d={boxPath}
+              fill="none"
+              stroke={error ? "rgba(194,59,59,0.18)" : "rgba(0,122,255,0.22)"}
+              strokeWidth={12}
+              mask={`url(#${haloMaskId})`}
+            />
           )}
-          <path d={smoothCornerPath(205, 41, 10)} fill="none" stroke={error ? "#e8a0a0" : focused ? "rgba(0,122,255,0.35)" : "rgba(0,0,0,0.08)"} strokeWidth={1.7} />
+          <path d={boxPath} fill="none" stroke={error ? "#e8a0a0" : focused ? "rgba(0,122,255,0.35)" : "rgba(0,0,0,0.08)"} strokeWidth={1.7} />
         </svg>
       </div>
       <a

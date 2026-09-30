@@ -36,6 +36,14 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    title: "Dasher: Building better delivery experiences",
+    tags: "Mobile, Product, Shipped",
+    href: "/projects/dasher",
+    category: "product",
+    locked: true,
+    media: { type: "image", src: "/media/dasher/hero.png" },
+  },
+  {
     title: "BUZZ Signal",
     tags: "Product, Interaction Design,  iOS",
     href: "/projects/bumble",
@@ -47,12 +55,12 @@ export const projects: Project[] = [
     },
   },
   {
-    title: "Dasher: Building better delivery experiences",
-    tags: "Mobile, Product, Shipped",
-    href: "/projects/dasher",
+    title: "Crimson",
+    tags: "Mobile, Product",
+    href: "/projects/crimson",
     category: "product",
     locked: true,
-    media: { type: "image", src: "/media/doordash/thumbnail.png" },
+    media: { type: "image", src: "/media/crimson/cover.png" },
   },
   {
     title: "Turning Toward",

@@ -152,12 +152,27 @@ function WeekDetails({ animate }: { animate: boolean }) {
 
 function MetricCardsHero({ thumbnail = false }: { thumbnail?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
+  const thumbnailRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
   const [metricCycle, setMetricCycle] = useState(0);
   const [weekCycle, setWeekCycle] = useState(0);
   const [replayToken, setReplayToken] = useState(0);
   const metricAnimate = playing && metricCycle > 0;
   const weekAnimate = playing && weekCycle > 0;
+
+  useLayoutEffect(() => {
+    if (!thumbnail) return;
+    const frame = thumbnailRef.current;
+    if (!frame) return;
+    // Scale the whole composition so cards, gaps, and logo retain their proportions.
+    const resize = () => {
+      frame.style.setProperty("--thumbnail-scale", String(frame.clientWidth / 690));
+    };
+    resize();
+    const observer = new ResizeObserver(resize);
+    observer.observe(frame);
+    return () => observer.disconnect();
+  }, [thumbnail]);
 
   useEffect(() => {
     const el = ref.current;
@@ -178,7 +193,6 @@ function MetricCardsHero({ thumbnail = false }: { thumbnail?: boolean }) {
 
   const hero = (
     <div ref={ref} className={`${styles.hero} ${thumbnail ? styles.thumbnail : ""}`}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <div
         className={styles.brand}
         style={{ position: "absolute", left: "50%", bottom: "6.5%", width: "clamp(84px, 14.5%, 160px)", transform: "translateX(-50%)", zIndex: 2 }}
@@ -211,9 +225,11 @@ function MetricCardsHero({ thumbnail = false }: { thumbnail?: boolean }) {
 
   if (thumbnail) {
     return (
-      <div className={`${styles.thumbnailFrame} overflow-hidden`}>
-        <div className="h-full w-full origin-center transition-transform duration-300 ease-out group-hover:scale-105">
-          {hero}
+      <div ref={thumbnailRef} className={`${styles.thumbnailFrame} overflow-hidden`}>
+        <div className={styles.thumbnailCanvas}>
+          <div className="h-full w-full origin-center transition-transform duration-300 ease-out group-hover:scale-[1.03]">
+            {hero}
+          </div>
         </div>
       </div>
     );

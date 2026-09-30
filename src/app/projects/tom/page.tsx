@@ -540,7 +540,7 @@ export default function TomPage() {
                   width={9280}
                   height={5272}
                   quality={100}
-                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-105"
+                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
                 />
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
@@ -560,7 +560,7 @@ export default function TomPage() {
                   alt="Turning Toward"
                   width={2320}
                   height={1318}
-                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-105"
+                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
                 />
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
