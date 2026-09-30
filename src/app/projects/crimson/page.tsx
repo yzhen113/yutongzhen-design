@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { isCrimsonUnlocked } from "@/lib/project-lock";
 
 export const metadata = {
-  title: "Yutong Zhen - Crimson",
+  title: "Yutong Zhen - Crimson: From payouts to everyday banking",
 };
 
 export default async function CrimsonPage() {
@@ -13,7 +13,7 @@ export default async function CrimsonPage() {
 
   return (
     <div className="flex min-h-screen flex-col overflow-x-clip bg-white">
-      <CaseStudyHeader title="Crimson" />
+      <CaseStudyHeader title="Crimson: From payouts to everyday banking" />
       {unlocked ? (
         <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
           <Image

@@ -55,12 +55,12 @@ export const projects: Project[] = [
     },
   },
   {
-    title: "Crimson",
+    title: "Crimson: From payouts to everyday banking",
     tags: "Product, Fintech, Shipped",
     href: "/projects/crimson",
     category: "product",
     locked: true,
-    media: { type: "image", src: "/media/crimson/cover.png" },
+    media: { type: "image", src: "/media/crimson/cover2.png" },
   },
   {
     title: "Turning Toward",
