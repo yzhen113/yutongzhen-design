@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { CaseStudyHeader } from "@/components/projects/CaseStudyChrome";
 import { CrimsonLockScreen } from "@/components/projects/CrimsonLockScreen";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -9,6 +10,8 @@ export const metadata = {
 };
 
 export default async function CrimsonPage() {
+  if (process.env.NODE_ENV !== "development") notFound();
+
   const unlocked = await isCrimsonUnlocked();
 
   return (

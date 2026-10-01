@@ -25,6 +25,8 @@ export type Project = {
   tags: string;
   href?: string;
   locked?: boolean;
+  /** Shown in the local preview only. Omitted from the production site. */
+  previewOnly?: boolean;
   category: ProjectCategory;
   media: {
     type: "video" | "image";
@@ -34,7 +36,7 @@ export type Project = {
   };
 };
 
-export const projects: Project[] = [
+const allProjects: Project[] = [
   {
     title: "Dasher: Building better delivery experiences",
     tags: "Mobile, Product, Shipped",
@@ -80,6 +82,7 @@ export const projects: Project[] = [
     href: "/projects/crimson",
     category: "product",
     locked: true,
+    previewOnly: true,
     media: { type: "image", src: "/media/crimson/cover2.png" },
   },
   {
@@ -90,3 +93,7 @@ export const projects: Project[] = [
     media: { type: "image", src: "/media/james-jean/cover.png" },
   },
 ];
+
+export const projects = allProjects.filter(
+  (project) => process.env.NODE_ENV === "development" || !project.previewOnly,
+);
