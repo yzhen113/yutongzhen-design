@@ -224,7 +224,7 @@ export function CupcakeTuner() {
       </div>
 
       <p className="mt-5 text-[14px] font-normal leading-[18.2px] tracking-[0.14px] text-[#7e7e7e]">
-        These values regenerate one file — eng can drop it into the card slot on iOS, Android and web quickly without extra effort.
+        These values regenerate one file — eng can drop it into the card slot on iOS, Android quickly as a json file.
       </p>
     </div>
   );
