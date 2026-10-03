@@ -59,6 +59,7 @@ const allProjects: Project[] = [
     title: "CMU Out Loud",
     tags: "Experience Design, Public Installation, Visual Identity",
     category: "experience",
+    previewOnly: true,
     media: { type: "image", src: "/media/cmu-out-loud/thumbnail.jpg" },
   },
   {
