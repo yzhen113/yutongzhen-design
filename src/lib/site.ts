@@ -56,6 +56,12 @@ const allProjects: Project[] = [
     },
   },
   {
+    title: "CMU Out Loud",
+    tags: "Experience Design, Public Installation, Visual Identity",
+    category: "experience",
+    media: { type: "image", src: "/media/cmu-out-loud/thumbnail.jpg" },
+  },
+  {
     title: "Turning Toward",
     tags: "Spatial Experience, Creative Tech",
     href: "/projects/turning-toward",

@@ -146,6 +146,15 @@
 @media (min-width: 1200px) {
   .hero:not(.thumbnail) { --card-scale: 0.66; height: 620px; padding-top: 0; padding-bottom: 0; }
 }
+@media (max-width: 599px) {
+  .hero:not(.thumbnail) {
+    min-height: 300px;
+    padding: 16px 12px;
+  }
+  .hero:not(.thumbnail) .cards {
+    transform: translateY(-12px);
+  }
+}
 @media (max-width: 369px) {
   .hero:not(.thumbnail) { --card-scale: 0.28; }
   .hero:not(.thumbnail) .cards { gap: 6px; }
