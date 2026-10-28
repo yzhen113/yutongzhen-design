@@ -1,0 +1,53 @@
+.reveal {
+  position: relative;
+}
+
+.reveal[data-fill],
+.reveal[data-fill] .media {
+  position: absolute;
+  inset: 0;
+}
+
+/* Media stays invisible until it is fully decoded / playable, then fades in whole. */
+.media {
+  opacity: 0;
+  transform: scale(1.02);
+  transition:
+    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal[data-loaded="true"] .media {
+  opacity: 1;
+  transform: none;
+}
+
+/* Only shows if loading takes >200ms, so cached media never flashes a loader. */
+.loaderSlot {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+  animation: loader-in 240ms ease 200ms forwards;
+  transition: opacity 200ms ease;
+}
+
+.reveal[data-loaded="true"] .loaderSlot {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes loader-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media {
+    transform: none;
+    transition: opacity 200ms ease;
+  }
+}

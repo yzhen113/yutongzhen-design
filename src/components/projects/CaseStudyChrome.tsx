@@ -83,6 +83,16 @@ export const dasherSections = [
   { id: "outcome", label: "Outcome" },
 ] as const;
 
+export const cmuOutLoudSections = [
+  { id: "overview", label: "Overview" },
+  { id: "context", label: "Context" },
+  { id: "research", label: "Research" },
+  { id: "explorations", label: "Explorations" },
+  { id: "design", label: "Design" },
+  { id: "build", label: "Build" },
+  { id: "reflection", label: "Reflection" },
+] as const;
+
 export const turningTowardSections = [
   { id: "overview", label: "Overview" },
   { id: "context", label: "Context" },

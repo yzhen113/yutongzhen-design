@@ -33,10 +33,12 @@ function SectionUnderline() {
 }
 
 function typeStyle(selected: boolean) {
+  // Selected matches the Playground heading scale via CSS vars, which resolve
+  // to 26px (mobile) / 28px (>=1100px) without an animated viewport jump.
   return {
-    fontSize: selected ? 26 : 18,
-    lineHeight: selected ? "31.2px" : "21.6px",
-    letterSpacing: selected ? "-1.04px" : "-0.72px",
+    fontSize: selected ? "var(--section-fs)" : 18,
+    lineHeight: selected ? "var(--section-lh)" : "21.6px",
+    letterSpacing: selected ? "var(--section-ls)" : "-0.72px",
     transition: `font-size ${TYPE_MS}ms ${TYPE_EASE}, line-height ${TYPE_MS}ms ${TYPE_EASE}, letter-spacing ${TYPE_MS}ms ${TYPE_EASE}`,
   } as const;
 }
@@ -81,7 +83,7 @@ export function ProjectsHeading() {
   if (!onProjects) return null;
 
   return (
-    <div className="flex min-h-[191px] items-end px-3 pb-6 min-[1100px]:min-h-[220px] min-[1100px]:px-5 min-[1100px]:pb-5">
+    <div className="flex px-3 pt-[140px] pb-5 min-[1100px]:px-5 min-[1100px]:pt-[160px]">
       <div className="flex flex-wrap items-baseline justify-start gap-x-2.5 gap-y-1 min-[1100px]:gap-x-5">
         <h1 className="sr-only">
           {active === "product" ? "Product" : "Experience"}

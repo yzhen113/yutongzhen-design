@@ -1,0 +1,56 @@
+/* Centerline traced from the paperclip in Figma (portfolio stuff, 1274:32541).
+   The wire draws in from the open end, holds, then rewinds the way it came. */
+.loader {
+  display: block;
+  height: 76px;
+  width: auto;
+  aspect-ratio: 258 / 552;
+  color: #9a9a9a;
+  overflow: visible;
+}
+
+.loader path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.track {
+  opacity: 0.12;
+}
+
+/* Offsets run slightly past 0..1 so the round cap never leaves a dot at either end. */
+.thread {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 1.01;
+  animation: paperclip 3.9s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes paperclip {
+  0% {
+    stroke-dashoffset: 1.01;
+  }
+  45%,
+  55% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 1.01;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thread {
+    stroke-dashoffset: 0;
+    animation: paperclip-pulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes paperclip-pulse {
+    50% {
+      opacity: 0.3;
+    }
+  }
+}

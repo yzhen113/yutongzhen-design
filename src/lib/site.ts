@@ -15,6 +15,7 @@ export const site = {
     physicalComputing:
       "https://ideate.cmu.edu/undergraduate-programs/physical-computing/index.html",
     doordash: "https://doordash.com",
+    cmu: "https://www.cmu.edu/",
   },
 };
 
@@ -42,6 +43,7 @@ const allProjects: Project[] = [
     tags: "Mobile, Product, Shipped",
     href: "/projects/dasher",
     category: "product",
+    locked: true,
     media: { type: "image", src: "/media/dasher/hero.png" },
   },
   {
@@ -57,10 +59,11 @@ const allProjects: Project[] = [
   },
   {
     title: "CMU Out Loud",
-    tags: "Experience Design, Public Installation, Visual Identity",
+    tags: "Experience Design, Participatory Design, Visual Identity",
+    href: "/projects/cmu-out-loud",
     category: "experience",
     previewOnly: true,
-    media: { type: "image", src: "/media/cmu-out-loud/thumbnail.jpg" },
+    media: { type: "image", src: "/media/cmu-out-loud/hero.jpg" },
   },
   {
     title: "Turning Toward",
@@ -82,15 +85,6 @@ const allProjects: Project[] = [
     href: "/projects/tom",
     category: "product",
     media: { type: "image", src: "/media/tom/thumbnail.png" },
-  },
-  {
-    title: "Crimson: From payouts to everyday banking",
-    tags: "Product, Fintech, Shipped",
-    href: "/projects/crimson",
-    category: "product",
-    locked: true,
-    previewOnly: true,
-    media: { type: "image", src: "/media/crimson/cover2.png" },
   },
   {
     title: "Hybrid Exhibition: James Jean x Hunt Institute",

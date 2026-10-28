@@ -136,13 +136,26 @@ button {
 
 .plain-link {
   color: var(--foreground);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  transition: color 160ms ease;
+  text-decoration: none;
+  /* Underline drawn as a background gradient so it can animate its width. */
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  padding-bottom: 2px;
+  transition: color 160ms ease, background-size 320ms ease;
 }
 
 .plain-link:hover {
   color: var(--nav-active);
+  /* Grow the underline from left to right on hover. */
+  background-size: 100% 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plain-link {
+    transition: color 160ms ease;
+  }
 }
 
 .nav-link {
@@ -198,6 +211,18 @@ button {
   position: relative;
   color: #c6c6c6 !important;
   transition: color 160ms ease;
+  /* Selected-heading scale, matching the Playground heading. */
+  --section-fs: 26px;
+  --section-lh: 31.2px;
+  --section-ls: -1.04px;
+}
+
+@media (min-width: 1100px) {
+  .section-filter {
+    --section-fs: 28px;
+    --section-lh: 33.6px;
+    --section-ls: -1.12px;
+  }
 }
 
 .section-filter[aria-current="page"] {

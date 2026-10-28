@@ -174,7 +174,17 @@ function MobileBar({
                 >
                   Physical Computing
                 </a>{" "}
-                @ Carnegie Mellon Univeresity. Previously, designing @{" "}
+                @{" "}
+                <a
+                  className="plain-link"
+                  href={site.links.cmu}
+                  target="_blank"
+                  rel="noreferrer"
+                  tabIndex={menuOpen ? 0 : -1}
+                >
+                  Carnegie Mellon Univeresity
+                </a>
+                . Previously, designing @{" "}
                 <a
                   className="plain-link"
                   href={site.links.doordash}
@@ -301,7 +311,16 @@ function HeaderBio({ collapsed }: { collapsed: boolean }) {
           >
             Physical Computing
           </a>{" "}
-          @ Carnegie Mellon Univeresity. Previously, designing @{" "}
+          @{" "}
+          <a
+            className="plain-link"
+            href={site.links.cmu}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Carnegie Mellon Univeresity
+          </a>
+          . Previously, designing @{" "}
           <a
             className="plain-link"
             href={site.links.doordash}

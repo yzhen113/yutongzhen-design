@@ -8,9 +8,11 @@ import {
 import { CupcakeTuner } from "@/components/projects/CupcakeTuner";
 import { DasherConfigCard } from "@/components/projects/DasherConfigCard";
 import { DasherHero } from "@/components/projects/DasherHero";
+import { DasherLockScreen } from "@/components/projects/DasherLockScreen";
 import { DasherMotionGrid } from "@/components/projects/DasherMotionGrid";
 import { FramedDeviceVideo } from "@/components/projects/FramedDeviceVideo";
 import { SiteFooter } from "@/components/SiteFooter";
+import { isDasherUnlocked } from "@/lib/project-lock";
 
 export const metadata = {
   title: "Yutong Zhen - Dasher: Building better delivery experiences",
@@ -53,12 +55,14 @@ function Subhead({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function DasherPage() {
+export default async function DasherPage() {
+  const unlocked = await isDasherUnlocked();
+
   return (
     <div className="flex min-h-screen flex-col overflow-x-clip bg-white">
       <CaseStudyHeader title="Dasher: Building better delivery experiences" />
-      <DasherCaseStudy />
-      <SiteFooter />
+      {unlocked ? <DasherCaseStudy /> : <DasherLockScreen />}
+      <SiteFooter compact={!unlocked} />
     </div>
   );
 }
