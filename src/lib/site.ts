@@ -62,7 +62,6 @@ const allProjects: Project[] = [
     tags: "Experience Design, Participatory Design, Visual Identity",
     href: "/projects/cmu-out-loud",
     category: "experience",
-    previewOnly: true,
     media: { type: "image", src: "/media/cmu-out-loud/hero.jpg" },
   },
   {
