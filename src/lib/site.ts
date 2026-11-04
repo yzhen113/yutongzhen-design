@@ -43,7 +43,6 @@ const allProjects: Project[] = [
     tags: "Mobile, Product, Shipped",
     href: "/projects/dasher",
     category: "product",
-    locked: true,
     media: { type: "image", src: "/media/dasher/hero.png" },
   },
   {
