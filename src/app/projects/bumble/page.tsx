@@ -262,16 +262,15 @@ export default function BumblePage() {
                   rates.
                 </Body>
                 {/* Matches Framer: 157×96, overlaps end of body line */}
-                <MediaReveal>
-                  <Image
-                    src="/media/bumble/bee.png"
-                    alt=""
-                    width={313}
-                    height={191}
-                    aria-hidden
-                    className="pointer-events-none absolute -top-3 left-[452px] z-10 hidden h-auto w-[157px] min-[1200px]:block"
-                  />
-                </MediaReveal>
+                {/* No MediaReveal: it is absolutely positioned, so the loader would float in an empty box. */}
+                <Image
+                  src="/media/bumble/bee.png"
+                  alt=""
+                  width={313}
+                  height={191}
+                  aria-hidden
+                  className="pointer-events-none absolute -top-3 left-[452px] z-10 hidden h-auto w-[157px] min-[1200px]:block"
+                />
               </div>
             </div>
 
