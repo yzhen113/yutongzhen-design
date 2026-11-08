@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { MediaReveal } from "@/components/MediaReveal";
 import { notFound } from "next/navigation";
 import { CaseStudyHeader } from "@/components/projects/CaseStudyChrome";
 import { CrimsonLockScreen } from "@/components/projects/CrimsonLockScreen";
@@ -19,17 +20,19 @@ export default async function CrimsonPage() {
       <CaseStudyHeader title="Crimson: From payouts to everyday banking" />
       {unlocked ? (
         <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
-          <Image
-            src="/media/crimson/cover.png"
-            alt="DoorDash Crimson on three phones, showing the bank account, direct deposit, and balance screens"
-            width={9280}
-            height={5272}
-            priority
-            quality={100}
-            unoptimized
-            className="h-auto w-full object-cover"
-            sizes="100vw"
-          />
+          <MediaReveal>
+            <Image
+              src="/media/crimson/cover.png"
+              alt="DoorDash Crimson on three phones, showing the bank account, direct deposit, and balance screens"
+              width={9280}
+              height={5272}
+              priority
+              quality={100}
+              unoptimized
+              className="h-auto w-full object-cover"
+              sizes="100vw"
+            />
+          </MediaReveal>
         </div>
       ) : (
         <CrimsonLockScreen />

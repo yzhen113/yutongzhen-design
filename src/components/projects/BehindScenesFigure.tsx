@@ -1,5 +1,6 @@
 "use client";
 
+import { MediaReveal } from "@/components/MediaReveal";
 import { SmoothCorners } from "@/components/SmoothCorners";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -82,16 +83,18 @@ export function BehindScenesFigure() {
   return (
     <div className="relative w-full [--arrow-len:clamp(120px,18vw,180px)] min-[1200px]:[--arrow-len:200px]">
       <SmoothCorners className="overflow-hidden rounded-[8px]">
-        <Image
-          ref={imgRef}
-          src="/media/turning-toward/behind-scenes-photo.png"
-          alt="Behind the scenes: Unity scripted interactions, Motive Optitrack system, and motion tracking markers on a 3D printed object"
-          width={1840}
-          height={1124}
-          className="h-auto w-full"
-          sizes="(max-width: 1199px) 100vw, 550px"
-          quality={100}
-        />
+        <MediaReveal>
+          <Image
+            ref={imgRef}
+            src="/media/turning-toward/behind-scenes-photo.png"
+            alt="Behind the scenes: Unity scripted interactions, Motive Optitrack system, and motion tracking markers on a 3D printed object"
+            width={1840}
+            height={1124}
+            className="block h-auto w-full"
+            sizes="(max-width: 1199px) 100vw, 550px"
+            quality={100}
+          />
+        </MediaReveal>
       </SmoothCorners>
 
       <div className="pointer-events-none absolute inset-0 hidden min-[600px]:block">

@@ -1,5 +1,6 @@
 import { SmoothCorners } from "@/components/SmoothCorners";
 import Image from "next/image";
+import { MediaReveal } from "@/components/MediaReveal";
 import Link from "next/link";
 import { AutoplayVideo } from "@/components/AutoplayVideo";
 import {
@@ -94,16 +95,18 @@ function Figure({
             : "w-full overflow-hidden bg-white"
         }
       >
-        <Image
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          className="h-auto w-full"
-          sizes="(max-width: 1199px) 100vw, 1100px"
-          quality={100}
-          unoptimized={unoptimized ?? !framed}
-        />
+        <MediaReveal>
+          <Image
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            className="h-auto w-full"
+            sizes="(max-width: 1199px) 100vw, 1100px"
+            quality={100}
+            unoptimized={unoptimized ?? !framed}
+          />
+        </MediaReveal>
       </SmoothCorners>
     </figure>
   );
@@ -122,13 +125,15 @@ function VideoFigure({
 }) {
   return (
     <SmoothCorners className="w-full overflow-hidden rounded-[8px] border border-solid border-[#f2f2f2] bg-white">
-      <AutoplayVideo
-        className={`${aspectClass} h-auto w-full object-cover`}
-        src={src}
-        poster={poster}
-        aria-label={alt}
-        preload="metadata"
-      />
+      <MediaReveal>
+        <AutoplayVideo
+          className={`${aspectClass} h-auto w-full object-cover`}
+          src={src}
+          poster={poster}
+          aria-label={alt}
+          preload="metadata"
+        />
+      </MediaReveal>
     </SmoothCorners>
   );
 }
@@ -146,16 +151,18 @@ export default function TomPage() {
       <CaseStudyHeader title="TOM: On-the-Go Food Management" />
 
       <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
-        <Image
-          src="/media/tom/cover.png"
-          alt="TOM cover"
-          width={9280}
-          height={5272}
-          priority
-          quality={100}
-          className="h-auto w-full object-cover"
-          sizes="100vw"
-        />
+        <MediaReveal>
+          <Image
+            src="/media/tom/cover.png"
+            alt="TOM cover"
+            width={9280}
+            height={5272}
+            priority
+            quality={100}
+            className="h-auto w-full object-cover"
+            sizes="100vw"
+          />
+        </MediaReveal>
       </div>
 
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
@@ -209,7 +216,10 @@ export default function TomPage() {
             </div>
 
             <div className="hidden min-[600px]:block">
-              <GroceryCards />
+              {/* One loader for the whole sticker stack, revealed once every card has loaded */}
+              <MediaReveal>
+                <GroceryCards />
+              </MediaReveal>
               <p className="mt-0 mb-5 text-[14px] font-normal leading-[18.2px] tracking-[0.14px] text-[#7e7e7e]">
                 Drag them around!
               </p>
@@ -534,14 +544,16 @@ export default function TomPage() {
           <div className="grid grid-cols-1 gap-x-5 gap-y-8 min-[700px]:grid-cols-2">
             <Link href="/projects/bumble" className="group block space-y-2">
               <div className="overflow-hidden bg-[#f5f5f5]">
-                <Image
-                  src="/media/buzz-cover.png"
-                  alt="BUZZ Signal"
-                  width={9280}
-                  height={5272}
-                  quality={100}
-                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
-                />
+                <MediaReveal>
+                  <Image
+                    src="/media/buzz-cover.png"
+                    alt="BUZZ Signal"
+                    width={9280}
+                    height={5272}
+                    quality={100}
+                    className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                  />
+                </MediaReveal>
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
                 BUZZ Signal
@@ -555,13 +567,15 @@ export default function TomPage() {
               className="group block space-y-2"
             >
               <div className="overflow-hidden bg-[#f5f5f5]">
-                <Image
-                  src="/media/turning-toward.png"
-                  alt="Turning Toward"
-                  width={2320}
-                  height={1318}
-                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
-                />
+                <MediaReveal>
+                  <Image
+                    src="/media/turning-toward.png"
+                    alt="Turning Toward"
+                    width={2320}
+                    height={1318}
+                    className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                  />
+                </MediaReveal>
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
                 Turning Toward

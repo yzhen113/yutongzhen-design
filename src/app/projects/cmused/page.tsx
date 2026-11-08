@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { MediaReveal } from "@/components/MediaReveal";
 import Link from "next/link";
 import { CaseStudyHeader } from "@/components/projects/CaseStudyChrome";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -50,17 +51,19 @@ export default function CmusedPage() {
       <CaseStudyHeader title="CMUsed" />
 
       <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
-        <Image
-          src="/media/cmused/cover.png"
-          alt="CMUsed marketplace on a laptop, showing clothing and furniture listings"
-          width={9372}
-          height={4808}
-          priority
-          quality={100}
-          unoptimized
-          className="h-auto w-full object-cover"
-          sizes="100vw"
-        />
+        <MediaReveal>
+          <Image
+            src="/media/cmused/cover.png"
+            alt="CMUsed marketplace on a laptop, showing clothing and furniture listings"
+            width={9372}
+            height={4808}
+            priority
+            quality={100}
+            unoptimized
+            className="h-auto w-full object-cover"
+            sizes="100vw"
+          />
+        </MediaReveal>
       </div>
 
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
@@ -136,16 +139,18 @@ export default function CmusedPage() {
 
       <div className="w-full bg-white px-5 pt-10">
         <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
-          <Image
-            src="/media/cmused/screens-web.png"
-            alt="CMUsed screens: product detail, discovery feed, and search with filters"
-            width={3840}
-            height={1899}
-            quality={100}
-            unoptimized
-            className="h-auto w-full"
-            sizes="100vw"
-          />
+          <MediaReveal>
+            <Image
+              src="/media/cmused/screens-web.png"
+              alt="CMUsed screens: product detail, discovery feed, and search with filters"
+              width={3840}
+              height={1899}
+              quality={100}
+              unoptimized
+              className="h-auto w-full"
+              sizes="100vw"
+            />
+          </MediaReveal>
         </div>
       </div>
 
@@ -168,16 +173,18 @@ export default function CmusedPage() {
 
       <div className="w-full bg-white px-5">
         <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
-          <Image
-            src="/media/cmused/layouts-web.png"
-            alt="Layout explorations for the item page, discovery feed, and search results"
-            width={3840}
-            height={1646}
-            quality={100}
-            unoptimized
-            className="h-auto w-full"
-            sizes="100vw"
-          />
+          <MediaReveal>
+            <Image
+              src="/media/cmused/layouts-web.png"
+              alt="Layout explorations for the item page, discovery feed, and search results"
+              width={3840}
+              height={1646}
+              quality={100}
+              unoptimized
+              className="h-auto w-full"
+              sizes="100vw"
+            />
+          </MediaReveal>
         </div>
       </div>
 
@@ -191,16 +198,18 @@ export default function CmusedPage() {
               context—creating a clear hierarchy that makes listings easy to scan
               and compare at a glance.
             </Body>
-            <Image
-              src="/media/cmused/item-card-5.png"
-              alt="Item card anatomy: condition tag, product image, name and price, and contact and save actions"
-              width={3145}
-              height={2516}
-              quality={100}
-              unoptimized
-              className="h-auto w-full"
-              sizes="(max-width: 1199px) 100vw, 550px"
-            />
+            <MediaReveal>
+              <Image
+                src="/media/cmused/item-card-5.png"
+                alt="Item card anatomy: condition tag, product image, name and price, and contact and save actions"
+                width={3145}
+                height={2516}
+                quality={100}
+                unoptimized
+                className="h-auto w-full"
+                sizes="(max-width: 1199px) 100vw, 550px"
+              />
+            </MediaReveal>
             <Subhead>Expanding information</Subhead>
             <Body>
               The item card surfaces only what buyers need to make a quick
@@ -216,16 +225,18 @@ export default function CmusedPage() {
 
       <div className="w-full bg-white px-5">
         <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
-          <Image
-            src="/media/cmused/product-details.png"
-            alt="CMUsed product detail pages across mobile and web breakpoints"
-            width={3840}
-            height={1981}
-            quality={100}
-            unoptimized
-            className="h-auto w-full"
-            sizes="100vw"
-          />
+          <MediaReveal>
+            <Image
+              src="/media/cmused/product-details.png"
+              alt="CMUsed product detail pages across mobile and web breakpoints"
+              width={3840}
+              height={1981}
+              quality={100}
+              unoptimized
+              className="h-auto w-full"
+              sizes="100vw"
+            />
+          </MediaReveal>
         </div>
       </div>
 
@@ -242,14 +253,16 @@ export default function CmusedPage() {
           <div className="grid grid-cols-1 gap-x-5 gap-y-8 min-[700px]:grid-cols-2">
             <Link href="/projects/bumble" className="group block space-y-2">
               <div className="overflow-hidden bg-[#f5f5f5]">
-                <Image
-                  src="/media/buzz-cover.png"
-                  alt="BUZZ Signal"
-                  width={9280}
-                  height={5272}
-                  quality={100}
-                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
-                />
+                <MediaReveal>
+                  <Image
+                    src="/media/buzz-cover.png"
+                    alt="BUZZ Signal"
+                    width={9280}
+                    height={5272}
+                    quality={100}
+                    className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                  />
+                </MediaReveal>
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
                 BUZZ Signal
@@ -260,14 +273,16 @@ export default function CmusedPage() {
             </Link>
             <Link href="/projects/tom" className="group block space-y-2">
               <div className="overflow-hidden bg-[#f5f5f5]">
-                <Image
-                  src="/media/tom-cover.png"
-                  alt="TOM"
-                  width={9280}
-                  height={5272}
-                  quality={100}
-                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
-                />
+                <MediaReveal>
+                  <Image
+                    src="/media/tom-cover.png"
+                    alt="TOM"
+                    width={9280}
+                    height={5272}
+                    quality={100}
+                    className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                  />
+                </MediaReveal>
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
                 TOM: On-the-Go Food Management

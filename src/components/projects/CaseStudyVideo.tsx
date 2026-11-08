@@ -1,5 +1,6 @@
 "use client";
 
+import { MediaReveal } from "@/components/MediaReveal";
 import { SmoothCorners } from "@/components/SmoothCorners";
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
@@ -247,136 +248,138 @@ export function CaseStudyVideo({
             : "w-full",
       ].join(" ")}
     >
-      <video
-        ref={videoRef}
-        className="absolute inset-0 block size-full cursor-pointer object-cover [:fullscreen]:object-contain"
-        src={src}
-        poster={poster}
-        aria-label={alt}
-        loop
-        playsInline
-        preload="metadata"
-        onClick={toggle}
-      />
+      <MediaReveal fill video="poster">
+        <video
+          ref={videoRef}
+          className="absolute inset-0 block size-full cursor-pointer object-cover [:fullscreen]:object-contain"
+          src={src}
+          poster={poster}
+          aria-label={alt}
+          loop
+          playsInline
+          preload="metadata"
+          onClick={toggle}
+        />
 
-      {!playing && progress < 0.01 ? (
+        {!playing && progress < 0.01 ? (
+          <div
+            className="pointer-events-none absolute inset-0 z-[1] bg-[#f2f2f2] mix-blend-multiply"
+            aria-hidden
+          />
+        ) : null}
+
+        {/* Dim scrim so white controls stay legible over light frames */}
         <div
-          className="pointer-events-none absolute inset-0 z-[1] bg-[#f2f2f2] mix-blend-multiply"
+          className={[
+            "pointer-events-none absolute inset-0 z-[2] bg-black/25 transition-opacity duration-200",
+            chromeVisible ? "opacity-100" : "opacity-0",
+          ].join(" ")}
           aria-hidden
         />
-      ) : null}
 
-      {/* Dim scrim so white controls stay legible over light frames */}
-      <div
-        className={[
-          "pointer-events-none absolute inset-0 z-[2] bg-black/25 transition-opacity duration-200",
-          chromeVisible ? "opacity-100" : "opacity-0",
-        ].join(" ")}
-        aria-hidden
-      />
-
-      <button
-        type="button"
-        aria-label={playing ? "Pause video" : "Play video"}
-        onMouseDown={(event) => event.preventDefault()}
-        onClick={(event) => {
-          event.stopPropagation();
-          toggle();
-        }}
-        className={[
-          "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer",
-          centerSizeClass,
-          chromeClass,
-        ].join(" ")}
-      >
-        <svg
-          viewBox={playing ? "0 0 149 201" : "0 0 199 201"}
-          className="absolute inset-0 size-full"
-          aria-hidden
+        <button
+          type="button"
+          aria-label={playing ? "Pause video" : "Play video"}
+          onMouseDown={(event) => event.preventDefault()}
+          onClick={(event) => {
+            event.stopPropagation();
+            toggle();
+          }}
+          className={[
+            "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 cursor-pointer",
+            centerSizeClass,
+            chromeClass,
+          ].join(" ")}
         >
-          <path d={playing ? PAUSE_PATH : PLAY_PATH} fill="white" fillOpacity={0.85} />
-        </svg>
-      </button>
+          <svg
+            viewBox={playing ? "0 0 149 201" : "0 0 199 201"}
+            className="absolute inset-0 size-full"
+            aria-hidden
+          >
+            <path d={playing ? PAUSE_PATH : PLAY_PATH} fill="white" fillOpacity={0.85} />
+          </svg>
+        </button>
 
-      <div
-        className={[
-          "absolute bottom-[calc(clamp(5px,0.7cqw,8px)+clamp(10px,0.9cqw,14px))] right-[clamp(12px,1cqw,18px)] flex items-center gap-[clamp(8px,1.2cqw,12px)]",
-          chromeClass,
-        ].join(" ")}
-      >
-        <ControlButton
-          label={muted ? "Unmute video" : "Mute video"}
-          onClick={toggleMute}
-          sizeClass={cornerSizeClass}
+        <div
+          className={[
+            "absolute bottom-[calc(clamp(5px,0.7cqw,8px)+clamp(10px,0.9cqw,14px))] right-[clamp(12px,1cqw,18px)] flex items-center gap-[clamp(8px,1.2cqw,12px)]",
+            chromeClass,
+          ].join(" ")}
         >
-          {muted ? (
-            <>
-              <path
-                stroke="none"
-                d="M3.15 8.55h3.35l5.55-4.45A.88.88 0 0 1 13.5 4.8v14.4a.88.88 0 0 1-1.45.7l-5.55-4.45H3.15A1.85 1.85 0 0 1 1.3 13.6v-3.2A1.85 1.85 0 0 1 3.15 8.55Z"
-              />
-              <path fill="none" d="M4.4 19.2 19.6 4.8" />
-            </>
-          ) : (
-            <>
-              <path
-                stroke="none"
-                d="M3.15 8.55h3.35l5.55-4.45A.88.88 0 0 1 13.5 4.8v14.4a.88.88 0 0 1-1.45.7l-5.55-4.45H3.15A1.85 1.85 0 0 1 1.3 13.6v-3.2A1.85 1.85 0 0 1 3.15 8.55Z"
-              />
-              <path fill="none" d="M16.05 8.55a4.2 4.2 0 0 1 0 6.9" />
-              <path fill="none" d="M19.2 5.7a8 8 0 0 1 0 12.6" />
-            </>
-          )}
-        </ControlButton>
+          <ControlButton
+            label={muted ? "Unmute video" : "Mute video"}
+            onClick={toggleMute}
+            sizeClass={cornerSizeClass}
+          >
+            {muted ? (
+              <>
+                <path
+                  stroke="none"
+                  d="M3.15 8.55h3.35l5.55-4.45A.88.88 0 0 1 13.5 4.8v14.4a.88.88 0 0 1-1.45.7l-5.55-4.45H3.15A1.85 1.85 0 0 1 1.3 13.6v-3.2A1.85 1.85 0 0 1 3.15 8.55Z"
+                />
+                <path fill="none" d="M4.4 19.2 19.6 4.8" />
+              </>
+            ) : (
+              <>
+                <path
+                  stroke="none"
+                  d="M3.15 8.55h3.35l5.55-4.45A.88.88 0 0 1 13.5 4.8v14.4a.88.88 0 0 1-1.45.7l-5.55-4.45H3.15A1.85 1.85 0 0 1 1.3 13.6v-3.2A1.85 1.85 0 0 1 3.15 8.55Z"
+                />
+                <path fill="none" d="M16.05 8.55a4.2 4.2 0 0 1 0 6.9" />
+                <path fill="none" d="M19.2 5.7a8 8 0 0 1 0 12.6" />
+              </>
+            )}
+          </ControlButton>
 
-        <ControlButton
-          label={fullscreen ? "Exit full screen" : "Enter full screen"}
-          onClick={toggleFullscreen}
-          sizeClass={cornerSizeClass}
-        >
-          {fullscreen ? (
-            <>
-              <path
-                stroke="none"
-                d="M20.4 9.85h-2.55V6.15h-3.7V3.6H20.4zM3.6 14.15h2.55v3.7h3.7v2.55H3.6z"
-              />
-            </>
-          ) : (
-            <>
-              <path
-                stroke="none"
-                d="M13.15 3.6H20.4v7.25h-2.55V7.45l-6.2 6.2-1.8-1.8 6.2-6.2h-3.4z"
-              />
-              <path
-                stroke="none"
-                d="M3.6 13.15v7.25h7.25v-2.55H7.45l6.2-6.2-1.8-1.8-6.2 6.2v-3.4z"
-              />
-            </>
-          )}
-        </ControlButton>
-      </div>
-
-      <div
-        ref={barRef}
-        role="slider"
-        aria-label="Video progress"
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-valuenow={Math.round(progress * 100)}
-        tabIndex={0}
-        className="absolute inset-x-0 bottom-0 z-10 flex h-6 cursor-pointer items-end"
-        onPointerDown={(event) => {
-          dragging.current = true;
-          seekFromClientX(event.clientX);
-        }}
-      >
-        <div className="h-[clamp(5px,0.7cqw,8px)] w-full overflow-hidden bg-[rgba(255,255,255,0.3)]">
-          <div
-            className="h-full bg-[rgba(255,255,255,0.85)]"
-            style={{ width: `${progress * 100}%` }}
-          />
+          <ControlButton
+            label={fullscreen ? "Exit full screen" : "Enter full screen"}
+            onClick={toggleFullscreen}
+            sizeClass={cornerSizeClass}
+          >
+            {fullscreen ? (
+              <>
+                <path
+                  stroke="none"
+                  d="M20.4 9.85h-2.55V6.15h-3.7V3.6H20.4zM3.6 14.15h2.55v3.7h3.7v2.55H3.6z"
+                />
+              </>
+            ) : (
+              <>
+                <path
+                  stroke="none"
+                  d="M13.15 3.6H20.4v7.25h-2.55V7.45l-6.2 6.2-1.8-1.8 6.2-6.2h-3.4z"
+                />
+                <path
+                  stroke="none"
+                  d="M3.6 13.15v7.25h7.25v-2.55H7.45l6.2-6.2-1.8-1.8-6.2 6.2v-3.4z"
+                />
+              </>
+            )}
+          </ControlButton>
         </div>
-      </div>
+
+        <div
+          ref={barRef}
+          role="slider"
+          aria-label="Video progress"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(progress * 100)}
+          tabIndex={0}
+          className="absolute inset-x-0 bottom-0 z-10 flex h-6 cursor-pointer items-end"
+          onPointerDown={(event) => {
+            dragging.current = true;
+            seekFromClientX(event.clientX);
+          }}
+        >
+          <div className="h-[clamp(5px,0.7cqw,8px)] w-full overflow-hidden bg-[rgba(255,255,255,0.3)]">
+            <div
+              className="h-full bg-[rgba(255,255,255,0.85)]"
+              style={{ width: `${progress * 100}%` }}
+            />
+          </div>
+        </div>
+      </MediaReveal>
     </SmoothCorners>
   );
 }

@@ -262,14 +262,16 @@ export default function BumblePage() {
                   rates.
                 </Body>
                 {/* Matches Framer: 157×96, overlaps end of body line */}
-                <Image
-                  src="/media/bumble/bee.png"
-                  alt=""
-                  width={313}
-                  height={191}
-                  aria-hidden
-                  className="pointer-events-none absolute -top-3 left-[452px] z-10 hidden h-auto w-[157px] min-[1200px]:block"
-                />
+                <MediaReveal>
+                  <Image
+                    src="/media/bumble/bee.png"
+                    alt=""
+                    width={313}
+                    height={191}
+                    aria-hidden
+                    className="pointer-events-none absolute -top-3 left-[452px] z-10 hidden h-auto w-[157px] min-[1200px]:block"
+                  />
+                </MediaReveal>
               </div>
             </div>
 
@@ -561,14 +563,16 @@ export default function BumblePage() {
           <div className="grid grid-cols-1 gap-x-5 gap-y-8 min-[700px]:grid-cols-2">
             <Link href="/projects/tom" className="group block space-y-2">
               <div className="overflow-hidden bg-[#f5f5f5]">
-                <Image
-                  src="/media/tom-cover.png"
-                  alt="TOM"
-                  width={9280}
-                  height={5272}
-                  quality={100}
-                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
-                />
+                <MediaReveal>
+                  <Image
+                    src="/media/tom-cover.png"
+                    alt="TOM"
+                    width={9280}
+                    height={5272}
+                    quality={100}
+                    className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                  />
+                </MediaReveal>
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
                 TOM: On-the-Go Food Management
@@ -579,15 +583,17 @@ export default function BumblePage() {
             </Link>
             <Link href="/projects/cmused" className="group block space-y-2">
               <div className="overflow-hidden bg-[#f5f5f5]">
-                <Image
-                  src="/media/cmused/project-thumbnail.png"
-                  alt="CMUsed"
-                  width={9372}
-                  height={5324}
-                  quality={100}
-                  unoptimized
-                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
-                />
+                <MediaReveal>
+                  <Image
+                    src="/media/cmused/project-thumbnail.png"
+                    alt="CMUsed"
+                    width={9372}
+                    height={5324}
+                    quality={100}
+                    unoptimized
+                    className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                  />
+                </MediaReveal>
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
                 CMUsed: A Student-to-Student Marketplace at Carnegie Mellon

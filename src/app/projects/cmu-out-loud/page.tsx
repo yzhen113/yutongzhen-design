@@ -1,5 +1,6 @@
 import { SmoothCorners } from "@/components/SmoothCorners";
 import Image from "next/image";
+import { MediaReveal } from "@/components/MediaReveal";
 import Link from "next/link";
 import {
   CaseStudyHeader,
@@ -82,25 +83,29 @@ function Figure({
       >
         {aspect ? (
           <div className="relative w-full" style={{ aspectRatio: aspect }}>
+            <MediaReveal fill>
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1199px) 100vw, 1100px"
+                quality={90}
+              />
+            </MediaReveal>
+          </div>
+        ) : (
+          <MediaReveal>
             <Image
               src={src}
               alt={alt}
-              fill
-              className="object-cover"
+              width={width}
+              height={height}
+              className="h-auto w-full"
               sizes="(max-width: 1199px) 100vw, 1100px"
               quality={90}
             />
-          </div>
-        ) : (
-          <Image
-            src={src}
-            alt={alt}
-            width={width}
-            height={height}
-            className="h-auto w-full"
-            sizes="(max-width: 1199px) 100vw, 1100px"
-            quality={90}
-          />
+          </MediaReveal>
         )}
       </SmoothCorners>
       {caption ? (
@@ -126,15 +131,17 @@ export default function CmuOutLoudPage() {
       <CaseStudyHeader title="CMU Out Loud" />
 
       <div className="relative -mt-[34px] h-[100svh] w-full overflow-hidden bg-[#f2f2f2]">
-        <Image
-          src="/media/cmu-out-loud/hero.jpg"
-          alt="A student writing a message on one of the CMU Out Loud boards"
-          fill
-          priority
-          quality={100}
-          className="object-cover"
-          sizes="100vw"
-        />
+        <MediaReveal fill>
+          <Image
+            src="/media/cmu-out-loud/hero.jpg"
+            alt="A student writing a message on one of the CMU Out Loud boards"
+            fill
+            priority
+            quality={100}
+            className="object-cover"
+            sizes="100vw"
+          />
+        </MediaReveal>
       </div>
 
       <ScrollShrinkCoverProvider>
@@ -584,14 +591,16 @@ export default function CmuOutLoudPage() {
               className="group block space-y-2"
             >
               <div className="overflow-hidden bg-[#f5f5f5]">
-                <Image
-                  src="/media/turning-toward.png"
-                  alt="Turning Toward"
-                  width={2320}
-                  height={1318}
-                  quality={100}
-                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
-                />
+                <MediaReveal>
+                  <Image
+                    src="/media/turning-toward.png"
+                    alt="Turning Toward"
+                    width={2320}
+                    height={1318}
+                    quality={100}
+                    className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                  />
+                </MediaReveal>
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
                 Turning Toward
@@ -605,14 +614,16 @@ export default function CmuOutLoudPage() {
               className="group block space-y-2"
             >
               <div className="overflow-hidden bg-[#f5f5f5]">
-                <Image
-                  src="/media/james-jean/cover.png"
-                  alt="Hybrid Exhibition: James Jean x Hunt Institute"
-                  width={2320}
-                  height={1318}
-                  quality={100}
-                  className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
-                />
+                <MediaReveal>
+                  <Image
+                    src="/media/james-jean/cover.png"
+                    alt="Hybrid Exhibition: James Jean x Hunt Institute"
+                    width={2320}
+                    height={1318}
+                    quality={100}
+                    className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                  />
+                </MediaReveal>
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
                 Hybrid Exhibition: James Jean x Hunt Institute
