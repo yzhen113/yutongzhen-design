@@ -182,7 +182,7 @@ function MobileBar({
                   rel="noreferrer"
                   tabIndex={menuOpen ? 0 : -1}
                 >
-                  Carnegie Mellon Univeresity
+                  Carnegie Mellon University
                 </a>
                 . Previously, designing @{" "}
                 <a
@@ -216,6 +216,8 @@ function MobileBar({
 
 const BIO_EASE = "cubic-bezier(0.44, 0, 0.56, 1)";
 const BIO_MS = 500;
+/** `.plain-link` draws its underline in a 2px bottom padding, which `overflow-hidden` would clip. */
+const LINK_UNDERLINE_ROOM = 3;
 
 function HeaderBio({ collapsed }: { collapsed: boolean }) {
   const innerRef = useRef<HTMLDivElement>(null);
@@ -257,7 +259,11 @@ function HeaderBio({ collapsed }: { collapsed: boolean }) {
       className="min-w-0 overflow-hidden motion-reduce:!transition-none"
       style={{
         height: height === "auto" ? "auto" : height,
-        transition: ready ? `height ${BIO_MS}ms ${BIO_EASE}` : undefined,
+        // The inner padding keeps link underlines on the last line inside the clip; this cancels it out.
+        marginBottom: collapsed ? 0 : -LINK_UNDERLINE_ROOM,
+        transition: ready
+          ? `height ${BIO_MS}ms ${BIO_EASE}, margin-bottom ${BIO_MS}ms ${BIO_EASE}`
+          : undefined,
       }}
       onTransitionEnd={(event) => {
         if (event.propertyName !== "height") return;
@@ -273,6 +279,7 @@ function HeaderBio({ collapsed }: { collapsed: boolean }) {
             : "opacity-100",
         ].join(" ")}
         style={{
+          paddingBottom: LINK_UNDERLINE_ROOM,
           transition: ready ? `opacity ${BIO_MS}ms ${BIO_EASE}` : undefined,
         }}
         aria-hidden={collapsed}
@@ -318,7 +325,7 @@ function HeaderBio({ collapsed }: { collapsed: boolean }) {
             target="_blank"
             rel="noreferrer"
           >
-            Carnegie Mellon Univeresity
+            Carnegie Mellon University
           </a>
           . Previously, designing @{" "}
           <a
