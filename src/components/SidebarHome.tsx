@@ -205,7 +205,7 @@ export function SidebarHome() {
         </div>
       </aside>
 
-      <main className="pb-24 min-[1000px]:border-l min-[1000px]:border-black/10 min-[1000px]:pt-3 min-[1000px]:pl-5">
+      <main className="pb-24 min-[1000px]:border-l min-[1000px]:border-black/10 min-[1000px]:pt-5 min-[1000px]:pl-5">
         {visibleGroups.map((group, gi) => (
           <section key={group.id} className={gi > 0 ? "pt-[80px]" : ""}>
             {/* Visible group title removed; kept for screen readers. */}
