@@ -1,4 +1,4 @@
-import { ProjectGrid } from "@/components/ProjectGrid";
+import { SidebarHome } from "@/components/SidebarHome";
 
 export const metadata = {
   title: "Yutong Zhen - Experience",
@@ -7,9 +7,5 @@ export const metadata = {
 };
 
 export default function ExperiencePage() {
-  return (
-    <main>
-      <ProjectGrid filter="experience" />
-    </main>
-  );
+  return <SidebarHome />;
 }

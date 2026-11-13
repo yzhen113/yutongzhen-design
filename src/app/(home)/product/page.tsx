@@ -1,4 +1,4 @@
-import { ProjectGrid } from "@/components/ProjectGrid";
+import { SidebarHome } from "@/components/SidebarHome";
 
 export const metadata = {
   title: "Yutong Zhen - Product",
@@ -7,9 +7,5 @@ export const metadata = {
 };
 
 export default function ProductPage() {
-  return (
-    <main>
-      <ProjectGrid filter="product" />
-    </main>
-  );
+  return <SidebarHome />;
 }
