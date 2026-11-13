@@ -44,10 +44,35 @@ function PlaygroundCard({
 }
 
 /**
+ * The sidebar layout uses two columns: items keep their left-to-right reading
+ * order (row by row across the original three columns) and each goes into
+ * whichever column is shorter so far, using the media's own proportions.
+ */
+const twoColumns: PlaygroundItem[][] = (() => {
+  const ordered: PlaygroundItem[] = [];
+  const rows = Math.max(...playgroundColumns.map((column) => column.length));
+  for (let row = 0; row < rows; row++) {
+    for (const column of playgroundColumns) {
+      if (column[row]) ordered.push(column[row]);
+    }
+  }
+  const packed: PlaygroundItem[][] = [[], []];
+  const heights = [0, 0];
+  for (const item of ordered) {
+    const target = heights[0] <= heights[1] ? 0 : 1;
+    packed[target].push(item);
+    heights[target] += item.media.height / item.media.width;
+  }
+  return packed;
+})();
+
+/**
  * `inSidebar` drops the page title and outer padding so the grid sits in the
  * sidebar layout's content column (the nav already shows the current page).
  */
 export function PlaygroundGrid({ inSidebar = false }: { inSidebar?: boolean }) {
+  const columns = inSidebar ? twoColumns : playgroundColumns;
+
   return (
     <section className="w-full">
       {inSidebar ? (
@@ -62,11 +87,11 @@ export function PlaygroundGrid({ inSidebar = false }: { inSidebar?: boolean }) {
 
       <div
         className={[
-          "grid grid-cols-1 gap-5 min-[1100px]:grid-cols-3",
-          inSidebar ? "" : "px-3 min-[1100px]:px-5",
+          "grid grid-cols-1 gap-5",
+          inSidebar ? "min-[600px]:grid-cols-2" : "px-3 min-[1100px]:grid-cols-3 min-[1100px]:px-5",
         ].join(" ")}
       >
-        {playgroundColumns.map((column) => (
+        {columns.map((column) => (
           <div
             key={column.map((item) => item.media.src).join("-")}
             className="flex flex-col gap-5"
