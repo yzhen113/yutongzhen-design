@@ -1,4 +1,5 @@
 import { SmoothCorners } from "@/components/SmoothCorners";
+import { ProjectMorph } from "@/components/ProjectMorph";
 import Image from "next/image";
 import { MediaReveal } from "@/components/MediaReveal";
 import Link from "next/link";
@@ -177,20 +178,22 @@ export default function TurningTowardPage() {
     <div className="min-h-screen overflow-x-clip bg-white">
       <CaseStudyHeader title="Turning Toward" />
 
-      <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
-        <MediaReveal>
-          <Image
-            src="/media/turning-toward/cover.png"
-            alt="Turning Toward cover"
-            width={2320}
-            height={1318}
-            priority
-            quality={100}
-            className="h-auto w-full object-cover"
-            sizes="100vw"
-          />
-        </MediaReveal>
-      </div>
+      <ProjectMorph href="/projects/turning-toward">
+        <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
+          <MediaReveal>
+            <Image
+              src="/media/turning-toward/cover.png"
+              alt="Turning Toward cover"
+              width={2320}
+              height={1318}
+              priority
+              quality={100}
+              className="h-auto w-full object-cover"
+              sizes="100vw"
+            />
+          </MediaReveal>
+        </div>
+      </ProjectMorph>
 
       <ScrollShrinkCoverProvider>
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">

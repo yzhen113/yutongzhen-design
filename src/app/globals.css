@@ -623,3 +623,42 @@ button {
   [data-smooth-corners]:-webkit-full-screen { clip-path: none; border-radius: 0; overflow: hidden !important; }
   [data-smooth-corners]:-webkit-full-screen > .smooth-corner-border { display: none; }
 }
+
+/* Thumbnail → case study hero morph (see ProjectMorph). The two sides have
+   different proportions, so both snapshots fill the moving frame and crop
+   instead of stretching; a brief blur hides the scaling mid-flight. */
+::view-transition-group(.project-morph) {
+  animation-duration: 560ms;
+  animation-timing-function: cubic-bezier(0.44, 0, 0.56, 1);
+}
+::view-transition-old(.project-morph),
+::view-transition-new(.project-morph) {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+::view-transition-image-pair(.project-morph) {
+  animation-name: project-morph-soften;
+  animation-duration: 560ms;
+}
+@keyframes project-morph-soften {
+  40% {
+    filter: blur(2px);
+  }
+}
+
+/* The rest of the page crossfades underneath the morph. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 320ms;
+  animation-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

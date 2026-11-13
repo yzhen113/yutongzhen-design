@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ProjectMorph } from "@/components/ProjectMorph";
 import { MediaReveal } from "@/components/MediaReveal";
 import Link from "next/link";
 import { CaseStudyHeader } from "@/components/projects/CaseStudyChrome";
@@ -50,21 +51,23 @@ export default function CmusedPage() {
     <div className="min-h-screen overflow-x-clip bg-white">
       <CaseStudyHeader title="CMUsed" />
 
-      <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
-        <MediaReveal>
-          <Image
-            src="/media/cmused/cover.png"
-            alt="CMUsed marketplace on a laptop, showing clothing and furniture listings"
-            width={9372}
-            height={4808}
-            priority
-            quality={100}
-            unoptimized
-            className="h-auto w-full object-cover"
-            sizes="100vw"
-          />
-        </MediaReveal>
-      </div>
+      <ProjectMorph href="/projects/cmused">
+        <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
+          <MediaReveal>
+            <Image
+              src="/media/cmused/cover.png"
+              alt="CMUsed marketplace on a laptop, showing clothing and furniture listings"
+              width={9372}
+              height={4808}
+              priority
+              quality={100}
+              unoptimized
+              className="h-auto w-full object-cover"
+              sizes="100vw"
+            />
+          </MediaReveal>
+        </div>
+      </ProjectMorph>
 
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
         <article className="mx-auto w-full max-w-[550px] px-3 pt-16 pb-0 min-[1200px]:px-0 min-[1200px]:pt-[60px]">

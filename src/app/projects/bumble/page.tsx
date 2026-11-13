@@ -1,4 +1,5 @@
 import { SmoothCorners } from "@/components/SmoothCorners";
+import { ProjectMorph } from "@/components/ProjectMorph";
 import Image from "next/image";
 import Link from "next/link";
 import { AutoplayVideo } from "@/components/AutoplayVideo";
@@ -150,29 +151,31 @@ export default function BumblePage() {
       <CaseStudyHeader title="BUZZ Signal" />
 
       {/* Hero — cover video (logo included in video); phones get the static cover instead */}
-      <div className="relative flex w-full items-center justify-center bg-[#f2f2f2] px-0 py-0 min-[600px]:px-4 min-[600px]:py-10 min-[1200px]:h-[620px] min-[1200px]:px-0 min-[1200px]:py-0">
-        <div className="relative w-full max-w-[1020px] overflow-hidden">
-          <MediaReveal className="min-[600px]:hidden">
-            <Image
-              className="block aspect-[2992/1700] h-auto w-full object-contain"
-              src="/media/bumble/cover-mobile.png"
-              alt="BUZZ Signal shown on three phones: searching for a signal, the BUZZ activity feed, and walking directions to a meetup"
-              width={2048}
-              height={1163}
-              loading="eager"
-              sizes="(min-width: 600px) 1px, 100vw"
-            />
-          </MediaReveal>
-          <MediaReveal className="hidden min-[600px]:block">
-            <AutoplayVideo
-              className="block aspect-[2992/1700] h-auto w-full object-contain"
-              src="/media/buzz.mp4"
-              poster="/media/buzz-poster.jpg"
-              preload="auto"
-            />
-          </MediaReveal>
+      <ProjectMorph href="/projects/bumble">
+        <div className="relative flex w-full items-center justify-center bg-[#f2f2f2] px-0 py-0 min-[600px]:px-4 min-[600px]:py-10 min-[1200px]:h-[620px] min-[1200px]:px-0 min-[1200px]:py-0">
+          <div className="relative w-full max-w-[1020px] overflow-hidden">
+            <MediaReveal className="min-[600px]:hidden">
+              <Image
+                className="block aspect-[2992/1700] h-auto w-full object-contain"
+                src="/media/bumble/cover-mobile.png"
+                alt="BUZZ Signal shown on three phones: searching for a signal, the BUZZ activity feed, and walking directions to a meetup"
+                width={2048}
+                height={1163}
+                loading="eager"
+                sizes="(min-width: 600px) 1px, 100vw"
+              />
+            </MediaReveal>
+            <MediaReveal className="hidden min-[600px]:block">
+              <AutoplayVideo
+                className="block aspect-[2992/1700] h-auto w-full object-contain"
+                src="/media/buzz.mp4"
+                poster="/media/buzz-poster.jpg"
+                preload="auto"
+              />
+            </MediaReveal>
+          </div>
         </div>
-      </div>
+      </ProjectMorph>
 
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
         {/* Fixed sidebar — desktop only (≥1200px). Bottom pad keeps gap above More projects. */}

@@ -1,4 +1,5 @@
 import { SmoothCorners } from "@/components/SmoothCorners";
+import { ProjectMorph } from "@/components/ProjectMorph";
 import Image from "next/image";
 import { MediaReveal } from "@/components/MediaReveal";
 import Link from "next/link";
@@ -129,20 +130,22 @@ export default function HybridExhibitionPage() {
     <div className="min-h-screen overflow-x-clip bg-white">
       <CaseStudyHeader title="Hybrid Exhibition: James Jean x Hunt Institute" />
 
-      <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
-        <MediaReveal>
-          <Image
-            src="/media/james-jean/cover.png"
-            alt="Botanical illustrations framed on walnut panels, with a James Jean mural glowing at the end of the corridor"
-            width={9280}
-            height={5272}
-            priority
-            quality={100}
-            className="h-auto w-full object-cover"
-            sizes="100vw"
-          />
-        </MediaReveal>
-      </div>
+      <ProjectMorph href="/projects/hybrid-exhibition-james-jean">
+        <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
+          <MediaReveal>
+            <Image
+              src="/media/james-jean/cover.png"
+              alt="Botanical illustrations framed on walnut panels, with a James Jean mural glowing at the end of the corridor"
+              width={9280}
+              height={5272}
+              priority
+              quality={100}
+              className="h-auto w-full object-cover"
+              sizes="100vw"
+            />
+          </MediaReveal>
+        </div>
+      </ProjectMorph>
 
       <ScrollShrinkCoverProvider>
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ProjectMedia, ProjectMeta } from "@/components/ProjectCardParts";
+import { ProjectMorph } from "@/components/ProjectMorph";
 import { filterFromPath, type ProjectFilter } from "@/components/SidebarShell";
 import { projects, type Project } from "@/lib/site";
 
@@ -39,9 +40,17 @@ function Card({
 }) {
   const body = (
     <>
-      <div className="overflow-hidden">
-        <ProjectMedia project={project} />
-      </div>
+      {project.href ? (
+        <ProjectMorph href={project.href}>
+          <div className="overflow-hidden">
+            <ProjectMedia project={project} />
+          </div>
+        </ProjectMorph>
+      ) : (
+        <div className="overflow-hidden">
+          <ProjectMedia project={project} />
+        </div>
+      )}
       <div className={hovered ? "[&_p:first-child]:text-[var(--nav-active)]" : ""}>
         <ProjectMeta project={project} />
       </div>

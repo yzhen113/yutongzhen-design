@@ -1,4 +1,5 @@
 import { SmoothCorners } from "@/components/SmoothCorners";
+import { ProjectMorph } from "@/components/ProjectMorph";
 import Image from "next/image";
 import { MediaReveal } from "@/components/MediaReveal";
 import Link from "next/link";
@@ -130,19 +131,21 @@ export default function CmuOutLoudPage() {
     <div className="min-h-screen overflow-x-clip bg-white">
       <CaseStudyHeader title="CMU Out Loud" />
 
-      <div className="relative -mt-[34px] h-[100svh] w-full overflow-hidden bg-[#f2f2f2]">
-        <MediaReveal fill>
-          <Image
-            src="/media/cmu-out-loud/hero.jpg"
-            alt="A student writing a message on one of the CMU Out Loud boards"
-            fill
-            priority
-            quality={100}
-            className="object-cover"
-            sizes="100vw"
-          />
-        </MediaReveal>
-      </div>
+      <ProjectMorph href="/projects/cmu-out-loud">
+        <div className="relative -mt-[34px] h-[100svh] w-full overflow-hidden bg-[#f2f2f2]">
+          <MediaReveal fill>
+            <Image
+              src="/media/cmu-out-loud/hero.jpg"
+              alt="A student writing a message on one of the CMU Out Loud boards"
+              fill
+              priority
+              quality={100}
+              className="object-cover"
+              sizes="100vw"
+            />
+          </MediaReveal>
+        </div>
+      </ProjectMorph>
 
       <ScrollShrinkCoverProvider>
         <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">

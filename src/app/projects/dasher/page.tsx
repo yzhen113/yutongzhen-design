@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ProjectMorph } from "@/components/ProjectMorph";
 import { MediaReveal } from "@/components/MediaReveal";
 import Link from "next/link";
 import {
@@ -67,7 +68,9 @@ export default function DasherPage() {
 function DasherCaseStudy() {
   return (
     <>
-      <DasherHero />
+      <ProjectMorph href="/projects/dasher">
+        <DasherHero />
+      </ProjectMorph>
 
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
         <aside className="pointer-events-none absolute top-0 bottom-0 left-0 hidden w-[200px] pb-10 min-[1200px]:block">

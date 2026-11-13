@@ -1,4 +1,5 @@
 import { SmoothCorners } from "@/components/SmoothCorners";
+import { ProjectMorph } from "@/components/ProjectMorph";
 import Image from "next/image";
 import { MediaReveal } from "@/components/MediaReveal";
 import Link from "next/link";
@@ -150,20 +151,22 @@ export default function TomPage() {
     <div className="min-h-screen overflow-x-clip bg-white">
       <CaseStudyHeader title="TOM: On-the-Go Food Management" />
 
-      <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
-        <MediaReveal>
-          <Image
-            src="/media/tom/cover.png"
-            alt="TOM cover"
-            width={9280}
-            height={5272}
-            priority
-            quality={100}
-            className="h-auto w-full object-cover"
-            sizes="100vw"
-          />
-        </MediaReveal>
-      </div>
+      <ProjectMorph href="/projects/tom">
+        <div className="relative w-full overflow-hidden bg-[#f2f2f2]">
+          <MediaReveal>
+            <Image
+              src="/media/tom/cover.png"
+              alt="TOM cover"
+              width={9280}
+              height={5272}
+              priority
+              quality={100}
+              className="h-auto w-full object-cover"
+              sizes="100vw"
+            />
+          </MediaReveal>
+        </div>
+      </ProjectMorph>
 
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
         <aside className="pointer-events-none absolute top-0 bottom-0 left-0 hidden w-[200px] pb-10 min-[1200px]:block">
