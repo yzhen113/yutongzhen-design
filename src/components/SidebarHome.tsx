@@ -16,10 +16,6 @@ const filters: { id: Filter; label: string; href: string }[] = [
   { id: "experience", label: "Experience", href: "/experience" },
 ];
 
-const groups: { id: ProjectCategory; label: string }[] = [
-  { id: "product", label: "Product" },
-  { id: "experience", label: "Experience" },
-];
 
 const socialLinks = [
   { label: "Resume", href: site.resume },
@@ -33,6 +29,27 @@ function filterFromPath(pathname: string): Filter {
   if (pathname === "/experience") return "experience";
   return "all";
 }
+
+/** Order on the All view: evenly spaced, with product and experience work mixed. */
+const ALL_ORDER = [
+  "/projects/dasher",
+  "/projects/bumble",
+  "/projects/cmu-out-loud",
+  "/projects/tom",
+  "/projects/cmused",
+  "/projects/turning-toward",
+  "/projects/hybrid-exhibition-james-jean",
+];
+
+function projectsFor(filter: Filter): Project[] {
+  if (filter !== "all") return projects.filter((project) => project.category === filter);
+  const ordered = ALL_ORDER.flatMap((href) => projects.filter((project) => project.href === href));
+  // Anything not listed (e.g. a new project) follows in the site's order.
+  return [...ordered, ...projects.filter((project) => !ALL_ORDER.includes(project.href ?? ""))];
+}
+
+const headingFor = (filter: Filter) =>
+  filter === "product" ? "Product" : filter === "experience" ? "Experience" : "All projects";
 
 const countFor = (filter: Filter) =>
   filter === "all"
@@ -116,7 +133,6 @@ export function SidebarHome() {
   const filter = filterFromPath(pathname);
   const [hovered, setHovered] = useState<string | null>(null);
 
-  const visibleGroups = groups.filter((group) => filter === "all" || filter === group.id);
 
   return (
     <div className="px-3 min-[1000px]:grid min-[1000px]:grid-cols-[minmax(260px,320px)_minmax(0,1fr)] min-[1000px]:gap-x-5 min-[1000px]:px-5">
@@ -206,24 +222,17 @@ export function SidebarHome() {
       </aside>
 
       <main className="pb-24 min-[1000px]:border-l min-[1000px]:border-black/10 min-[1000px]:pt-5 min-[1000px]:pl-5">
-        {visibleGroups.map((group, gi) => (
-          <section key={group.id} className={gi > 0 ? "pt-[80px]" : ""}>
-            {/* Visible group title removed; kept for screen readers. */}
-            <h2 className="sr-only">{group.label}</h2>
-            <div className="grid grid-cols-1 gap-x-5 gap-y-[33px] min-[1400px]:grid-cols-2">
-              {projects
-                .filter((project) => project.category === group.id)
-                .map((project) => (
-                  <Card
-                    key={project.title}
-                    project={project}
-                    hovered={hovered === project.title}
-                    onHover={setHovered}
-                  />
-                ))}
-            </div>
-          </section>
-        ))}
+        <h2 className="sr-only">{headingFor(filter)}</h2>
+        <div className="grid grid-cols-1 gap-x-5 gap-y-[33px] min-[1400px]:grid-cols-2">
+          {projectsFor(filter).map((project) => (
+            <Card
+              key={project.title}
+              project={project}
+              hovered={hovered === project.title}
+              onHover={setHovered}
+            />
+          ))}
+        </div>
       </main>
     </div>
   );
