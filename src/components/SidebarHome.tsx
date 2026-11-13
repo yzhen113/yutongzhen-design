@@ -208,9 +208,8 @@ export function SidebarHome() {
       <main className="pb-24 min-[1000px]:border-l min-[1000px]:border-black/10 min-[1000px]:pt-3 min-[1000px]:pl-5">
         {visibleGroups.map((group, gi) => (
           <section key={group.id} className={gi > 0 ? "pt-[80px]" : ""}>
-            <h2 className="pb-5 text-[26px] font-medium leading-[31.2px] tracking-[-1.04px] min-[1100px]:text-[28px] min-[1100px]:leading-[33.6px] min-[1100px]:tracking-[-1.12px]">
-              {group.label}
-            </h2>
+            {/* Visible group title removed; kept for screen readers. */}
+            <h2 className="sr-only">{group.label}</h2>
             <div className="grid grid-cols-1 gap-x-5 gap-y-[33px] min-[1400px]:grid-cols-2">
               {projects
                 .filter((project) => project.category === group.id)
