@@ -7,9 +7,5 @@ export const metadata = {
 };
 
 export default function PlaygroundPage() {
-  return (
-    <main>
-      <PlaygroundGrid />
-    </main>
-  );
+  return <PlaygroundGrid inSidebar />;
 }

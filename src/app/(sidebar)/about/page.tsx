@@ -157,93 +157,58 @@ function TravelPhoto({
   );
 }
 
+/** About, laid out for the sidebar's content column (the sidebar comes from the layout). */
 export default function AboutPage() {
   return (
-    <main>
-        <div className="px-3 pt-[146px] min-[810px]:px-5 min-[810px]:pt-[122px]">
-          <h1 className="text-[26px] font-medium leading-[31.2px] tracking-[-1.04px] text-foreground min-[810px]:text-[28px] min-[810px]:leading-[33.6px] min-[810px]:tracking-[-1.12px]">
-            About
-          </h1>
+    <>
+      <h1 className="sr-only">About</h1>
+
+      <div className="grid gap-5 min-[1100px]:grid-cols-2">
+        <div className="relative aspect-[3/2] w-full overflow-hidden">
+          <Image
+            src="/media/about/hero.jpg"
+            alt="Yutong Zhen standing in the snow"
+            width={2048}
+            height={1365}
+            priority
+            className="h-full w-full object-cover"
+            sizes="(max-width: 999px) 100vw, (max-width: 1099px) 70vw, 35vw"
+            quality={95}
+          />
         </div>
 
-        <div className="flex flex-col gap-7 px-3 pt-7 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground min-[810px]:hidden">
-          <div className="flex flex-col gap-[17px]">
-            <p>Hello again!</p>
-            <p>
-              My name is Yutong Zhen. I am a interaction designer interested in
-              translating the expanding role of technology into intuitive,
-              meaningful, and fun user interfaces.
-            </p>
-            <p>
-              Currently, I&apos;m studying <StudyLinks />
-            </p>
-            <p>
-              Outside of studio, I enjoy traveling around the world searching
-              for good food, and taking photos on my Fujifilm X-S20.
-            </p>
+        <div className="flex max-w-[453px] flex-col gap-[17px] text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground">
+          <p>Hello again!</p>
+          <p>
+            My name is Yutong Zhen. I am a interaction designer interested in
+            translating the expanding role of technology into intuitive,
+            meaningful, and fun user interfaces.
+          </p>
+          <p>
+            Currently, I&apos;m studying <StudyLinks />
+          </p>
+          <p>
+            Outside of studio, I enjoy traveling around the world searching for
+            good food, and taking photos on my Fujifilm X-S20.
+          </p>
+        </div>
+      </div>
+
+      <section className="hidden pt-[99px] min-[810px]:block">
+        <RecentTravelsMark />
+        <div className="mt-3 grid grid-cols-2 gap-5">
+          <div className="flex flex-col gap-5">
+            {TRAVEL_LEFT.map((photo) => (
+              <TravelPhoto key={photo.src} {...photo} />
+            ))}
           </div>
-          <div className="relative aspect-[3/2] w-full overflow-hidden">
-            <Image
-              src="/media/about/hero.jpg"
-              alt="Yutong Zhen standing in the snow"
-              width={2048}
-              height={1365}
-              priority
-              className="h-full w-full object-cover"
-              sizes="100vw"
-              quality={95}
-            />
+          <div className="flex flex-col gap-5">
+            {TRAVEL_RIGHT.map((photo) => (
+              <TravelPhoto key={photo.src} {...photo} />
+            ))}
           </div>
         </div>
-
-        <div className="hidden px-5 pt-5 min-[810px]:grid min-[810px]:grid-cols-2 min-[810px]:gap-5">
-          <div className="relative aspect-[3/2] w-full overflow-hidden">
-            <Image
-              src="/media/about/hero.jpg"
-              alt="Yutong Zhen standing in the snow"
-              width={2048}
-              height={1365}
-              priority
-              className="h-full w-full object-cover"
-              sizes="50vw"
-              quality={95}
-            />
-          </div>
-
-          <div className="grid grid-cols-3 gap-5 text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground">
-            <p>Hello again!</p>
-            <div className="flex flex-col gap-5">
-              <p>
-                My name is Yutong Zhen. I am a interaction designer interested
-                in translating the expanding role of technology into intuitive,
-                meaningful, and fun user interfaces.
-              </p>
-              <p>
-                Currently, I&apos;m studying <StudyLinks />
-              </p>
-            </div>
-            <p>
-              Outside of studio, I enjoy traveling around the world searching
-              for good food, and taking photos on my Fujifilm X-S20.
-            </p>
-          </div>
-        </div>
-
-        <section className="hidden px-5 pt-[99px] min-[810px]:block">
-          <RecentTravelsMark />
-          <div className="mt-3 grid grid-cols-2 gap-5">
-            <div className="flex flex-col gap-5">
-              {TRAVEL_LEFT.map((photo) => (
-                <TravelPhoto key={photo.src} {...photo} />
-              ))}
-            </div>
-            <div className="flex flex-col gap-5">
-              {TRAVEL_RIGHT.map((photo) => (
-                <TravelPhoto key={photo.src} {...photo} />
-              ))}
-            </div>
-          </div>
-        </section>
-    </main>
+      </section>
+    </>
   );
 }

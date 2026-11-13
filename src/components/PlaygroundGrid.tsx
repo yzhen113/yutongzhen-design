@@ -43,16 +43,29 @@ function PlaygroundCard({
   );
 }
 
-export function PlaygroundGrid() {
+/**
+ * `inSidebar` drops the page title and outer padding so the grid sits in the
+ * sidebar layout's content column (the nav already shows the current page).
+ */
+export function PlaygroundGrid({ inSidebar = false }: { inSidebar?: boolean }) {
   return (
     <section className="w-full">
-      <div className="px-3 pt-[140px] pb-5 min-[1100px]:px-5 min-[1100px]:pt-[160px]">
-        <h1 className="text-[26px] font-medium leading-[31.2px] tracking-[-1.04px] text-foreground min-[1100px]:text-[28px] min-[1100px]:leading-[33.6px] min-[1100px]:tracking-[-1.12px]">
-          Playground
-        </h1>
-      </div>
+      {inSidebar ? (
+        <h1 className="sr-only">Playground</h1>
+      ) : (
+        <div className="px-3 pt-[140px] pb-5 min-[1100px]:px-5 min-[1100px]:pt-[160px]">
+          <h1 className="text-[26px] font-medium leading-[31.2px] tracking-[-1.04px] text-foreground min-[1100px]:text-[28px] min-[1100px]:leading-[33.6px] min-[1100px]:tracking-[-1.12px]">
+            Playground
+          </h1>
+        </div>
+      )}
 
-      <div className="grid grid-cols-1 gap-5 px-3 min-[1100px]:grid-cols-3 min-[1100px]:px-5">
+      <div
+        className={[
+          "grid grid-cols-1 gap-5 min-[1100px]:grid-cols-3",
+          inSidebar ? "" : "px-3 min-[1100px]:px-5",
+        ].join(" ")}
+      >
         {playgroundColumns.map((column) => (
           <div
             key={column.map((item) => item.media.src).join("-")}
