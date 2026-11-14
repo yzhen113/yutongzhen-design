@@ -14,8 +14,8 @@ const ALL_ORDER = [
   "/projects/bumble",
   "/projects/cmu-out-loud",
   "/projects/tom",
-  "/projects/cmused",
   "/projects/turning-toward",
+  "/projects/cmused",
   "/projects/hybrid-exhibition-james-jean",
 ];
 
