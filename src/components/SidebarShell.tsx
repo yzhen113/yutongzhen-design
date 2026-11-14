@@ -117,7 +117,8 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
             <Link
               href="/"
               className="nav-link w-fit"
-              data-active={section === "projects"}
+              // Blue only while showing every project; a selected filter takes the highlight.
+              data-active={section === "projects" && (filter === "all" || filter === null)}
             >
               Projects
             </Link>
