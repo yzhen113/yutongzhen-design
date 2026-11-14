@@ -78,7 +78,8 @@ export function SidebarHome() {
   return (
     <>
       <h1 className="sr-only">{headingFor(filter)}</h1>
-      <div className="grid grid-cols-1 gap-x-5 gap-y-[33px] min-[1400px]:grid-cols-2">
+      {/* One card per row at every width, so each spans the whole column beside the sidebar. */}
+      <div className="grid grid-cols-1 gap-y-[33px]">
         {projectsFor(filter).map((project) => (
           <Card
             key={project.title}
