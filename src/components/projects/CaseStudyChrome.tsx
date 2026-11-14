@@ -1,33 +1,55 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type MouseEvent } from "react";
-import { createPortal } from "react-dom";
-import { CASE_STUDY_TOC_SLOT } from "@/components/SidebarShell";
+import { useRouter } from "next/navigation";
+import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from "react";
 import { useScrollShrinkCover } from "@/components/projects/ScrollShrinkCover";
 
 /**
- * Phones only: a slim bar with the way back to the projects. On wider screens
- * the home page's sidebar carries the navigation instead (SidebarShell).
+ * A quiet bar that matches the home sidebar: a way back on the left, the
+ * project's name in grey beside it, and a close mark on the right. Escape
+ * also returns home.
  */
 export function CaseStudyHeader({ title }: { title: string }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      if (document.fullscreenElement) return;
+      router.push("/");
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [router]);
+
   return (
-    <header className="sticky top-0 z-50 w-full bg-[rgba(250,250,250,0.95)] min-[1000px]:hidden">
-      <div className="flex items-center justify-between gap-5 px-3 py-2 text-[14px] leading-[18.2px] tracking-[0.14px]">
-        <Link href="/" className="nav-link flex shrink-0 items-center gap-1.5">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-            <path d="M11 6H1M5.5 1.5 1 6l4.5 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+    <header className="sticky top-0 z-50 w-full bg-[rgba(250,250,250,0.95)]">
+      <div className="flex items-center gap-3 px-3 py-2 text-[14px] leading-[18.2px] tracking-[0.14px] min-[1200px]:px-5">
+        <Link href="/" className="nav-link shrink-0 gap-1.5">
+          <span aria-hidden>←</span>
           Projects
         </Link>
-        <p className="min-w-0 truncate text-right text-[#7e7e7e]">{title}</p>
+        <span aria-hidden className="h-3 w-px shrink-0 bg-black/15" />
+        <p className="min-w-0 flex-1 truncate text-black/45">{title}</p>
+        <Link
+          href="/"
+          aria-label="Close project"
+          className="close-project-link flex h-3.5 w-3.5 shrink-0 items-center justify-center"
+        >
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
+            <path
+              d="M1 1L13 13M13 1L1 13"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
+        </Link>
       </div>
     </header>
   );
 }
-
-// The sidebar slot is part of the layout, so it never changes while a page is open.
-const noSubscribe = () => () => {};
 
 export const bumbleSections = [
   { id: "overview", label: "Overview" },
@@ -93,16 +115,9 @@ export function CaseStudySidebar({
   const navRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(sections[0]?.id ?? "");
   const mediaCover = useScrollShrinkCover();
-  // In the sidebar layout the list moves into the site sidebar, under the project's title.
-  const slot = useSyncExternalStore(
-    noSubscribe,
-    () => document.getElementById(CASE_STUDY_TOC_SLOT),
-    () => null,
-  );
-  const hidden = !slot && fadeUnderMedia && mediaCover > 0;
+  const hidden = fadeUnderMedia && mediaCover > 0;
 
   useLayoutEffect(() => {
-    if (slot) return;
     const nav = navRef.current;
     const pin = nav?.parentElement;
     const aside = pin?.closest("aside");
@@ -137,7 +152,7 @@ export function CaseStudySidebar({
       delete pin.dataset.position;
       pin.style.removeProperty("--sidebar-left");
     };
-  }, [slot]);
+  }, []);
 
   useEffect(() => {
     const elements = sections
@@ -187,30 +202,6 @@ export function CaseStudySidebar({
     window.scrollTo({ top, behavior: "smooth" });
     history.replaceState(null, "", `#${id}`);
   };
-
-  if (slot) {
-    return createPortal(
-      <nav aria-label="Case study sections" className="flex flex-col gap-1">
-        {sections.map((section) => (
-          <a
-            key={section.id}
-            href={`#${section.id}`}
-            onClick={onJump(section.id)}
-            aria-current={active === section.id ? "location" : undefined}
-            className={[
-              "w-fit transition-colors",
-              active === section.id
-                ? "!text-[var(--nav-active)]"
-                : "!text-foreground hover:!text-[var(--nav-active)]",
-            ].join(" ")}
-          >
-            {section.label}
-          </a>
-        ))}
-      </nav>,
-      slot,
-    );
-  }
 
   return (
     <nav

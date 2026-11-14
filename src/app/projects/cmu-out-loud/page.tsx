@@ -132,7 +132,7 @@ export default function CmuOutLoudPage() {
       <CaseStudyHeader title="CMU Out Loud" />
 
       <ProjectMorph href="/projects/cmu-out-loud">
-        <div className="relative -mt-[34px] h-[100svh] w-full overflow-hidden bg-[#f2f2f2] min-[1000px]:mt-0 min-[1000px]:h-[calc(100svh-40px)]">
+        <div className="relative -mt-[34px] h-[100svh] w-full overflow-hidden bg-[#f2f2f2]">
           <MediaReveal fill>
             <Image
               src="/media/cmu-out-loud/hero.jpg"

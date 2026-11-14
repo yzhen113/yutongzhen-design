@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { PittsburghClock } from "@/components/PittsburghClock";
 import { projects, site, type ProjectCategory } from "@/lib/site";
 
@@ -28,9 +27,6 @@ export function filterFromPath(pathname: string): ProjectFilter | null {
   if (pathname === "/experience") return "experience";
   return null;
 }
-
-/** Where a case study's section list (CaseStudySidebar) renders inside the sidebar. */
-export const CASE_STUDY_TOC_SLOT = "case-study-toc-slot";
 
 function sectionFromPath(pathname: string): Section {
   if (pathname.startsWith("/about")) return "about";
@@ -85,28 +81,12 @@ function NameMark() {
  */
 export function SidebarShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const router = useRouter();
   const section = sectionFromPath(pathname);
   const filter = filterFromPath(pathname);
-  // On a case study, the project and its sections open up under Projects.
-  const caseStudy = pathname.startsWith("/projects/")
-    ? projects.find((project) => project.href === pathname.replace(/\/$/, "")) ?? null
-    : null;
-  const onCaseStudy = pathname.startsWith("/projects/");
-
-  // Escape closes a case study, back to the project list.
-  useEffect(() => {
-    if (!onCaseStudy) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && !document.fullscreenElement) router.push("/");
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onCaseStudy, router]);
 
   return (
-    <div className={`${onCaseStudy ? "" : "px-3"} min-[1000px]:grid min-[1000px]:grid-cols-[minmax(260px,320px)_minmax(0,1fr)] min-[1000px]:gap-x-5 min-[1000px]:px-5`}>
-      <aside className={`${onCaseStudy ? "hidden min-[1000px]:flex" : "flex"} flex-col gap-10 pt-3 pb-12 min-[1000px]:sticky min-[1000px]:top-0 min-[1000px]:h-screen min-[1000px]:justify-between min-[1000px]:overflow-y-auto min-[1000px]:pb-5`}>
+    <div className="px-3 min-[1000px]:grid min-[1000px]:grid-cols-[minmax(260px,320px)_minmax(0,1fr)] min-[1000px]:gap-x-5 min-[1000px]:px-5">
+      <aside className="flex flex-col gap-10 pt-3 pb-12 min-[1000px]:sticky min-[1000px]:top-0 min-[1000px]:h-screen min-[1000px]:justify-between min-[1000px]:overflow-y-auto min-[1000px]:pb-5">
         <div className="flex flex-col gap-10">
           {/* Name on the left, Pittsburgh time on the right of the same row. */}
           <div className="flex items-start justify-between gap-3 pt-[3px]">
@@ -138,40 +118,32 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
               href="/"
               className="nav-link w-fit"
               // Blue only while showing every project; a selected filter takes the highlight.
-              data-active={section === "projects" && !onCaseStudy && (filter === "all" || filter === null)}
+              data-active={section === "projects" && (filter === "all" || filter === null)}
             >
               Projects
             </Link>
-            {onCaseStudy ? (
-              <div className="flex flex-col gap-1 border-l border-black/10 pl-3">
-                {caseStudy && <p className="text-foreground">{caseStudy.title}</p>}
-                {/* Filled by the page's CaseStudySidebar (its section list, with the current one in blue). */}
-                <div id={CASE_STUDY_TOC_SLOT} className="flex flex-col gap-1 border-l border-black/10 pl-3 empty:hidden" />
-              </div>
-            ) : (
-              <div className="flex flex-col gap-1 border-l border-black/10 pl-3">
-                {filters.map((item) => {
-                  const selected = filter === item.id;
-                  return (
-                    <Link
-                      key={item.id}
-                      href={item.href}
-                      scroll={false}
-                      aria-current={selected ? "page" : undefined}
-                      className={[
-                        "flex w-fit items-start gap-1 transition-colors hover:text-[var(--nav-active)]",
-                        selected ? "!text-[var(--nav-active)]" : "!text-foreground hover:!text-[var(--nav-active)]",
-                      ].join(" ")}
-                    >
-                      {item.label}
-                      <sup className="pt-[2px] text-[10px] leading-[10px] tabular-nums">
-                        {countFor(item.id)}
-                      </sup>
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
+            <div className="flex flex-col gap-1 border-l border-black/10 pl-3">
+              {filters.map((item) => {
+                const selected = filter === item.id;
+                return (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    scroll={false}
+                    aria-current={selected ? "page" : undefined}
+                    className={[
+                      "flex w-fit items-start gap-1 transition-colors hover:text-[var(--nav-active)]",
+                      selected ? "!text-[var(--nav-active)]" : "!text-foreground hover:!text-[var(--nav-active)]",
+                    ].join(" ")}
+                  >
+                    {item.label}
+                    <sup className="pt-[2px] text-[10px] leading-[10px] tabular-nums">
+                      {countFor(item.id)}
+                    </sup>
+                  </Link>
+                );
+              })}
+            </div>
             <Link
               href="/about"
               className="nav-link w-fit"
