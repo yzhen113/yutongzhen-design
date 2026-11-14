@@ -1,52 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type MouseEvent } from "react";
+import { createPortal } from "react-dom";
+import { CASE_STUDY_TOC_SLOT } from "@/components/SidebarShell";
 import { useScrollShrinkCover } from "@/components/projects/ScrollShrinkCover";
 
-const navItems = [
-  { label: "Projects", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Playground", href: "/playground" },
-] as const;
-
+/**
+ * Phones only: a slim bar with the way back to the projects. On wider screens
+ * the home page's sidebar carries the navigation instead (SidebarShell).
+ */
 export function CaseStudyHeader({ title }: { title: string }) {
   return (
-    <header className="sticky top-0 z-50 w-full bg-[rgba(250,250,250,0.95)]">
-      <div
-        className="relative grid items-center gap-x-5 px-3 py-2 min-[1200px]:px-5 min-[1200px]:py-[8px]"
-        style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)" }}
-      >
-        <p className="min-w-0 truncate text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground">
-          {title}
-        </p>
-
-        <nav className="hidden items-center gap-3.5 min-[1200px]:flex">
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="nav-link">
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <Link
-          href="/"
-          aria-label="Close project"
-          className="close-project-link absolute top-1/2 right-3 flex h-3.5 w-3.5 -translate-y-1/2 items-center justify-center min-[1200px]:right-5"
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-            <path
-              d="M1 1L13 13M13 1L1 13"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
+    <header className="sticky top-0 z-50 w-full bg-[rgba(250,250,250,0.95)] min-[1000px]:hidden">
+      <div className="flex items-center justify-between gap-5 px-3 py-2 text-[14px] leading-[18.2px] tracking-[0.14px]">
+        <Link href="/" className="nav-link flex shrink-0 items-center gap-1.5">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+            <path d="M11 6H1M5.5 1.5 1 6l4.5 4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
+          Projects
         </Link>
+        <p className="min-w-0 truncate text-right text-[#7e7e7e]">{title}</p>
       </div>
     </header>
   );
 }
+
+// The sidebar slot is part of the layout, so it never changes while a page is open.
+const noSubscribe = () => () => {};
 
 export const bumbleSections = [
   { id: "overview", label: "Overview" },
@@ -112,9 +93,16 @@ export function CaseStudySidebar({
   const navRef = useRef<HTMLElement>(null);
   const [active, setActive] = useState(sections[0]?.id ?? "");
   const mediaCover = useScrollShrinkCover();
-  const hidden = fadeUnderMedia && mediaCover > 0;
+  // In the sidebar layout the list moves into the site sidebar, under the project's title.
+  const slot = useSyncExternalStore(
+    noSubscribe,
+    () => document.getElementById(CASE_STUDY_TOC_SLOT),
+    () => null,
+  );
+  const hidden = !slot && fadeUnderMedia && mediaCover > 0;
 
   useLayoutEffect(() => {
+    if (slot) return;
     const nav = navRef.current;
     const pin = nav?.parentElement;
     const aside = pin?.closest("aside");
@@ -149,7 +137,7 @@ export function CaseStudySidebar({
       delete pin.dataset.position;
       pin.style.removeProperty("--sidebar-left");
     };
-  }, []);
+  }, [slot]);
 
   useEffect(() => {
     const elements = sections
@@ -199,6 +187,30 @@ export function CaseStudySidebar({
     window.scrollTo({ top, behavior: "smooth" });
     history.replaceState(null, "", `#${id}`);
   };
+
+  if (slot) {
+    return createPortal(
+      <nav aria-label="Case study sections" className="flex flex-col gap-1">
+        {sections.map((section) => (
+          <a
+            key={section.id}
+            href={`#${section.id}`}
+            onClick={onJump(section.id)}
+            aria-current={active === section.id ? "location" : undefined}
+            className={[
+              "w-fit transition-colors",
+              active === section.id
+                ? "!text-[var(--nav-active)]"
+                : "!text-foreground hover:!text-[var(--nav-active)]",
+            ].join(" ")}
+          >
+            {section.label}
+          </a>
+        ))}
+      </nav>,
+      slot,
+    );
+  }
 
   return (
     <nav

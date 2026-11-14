@@ -3,8 +3,11 @@ import { site } from "@/lib/site";
 export function SiteFooter({ compact = false }: { compact?: boolean }) {
   return (
     <footer
+      // Wide screens already show these links in the sidebar, so the footer is for phones only.
       className={
-        compact ? "w-full" : "mt-[80px] w-full min-[1100px]:mt-[100px]"
+        compact
+          ? "w-full min-[1000px]:hidden"
+          : "mt-[80px] w-full min-[1000px]:hidden min-[1100px]:mt-[100px]"
       }
     >
       <div className="mx-3 h-px bg-black/10 min-[1100px]:mx-5" />
