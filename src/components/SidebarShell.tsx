@@ -132,7 +132,7 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
                     aria-current={selected ? "page" : undefined}
                     className={[
                       "flex w-fit items-start gap-1 transition-colors hover:text-[var(--nav-active)]",
-                      selected ? "text-foreground" : "text-[#a8a8a8]",
+                      selected ? "!text-[var(--nav-active)]" : "!text-[#a8a8a8] hover:!text-[var(--nav-active)]",
                     ].join(" ")}
                   >
                     {item.label}
