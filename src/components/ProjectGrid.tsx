@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ProjectMedia, ProjectMeta } from "@/components/ProjectCardParts";
-import { type ProjectFilter } from "@/components/ProjectsHeading";
 import { projects, type Project } from "@/lib/site";
 
 function ProjectCard({ project }: { project: Project }) {
@@ -24,12 +23,21 @@ function ProjectCard({ project }: { project: Project }) {
   );
 }
 
-export function ProjectGrid({
-  filter = "product",
-}: {
-  filter?: ProjectFilter;
-}) {
-  const visible = projects.filter((project) => project.category === filter);
+/** Product and experience work mixed, so neither kind bunches up. */
+const ORDER = [
+  "/projects/dasher",
+  "/projects/bumble",
+  "/projects/tom",
+  "/projects/cmu-out-loud",
+  "/projects/turning-toward",
+  "/projects/cmused",
+  "/projects/hybrid-exhibition-james-jean",
+];
+
+export function ProjectGrid() {
+  const listed = ORDER.flatMap((href) => projects.filter((project) => project.href === href));
+  // Anything not listed (e.g. a new project) follows in the site's order.
+  const visible = [...listed, ...projects.filter((project) => !ORDER.includes(project.href ?? ""))];
 
   return (
     <section className="w-full">

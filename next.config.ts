@@ -8,6 +8,13 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 640],
     qualities: [75, 95, 100],
   },
+  // Product and Experience were merged into one Projects list on the home page.
+  async redirects() {
+    return [
+      { source: "/product", destination: "/", permanent: false },
+      { source: "/experience", destination: "/", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { LinkScribble } from "@/components/LinkScribble";
 import { PittsburghClock } from "@/components/PittsburghClock";
+import { Signature } from "@/components/Signature";
 import { site } from "@/lib/site";
 
 const navItems = [
@@ -144,55 +146,27 @@ function MobileBar({
                 meaningful user interfaces.
               </p>
               <p>
-                Currently, I&apos;m studying{" "}
+                Currently, I&apos;m studying Design, HCI, Physical Computing @{" "}
                 <a
-                  className="plain-link"
-                  href={site.links.design}
-                  target="_blank"
-                  rel="noreferrer"
-                  tabIndex={menuOpen ? 0 : -1}
-                >
-                  Design
-                </a>
-                ,{" "}
-                <a
-                  className="plain-link"
-                  href={site.links.hci}
-                  target="_blank"
-                  rel="noreferrer"
-                  tabIndex={menuOpen ? 0 : -1}
-                >
-                  HCI
-                </a>
-                ,{" "}
-                <a
-                  className="plain-link"
-                  href={site.links.physicalComputing}
-                  target="_blank"
-                  rel="noreferrer"
-                  tabIndex={menuOpen ? 0 : -1}
-                >
-                  Physical Computing
-                </a>{" "}
-                @{" "}
-                <a
-                  className="plain-link"
+                  className="plain-link scribble-link"
                   href={site.links.cmu}
                   target="_blank"
                   rel="noreferrer"
                   tabIndex={menuOpen ? 0 : -1}
                 >
                   Carnegie Mellon University
+                  <LinkScribble variant="long" />
                 </a>
                 . Previously, designing @{" "}
                 <a
-                  className="plain-link"
+                  className="plain-link scribble-link"
                   href={site.links.doordash}
                   target="_blank"
                   rel="noreferrer"
                   tabIndex={menuOpen ? 0 : -1}
                 >
                   DoorDash
+                  <LinkScribble variant="trim" />
                 </a>
               </p>
             </div>
@@ -291,50 +265,25 @@ function HeaderBio({ collapsed }: { collapsed: boolean }) {
           interfaces.
         </p>
         <p>
-          Currently, I&apos;m studying{" "}
+          Currently, I&apos;m studying Design, HCI, Physical Computing @{" "}
           <a
-            className="plain-link"
-            href={site.links.design}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Design
-          </a>
-          ,{" "}
-          <a
-            className="plain-link"
-            href={site.links.hci}
-            target="_blank"
-            rel="noreferrer"
-          >
-            HCI
-          </a>
-          ,{" "}
-          <a
-            className="plain-link"
-            href={site.links.physicalComputing}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Physical Computing
-          </a>{" "}
-          @{" "}
-          <a
-            className="plain-link"
+            className="plain-link scribble-link"
             href={site.links.cmu}
             target="_blank"
             rel="noreferrer"
           >
             Carnegie Mellon University
+            <LinkScribble variant="long" />
           </a>
           . Previously, designing @{" "}
           <a
-            className="plain-link"
+            className="plain-link scribble-link"
             href={site.links.doordash}
             target="_blank"
             rel="noreferrer"
           >
             DoorDash
+            <LinkScribble variant="trim" />
           </a>
         </p>
       </div>
@@ -392,15 +341,7 @@ export function SiteHeader() {
             >
               {site.name}
               <span className="pointer-events-none absolute left-[30px] top-[-32px] z-10 block h-[101px] w-[101px] overflow-visible">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/media/signature.png"
-                  alt=""
-                  width={101}
-                  height={101}
-                  className="block h-[101px] w-[101px] max-w-none object-cover"
-                  draggable={false}
-                />
+                <Signature />
               </span>
             </Link>
           </div>
