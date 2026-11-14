@@ -8,9 +8,8 @@ import { projects, site, type ProjectCategory } from "@/lib/site";
 export type ProjectFilter = "all" | ProjectCategory;
 type Section = "projects" | "about" | "playground";
 
-/** Each filter is its own route, so /product and /experience keep working as links. */
+/** Each filter is its own route, so /product and /experience keep working as links. "Projects" itself shows all of them. */
 const filters: { id: ProjectFilter; label: string; href: string }[] = [
-  { id: "all", label: "All", href: "/" },
   { id: "product", label: "Product", href: "/product" },
   { id: "experience", label: "Experience", href: "/experience" },
 ];
