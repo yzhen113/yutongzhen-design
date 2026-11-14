@@ -628,8 +628,12 @@ button {
    different proportions, so both snapshots fill the moving frame and crop
    instead of stretching; a brief blur hides the scaling mid-flight. */
 ::view-transition-group(.project-morph) {
-  animation-duration: 280ms;
-  animation-timing-function: cubic-bezier(0.44, 0, 0.56, 1);
+  /* Pure move + scale: the thumbnail grows and slides into the hero's place. */
+  animation-duration: 340ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+::view-transition-image-pair(.project-morph) {
+  animation: none;
 }
 ::view-transition-old(.project-morph),
 ::view-transition-new(.project-morph) {
@@ -637,15 +641,19 @@ button {
   width: 100%;
   object-fit: cover;
   object-position: center;
+  mix-blend-mode: normal;
 }
-::view-transition-image-pair(.project-morph) {
-  animation-name: project-morph-soften;
-  animation-duration: 280ms;
+/* The thumbnail stays solid while it moves; the hero fades in over it only at the very end. */
+::view-transition-old(.project-morph) {
+  animation: none;
+  opacity: 1;
 }
-@keyframes project-morph-soften {
-  40% {
-    filter: blur(2px);
-  }
+::view-transition-new(.project-morph) {
+  animation: project-morph-land 340ms linear both;
+}
+@keyframes project-morph-land {
+  0%, 78% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* The rest of the page crossfades underneath the morph. */

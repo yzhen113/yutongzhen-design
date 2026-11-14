@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { PaperclipLoader } from "@/components/PaperclipLoader";
 import styles from "./MediaReveal.module.css";
 
@@ -76,6 +76,17 @@ export function MediaReveal({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
+  // Media already in the browser cache shows at once, with no fade, so a
+  // thumbnail-to-hero transition lands on the finished image.
+  const [instant, setInstant] = useState(false);
+
+  useLayoutEffect(() => {
+    const media = [...(ref.current?.querySelectorAll<Media>("img, video") ?? [])];
+    if (media.length > 0 && media.every((el) => isReady(el, video))) {
+      setInstant(true);
+      setLoaded(true);
+    }
+  }, [video]);
 
   useEffect(() => {
     const host = ref.current;
@@ -108,6 +119,7 @@ export function MediaReveal({
       ref={ref}
       className={[styles.reveal, className].filter(Boolean).join(" ")}
       data-loaded={loaded}
+      data-instant={instant || undefined}
       data-fill={fill || undefined}
     >
       <div className={styles.media}>{children}</div>

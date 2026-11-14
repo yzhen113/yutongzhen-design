@@ -22,6 +22,10 @@
   transform: none;
 }
 
+.reveal[data-instant] .media {
+  transition: none;
+}
+
 /* Only shows if loading takes >200ms, so cached media never flashes a loader. */
 .loaderSlot {
   position: absolute;
