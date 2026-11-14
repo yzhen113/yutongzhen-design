@@ -628,7 +628,7 @@ button {
    different proportions, so both snapshots fill the moving frame and crop
    instead of stretching; a brief blur hides the scaling mid-flight. */
 ::view-transition-group(.project-morph) {
-  animation-duration: 560ms;
+  animation-duration: 280ms;
   animation-timing-function: cubic-bezier(0.44, 0, 0.56, 1);
 }
 ::view-transition-old(.project-morph),
@@ -640,7 +640,7 @@ button {
 }
 ::view-transition-image-pair(.project-morph) {
   animation-name: project-morph-soften;
-  animation-duration: 560ms;
+  animation-duration: 280ms;
 }
 @keyframes project-morph-soften {
   40% {
@@ -651,7 +651,7 @@ button {
 /* The rest of the page crossfades underneath the morph. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 320ms;
+  animation-duration: 180ms;
   animation-timing-function: ease;
 }
 
