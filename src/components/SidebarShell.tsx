@@ -88,8 +88,12 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
     <div className="px-3 min-[1000px]:grid min-[1000px]:grid-cols-[minmax(260px,320px)_minmax(0,1fr)] min-[1000px]:gap-x-5 min-[1000px]:px-5">
       <aside className="flex flex-col gap-10 pt-3 pb-12 min-[1000px]:sticky min-[1000px]:top-0 min-[1000px]:h-screen min-[1000px]:justify-between min-[1000px]:overflow-y-auto min-[1000px]:pb-5">
         <div className="flex flex-col gap-10">
-          <div className="pt-[3px]">
+          {/* Name on the left, Pittsburgh time on the right of the same row. */}
+          <div className="flex items-start justify-between gap-3 pt-[3px]">
             <NameMark />
+            <div className="whitespace-nowrap">
+              <PittsburghClock />
+            </div>
           </div>
 
           <div className="flex flex-col gap-3 pt-[60px] min-[1000px]:pt-10">
@@ -160,15 +164,9 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
 
         <div className="flex flex-col gap-3">
           <div className="h-px bg-black/10" />
-          {/* Email, then the clock on its own line so the time never wraps in the narrow sidebar. */}
-          <div className="flex flex-col gap-1">
-            <a className="footer-link w-fit" href={`mailto:${site.email}`}>
-              {site.email}
-            </a>
-            <div className="whitespace-nowrap [&>div]:justify-start">
-              <PittsburghClock />
-            </div>
-          </div>
+          <a className="footer-link w-fit" href={`mailto:${site.email}`}>
+            {site.email}
+          </a>
           <div className="flex flex-wrap gap-x-3 gap-y-1">
             {socialLinks.map((link) => (
               <a
