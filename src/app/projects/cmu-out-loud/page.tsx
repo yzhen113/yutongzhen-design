@@ -610,14 +610,14 @@ export default function CmuOutLoudPage() {
               </p>
             </Link>
             <Link
-              href="/projects/hybrid-exhibition-james-jean"
+              href="/projects/dasher"
               className="group block space-y-2"
             >
               <div className="overflow-hidden bg-[#f5f5f5]">
                 <MediaReveal>
                   <Image
-                    src="/media/james-jean/cover.png"
-                    alt="Hybrid Exhibition: James Jean x Hunt Institute"
+                    src="/media/dasher/hero.png"
+                    alt="Dasher: Building better delivery experiences"
                     width={2320}
                     height={1318}
                     quality={100}
@@ -626,10 +626,10 @@ export default function CmuOutLoudPage() {
                 </MediaReveal>
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
-                Hybrid Exhibition: James Jean x Hunt Institute
+                Dasher: Building better delivery experiences
               </p>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px] text-foreground/70">
-                Exhibition Design, XR
+                Mobile, Product, Shipped
               </p>
             </Link>
           </div>

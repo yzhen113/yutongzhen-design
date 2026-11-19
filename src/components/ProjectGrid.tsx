@@ -31,13 +31,19 @@ const ORDER = [
   "/projects/cmu-out-loud",
   "/projects/turning-toward",
   "/projects/cmused",
-  "/projects/hybrid-exhibition-james-jean",
 ];
+
+/** Archived: kept at its URL but no longer shown on the home page. */
+const ARCHIVED = ["/projects/hybrid-exhibition-james-jean"];
 
 export function ProjectGrid() {
   const listed = ORDER.flatMap((href) => projects.filter((project) => project.href === href));
   // Anything not listed (e.g. a new project) follows in the site's order.
-  const visible = [...listed, ...projects.filter((project) => !ORDER.includes(project.href ?? ""))];
+  const rest = projects.filter(
+    (project) =>
+      !ORDER.includes(project.href ?? "") && !ARCHIVED.includes(project.href ?? ""),
+  );
+  const visible = [...listed, ...rest];
 
   return (
     <section className="w-full">
