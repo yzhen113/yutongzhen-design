@@ -94,9 +94,42 @@ a {
   pointer-events: none;
 }
 
-.autoplay-video::-webkit-media-controls,
-.autoplay-video::-webkit-media-controls-enclosure,
-.autoplay-video::-webkit-media-controls-start-playback-button,
+/* One rule per pseudo-element: Safari drops a whole selector list if it doesn't know any one of them. */
+.autoplay-video::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.autoplay-video::-webkit-media-controls-enclosure {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.autoplay-video::-webkit-media-controls-panel {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.autoplay-video::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.autoplay-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .autoplay-video::-webkit-media-controls-overlay-play-button {
   display: none !important;
   -webkit-appearance: none;
