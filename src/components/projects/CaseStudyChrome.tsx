@@ -7,8 +7,7 @@ import { useScrollShrinkCover } from "@/components/projects/ScrollShrinkCover";
 
 /**
  * A quiet bar that matches the home sidebar: a way back on the left, the
- * project's name in grey beside it, and a close mark on the right. Escape
- * also returns home.
+ * project's name in grey beside it. Escape also returns home.
  */
 export function CaseStudyHeader({ title }: { title: string }) {
   const router = useRouter();
@@ -32,20 +31,6 @@ export function CaseStudyHeader({ title }: { title: string }) {
         </Link>
         <span aria-hidden className="h-3 w-px shrink-0 bg-black/15" />
         <p className="min-w-0 flex-1 truncate text-black/45">{title}</p>
-        <Link
-          href="/"
-          aria-label="Close project"
-          className="close-project-link flex h-3.5 w-3.5 shrink-0 items-center justify-center"
-        >
-          <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
-            <path
-              d="M1 1L13 13M13 1L1 13"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-        </Link>
       </div>
     </header>
   );
