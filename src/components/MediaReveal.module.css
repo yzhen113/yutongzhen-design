@@ -26,21 +26,36 @@
   transition: none;
 }
 
-/* Only shows if loading takes >200ms, so cached media never flashes a loader. */
+/* Media sits above the shimmer so it fades in over it. */
+.media {
+  position: relative;
+  z-index: 1;
+}
+
+/* Shimmer tile behind the media. Only shows if loading takes >200ms, so cached media never flashes it. */
 .loaderSlot {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
   pointer-events: none;
   opacity: 0;
-  animation: loader-in 240ms ease 200ms forwards;
-  transition: opacity 200ms ease;
+  /* Tinted rather than a fixed grey, so it reads on white and on light grey panels alike. */
+  background:
+    linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.7) 50%, transparent 70%)
+      0 0 / 220% 100% no-repeat,
+    rgba(0, 0, 0, 0.04);
+  animation:
+    loader-in 240ms ease 200ms forwards,
+    shimmer 1.6s ease-in-out infinite;
 }
 
+/* Stays put until the media has faded in on top, then hides. */
 .reveal[data-loaded="true"] .loaderSlot {
-  animation: none;
-  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s 600ms;
+}
+
+.reveal[data-instant] .loaderSlot {
+  display: none;
 }
 
 @keyframes loader-in {
@@ -49,7 +64,20 @@
   }
 }
 
+@keyframes shimmer {
+  from {
+    background-position: 120% 0, 0 0;
+  }
+  to {
+    background-position: -120% 0, 0 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .loaderSlot {
+    animation: loader-in 240ms ease 200ms forwards;
+  }
+
   .media {
     transform: none;
     transition: opacity 200ms ease;

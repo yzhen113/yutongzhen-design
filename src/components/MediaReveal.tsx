@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
-import { PaperclipLoader } from "@/components/PaperclipLoader";
 import styles from "./MediaReveal.module.css";
 
 type Media = HTMLImageElement | HTMLVideoElement;
@@ -61,7 +60,7 @@ function whenReady(el: Media, video: VideoReadiness) {
   });
 }
 
-/** Hides the wrapped images/videos behind a paperclip loader until all of them have fully loaded. */
+/** Hides the wrapped images/videos behind a shimmer until all of them have fully loaded. */
 export function MediaReveal({
   children,
   className,
@@ -123,9 +122,7 @@ export function MediaReveal({
       data-fill={fill || undefined}
     >
       <div className={styles.media}>{children}</div>
-      <div className={styles.loaderSlot} aria-hidden={loaded}>
-        <PaperclipLoader />
-      </div>
+      <div className={styles.loaderSlot} role="progressbar" aria-label="Loading" aria-hidden={loaded} />
     </div>
   );
 }
