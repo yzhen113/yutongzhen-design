@@ -27,9 +27,9 @@ function ProjectCard({ project }: { project: Project }) {
 const ORDER = [
   "/projects/dasher",
   "/projects/bumble",
-  "/projects/tom",
-  "/projects/cmu-out-loud",
   "/projects/turning-toward",
+  "/projects/cmu-out-loud",
+  "/projects/tom",
   "/projects/cmused",
 ];
 
