@@ -1,6 +1,7 @@
 import { SmoothCorners } from "@/components/SmoothCorners";
 import Image from "next/image";
 import { MediaReveal } from "@/components/MediaReveal";
+import { DasherHero } from "@/components/projects/DasherHero";
 import Link from "next/link";
 import {
   CaseStudyHeader,
@@ -613,17 +614,9 @@ export default function CmuOutLoudPage() {
               href="/projects/dasher"
               className="group block space-y-2"
             >
-              <div className="overflow-hidden bg-[#f5f5f5]">
-                <MediaReveal>
-                  <Image
-                    src="/media/dasher/hero.png"
-                    alt="Dasher: Building better delivery experiences"
-                    width={2320}
-                    height={1318}
-                    quality={100}
-                    className="h-auto w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
-                  />
-                </MediaReveal>
+              {/* Same animated metric cards as the Dasher card on the home page. */}
+              <div className="overflow-hidden">
+                <DasherHero thumbnail />
               </div>
               <p className="text-[14px] leading-[18.2px] tracking-[0.14px]">
                 Dasher: Building better delivery experiences
