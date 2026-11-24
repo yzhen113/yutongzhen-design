@@ -13,8 +13,8 @@ const ALL_ORDER = [
   "/projects/dasher",
   "/projects/bumble",
   "/projects/cmu-out-loud",
-  "/projects/tom",
   "/projects/turning-toward",
+  "/projects/tom",
   "/projects/cmused",
   "/projects/hybrid-exhibition-james-jean",
 ];
