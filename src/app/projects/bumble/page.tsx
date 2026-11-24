@@ -151,8 +151,9 @@ export default function BumblePage() {
       <CaseStudyHeader title="BUZZ Signal" />
 
       {/* Hero — cover video (logo included in video); phones get the static cover instead */}
-      <ProjectMorph href="/projects/bumble">
-        <div className="relative flex w-full items-center justify-center bg-[#f2f2f2] px-0 py-0 min-[600px]:px-4 min-[600px]:py-10 min-[1200px]:h-[620px] min-[1200px]:px-0 min-[1200px]:py-0">
+      <div className="relative flex w-full items-center justify-center bg-[#f2f2f2] px-0 py-0 min-[600px]:px-4 min-[600px]:py-10 min-[1200px]:h-[620px] min-[1200px]:px-0 min-[1200px]:py-0">
+        {/* The morph targets the media box, which has the card's shape, so nothing re-crops mid-flight. */}
+        <ProjectMorph href="/projects/bumble">
           <div className="relative w-full max-w-[1020px] overflow-hidden">
             <MediaReveal className="min-[600px]:hidden">
               <Image
@@ -174,8 +175,8 @@ export default function BumblePage() {
               />
             </MediaReveal>
           </div>
-        </div>
-      </ProjectMorph>
+        </ProjectMorph>
+      </div>
 
       <div className="relative mx-auto w-full max-w-[1440px] overflow-x-clip">
         {/* Fixed sidebar — desktop only (≥1200px). Bottom pad keeps gap above More projects. */}

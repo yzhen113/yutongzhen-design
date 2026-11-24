@@ -23,7 +23,11 @@ export function CaseStudyHeader({ title }: { title: string }) {
   }, [router]);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[rgba(250,250,250,0.95)]">
+    <header
+      className="sticky top-0 z-50 w-full bg-[rgba(250,250,250,0.95)]"
+      // Its own layer in the page transition, so the hero morph slides in under it (see globals.css).
+      style={{ viewTransitionName: "case-header" }}
+    >
       <div className="flex items-center gap-3 px-3 py-2 text-[14px] leading-[18.2px] tracking-[0.14px] min-[1200px]:px-5">
         <Link href="/" className="nav-link shrink-0 gap-1.5">
           <span aria-hidden>←</span>
@@ -78,7 +82,6 @@ export const cmuOutLoudSections = [
   { id: "explorations", label: "Explorations" },
   { id: "design", label: "Design" },
   { id: "build", label: "Build" },
-  { id: "reflection", label: "Reflection" },
 ] as const;
 
 export const turningTowardSections = [
@@ -87,7 +90,6 @@ export const turningTowardSections = [
   { id: "research", label: "Research" },
   { id: "solution", label: "Concept" },
   { id: "process", label: "Process" },
-  { id: "reflection", label: "Reflection" },
 ] as const;
 
 export function CaseStudySidebar({

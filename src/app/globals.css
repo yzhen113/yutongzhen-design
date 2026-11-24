@@ -650,10 +650,10 @@ button {
 
 /* Thumbnail → case study hero morph (see ProjectMorph). The two sides have
    different proportions, so both snapshots fill the moving frame and crop
-   instead of stretching; a brief blur hides the scaling mid-flight. */
+   instead of stretching. */
 ::view-transition-group(.project-morph) {
   /* Pure move + scale: the thumbnail grows and slides into the hero's place. */
-  animation-duration: 340ms;
+  animation-duration: 420ms;
   animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
 }
 ::view-transition-image-pair(.project-morph) {
@@ -667,17 +667,29 @@ button {
   object-position: center;
   mix-blend-mode: normal;
 }
-/* The thumbnail stays solid while it moves; the hero fades in over it only at the very end. */
+/* The thumbnail stays solid underneath. The sharp hero fades in over it while
+   it's still moving, so the small snapshot never looks stretched and nothing
+   pops at the end. */
 ::view-transition-old(.project-morph) {
   animation: none;
   opacity: 1;
 }
 ::view-transition-new(.project-morph) {
-  animation: project-morph-land 340ms linear both;
+  animation: project-morph-land 420ms ease both;
 }
 @keyframes project-morph-land {
-  0%, 78% { opacity: 0; }
-  100% { opacity: 1; }
+  0%, 15% { opacity: 0; }
+  60%, 100% { opacity: 1; }
+}
+
+/* The case study bar stays above the morph and shows at once, so the image
+   lands in place below it instead of flying over it. */
+::view-transition-group(case-header) {
+  z-index: 10;
+  animation: none;
+}
+::view-transition-new(case-header) {
+  animation: none;
 }
 
 /* The rest of the page crossfades underneath the morph. */

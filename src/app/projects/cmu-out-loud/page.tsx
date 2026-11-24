@@ -2,6 +2,7 @@ import { SmoothCorners } from "@/components/SmoothCorners";
 import { ProjectMorph } from "@/components/ProjectMorph";
 import Image from "next/image";
 import { MediaReveal } from "@/components/MediaReveal";
+import { FullBleedFigure } from "@/components/projects/FullBleedFigure";
 import Link from "next/link";
 import {
   CaseStudyHeader,
@@ -132,7 +133,7 @@ export default function CmuOutLoudPage() {
       <CaseStudyHeader title="CMU Out Loud" />
 
       <ProjectMorph href="/projects/cmu-out-loud">
-        <div className="relative -mt-[34px] h-[100svh] w-full overflow-hidden bg-[#f2f2f2]">
+        <div className="relative h-[calc(100svh-34px)] w-full overflow-hidden bg-[#f2f2f2]">
           <MediaReveal fill>
             <Image
               src="/media/cmu-out-loud/hero.jpg"
@@ -441,22 +442,6 @@ export default function CmuOutLoudPage() {
                   width={1431}
                   height={604}
                 />
-                <Body>
-                  We printed signage to place around the area, drawing people in
-                  toward the boards.
-                </Body>
-                <Figure
-                  src="/media/cmu-out-loud/process/signage-final-1.jpg"
-                  alt="Final printed signage taped to a brick wall"
-                  width={2000}
-                  height={1333}
-                />
-                <Figure
-                  src="/media/cmu-out-loud/process/signage-final-2.jpg"
-                  alt="Signage directing students toward the installation"
-                  width={2000}
-                  height={1333}
-                />
               </div>
             </section>
 
@@ -511,69 +496,35 @@ export default function CmuOutLoudPage() {
               </div>
 
               <div className="mt-10! space-y-5">
-                <Subhead>Final boards</Subhead>
-                <Figure
+                <Subhead>Finals!</Subhead>
+                <FullBleedFigure
                   src="/media/cmu-out-loud/process/final-1.jpg"
                   alt="A finished CMU Out Loud board in the courtyard with a student"
                   width={2000}
                   height={1334}
                 />
-                <Figure
+                <FullBleedFigure
                   src="/media/cmu-out-loud/process/final-2.jpg"
                   alt="Close-up of a board asking 'The most underrated thing at CMU is?'"
                   width={2000}
                   height={1333}
                 />
+                <FullBleedFigure
+                  src="/media/cmu-out-loud/process/signage-final-1.jpg"
+                  alt="Final printed signage taped to a brick wall"
+                  width={2000}
+                  height={1333}
+                />
+                <FullBleedFigure
+                  src="/media/cmu-out-loud/process/final-night.webp"
+                  alt="Students gathered around a board at night, reading notes that start 'To the person who'"
+                  width={1920}
+                  height={1080}
+                />
               </div>
 
             </section>
 
-            {/* Reflection */}
-            <section
-              id="reflection"
-              className="scroll-mt-[32px] mt-10 space-y-5 border-t border-black/10 pt-10"
-            >
-              <SectionHeading>Reflections</SectionHeading>
-
-              <div className="space-y-5">
-                <Subhead>When to use technology?</Subhead>
-                <Body>
-                  Our process moved through responsive objects, shared paths,
-                  music exchange, puzzle pieces, magnetic blocks, QR codes, a
-                  projection, and finally a set of physical writing boards. Each
-                  experiment helped us separate what was technologically
-                  interesting from what actually served our purpose. Technology
-                  can create feedback and spectacle, but it doesn&apos;t
-                  automatically create a meaningful exchange.
-                </Body>
-                <Body>
-                  There was something more human about the analog experience.
-                  Students crossing campus could look up from their screens,
-                  pause in front of a large board, and discover what others were
-                  thinking, the changing handwriting its own form of feedback,
-                  shaped by many individual voices.
-                </Body>
-              </div>
-
-              <div className="mt-10! space-y-5">
-                <Subhead>Working together</Subhead>
-                <Body>
-                  I collaborated with Jay throughout, and we often approached the
-                  work from completely different perspectives. I learned that
-                  collaboration is rarely as simple as dividing the work in half.
-                  Before we could move forward, we had to build a shared
-                  understanding of what we were making and why. Those
-                  conversations forced us to articulate ideas that might otherwise
-                  have stayed intuitive.
-                </Body>
-                <Body>
-                  The final outcome was not something either of us would have made
-                  alone. It emerged from negotiating differences and finding
-                  common ground, much like the kind of connection we hoped CMU
-                  Out Loud would create.
-                </Body>
-              </div>
-            </section>
           </article>
         </div>
       </ScrollShrinkCoverProvider>
