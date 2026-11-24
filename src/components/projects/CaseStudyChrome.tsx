@@ -90,7 +90,6 @@ export const cmuOutLoudSections = [
   { id: "explorations", label: "Explorations" },
   { id: "design", label: "Design" },
   { id: "build", label: "Build" },
-  { id: "reflection", label: "Reflection" },
 ] as const;
 
 export const turningTowardSections = [
@@ -99,7 +98,6 @@ export const turningTowardSections = [
   { id: "research", label: "Research" },
   { id: "solution", label: "Concept" },
   { id: "process", label: "Process" },
-  { id: "reflection", label: "Reflection" },
 ] as const;
 
 export function CaseStudySidebar({
